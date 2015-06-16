@@ -87,12 +87,13 @@ If the technology is this different how can Computer Science be the same?
 
 # Everything is Semantic
 
-* Structured is king
+* Structured is king.
+* Design for consumption.
 
 # Read Widely
 
 * <a href="http://xrds.acm.org/">ACM Crossroads</a>
-* GoF, A&DS, FOCS
+* GoF, ADM, FOCS
 * The Diamond Age, Neal Stephenson.  Stranger in a Strange Land, Robert Heinlein. Ulysees, James Joyce.
 
 # Convergence of Data, Design and Code
