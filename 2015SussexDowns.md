@@ -6,7 +6,7 @@
 
 # What is Computer Science?
 
-<blockquote>Computational thinking builds on the power and limits of computing processes, whether they are executed by a human or by a machine. -- <cite>Wing, Jeanette M. (2006). "Computational thinking" (PDF). Communications of the ACM 49 (3): 33.</cite></blockquote>
+<blockquote>Computational thinking builds on the power and limits of computing processes, whether they are executed by a human or by a machine. -- <cite>Jeanette M. Wing (2006). "Computational thinking". Communications of the ACM 49 (3):33.</cite></blockquote>
 
 # Or Less Abstractly
 
@@ -35,21 +35,45 @@ If the technology is this different how can Computer Science be the same?
 
 <blockquote>Computer Science is no more about computers than astronomy is about telescopes. -- <cite>Edsger W. Dijkstra</cite></blockquote>
 
-# Computer Science 1968
-
+# <span style="color:black;">Computer Science 1968</span> {data-background="images/1968.jpg"}
 
 # Computer Science 2013
 
 # What's Common?
 
+* Data Structures & Algorithms.
+* Networking -- though the *nature* of the network has changed.
+* Programming -- and lots of it.
+* Statistics & Discrete Maths.
+* Computer Graphics
+* Computer Organisation
+
+# What has been Added?
+
+* Operating Systems.
+* Social Issues & Professional Practice.
+* Networked Applications.
+* Human Computer Interaction
+* (Frankly, a *lot* more).
+
 # Future Projections
+
+* Parallelism, Concurrency & Distributed.
+* Functional (Haskell-like).
+* More Statistics (Big Data, Machine Learning).
+* eScience.
 
 # Computer Science @ Brighton {data-background='images/royal-pavilion-brighton.jpg'}
 
 * Oldest Computer Science degree in UK.
+* Degrees in
+    - Computer Science
+    - Computer Science (Games)
+    - Software Engineering
+    - Digital Media
 
 
-# Research @ Brighton {data-background='images/royal-pavilion-brighton.jpg'}
+# Research @ Brighton {data-background='images/euclid.jpg'}
 
 * Visual Languages and Visual Reasoning
 * Big Data
@@ -58,8 +82,19 @@ If the technology is this different how can Computer Science be the same?
 
 # Tips for Computer Scientists
 
-# {data-background='images/royal-pavilion-brighton.jpg'}
+#
+![Language, API and Toolchain](images/language-api-toolchain.svg "")
 
 # Everything is Semantic
 
+* Structured is king
+
 # Read Widely
+
+* <a href="http://xrds.acm.org/">ACM Crossroads</a>
+* GoF, A&DS, FOCS
+* The Diamond Age, Neal Stephenson.  Stranger in a Strange Land, Robert Heinlein. Ulysees, James Joyce.
+
+# Convergence of Data, Design and Code
+
+# Thank you {data-background='images/ThankYou.jpg'}
