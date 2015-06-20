@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney" />
+  <title>Boolean Logic, and a bit more besides</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <script src="js/Mathjax/MathJax.js?config=TeX-AMS_HTML-full" type="text/javascript"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Boolean Logic, and a bit more besides</h1>
+    <h2 class="author">Aidan Delaney</h2>
+    <h3 class="date"><a href="mailto:aidan@ontologyengineering.org">aidan@ontologyengineering.org</a> | <a href="http://www.twitter.com/aidandelaney"><span class="citation" data-cites="aidandelaney">@aidandelaney</span></a></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/about-me">About Me</a></li>
+<li><a href="#/introduction">Introduction</a></li>
+<li><a href="#/formalisation">Formalisation</a></li>
+<li><a href="#/boolean-logic">Boolean Logic</a></li>
+<li><a href="#/misunderstandings">Misunderstandings</a></li>
+<li><a href="#/game-time">Game Time</a></li>
+<li><a href="#/first-order-logic">First Order Logic</a></li>
+<li><a href="#/misunderstandings-1">Misunderstandings</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+</ul>
+</section>
+
+<section id="about-me" class="slide level1" data-background="images/royal-pavilion-brighton.jpg">
+<h1>About Me</h1>
+<ul>
+<li>Academic for over a decade (PhD in Logic(ish) i.e. CS involving logic).</li>
+<li>Researcher in Visual Languages and Visual Reasoning.</li>
+<li>Shipped code in Haskell, C, Java, Perl, Python, C++, JavaScript &amp; others.</li>
+<li>Outgoing CAS Regional Co-ordinator for East Sussex &amp; Kent.</li>
+<li>Director of an Eastbourne not-for-profit <a href="http://techresort.co.uk/"><strong>TechResort</strong></a></li>
+</ul>
+</section>
+<section id="introduction" class="slide level1" data-background="#CCCCCC" data-transition="fade-in fade-out">
+<h1>Introduction</h1>
+</section>
+<section id="formalisation" class="slide level1" data-background="#f08" data-transition="fade-in fade-out">
+<h1>Formalisation</h1>
+<section id="reasons-for" class="level2">
+<h2>Reasons for</h2>
+<p><a href="images/offside.svg"><img src="images/offside.svg" alt="" /></a></p>
+</section>
+<section id="rhetoric" class="level2">
+<h2>Rhetoric</h2>
+<blockquote>
+Everyone who is sane can do Logic. No lunatics are fit to serve on a jury. None of your sons can do Logic. Therefore, none of your sons are fit to serve on a jury. -- <cite><em>Charles L. Dodgson, Symbolic Logic, 1896</em></cite>
+</blockquote>
+</section>
+<section id="section" class="level2">
+<h2></h2>
+<p><span class="math display">\[
+(\forall x\; Sane(x) \rightarrow Logical(x)) \wedge\\
+(\forall x\; \neg Sane(x) \rightarrow \neg Juror(x)) \wedge\\
+(\forall x\; Sons(x) \rightarrow Logical(x)) \rightarrow\\
+(\forall x\; \neg Sons(x) \wedge Logical(x))
+\]</span></p>
+<p>Note we're not modelling the relationship between <strong>you</strong> and your sons here.</p>
+</section>
+<section id="limits-of-formalisation" class="level2">
+<h2>Limits of Formalisation</h2>
+<blockquote>
+Any sufficiently expressive self-referential system is either inconsistent or incomplete -- <cite>Paraphrasing Kurt Gödel</cite>
+</blockquote>
+</section>
+</section>
+<section id="boolean-logic" class="slide level1" data-background="#CCCCCC" data-transition="fade-in fade-out">
+<h1>Boolean Logic</h1>
+<section id="examples" class="level2">
+<h2>Examples</h2>
+<p>Boolean logic (a.k.a. Propositional logic) is restrictive in what it can express.</p>
+<p>It is useful because</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="kw">if</span>(a &lt; b || (a &gt;= b &amp;&amp; c == d)) ...</code></pre></div>
+<p>can be simplified to</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="kw">if</span>(a &lt; b || c == d)</code></pre></div>
+</section>
+<section id="syntax-of-boolean-logic" class="level2">
+<h2>Syntax of Boolean Logic</h2>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\top\)</span> and <span class="math inline">\(\bot\)</span></td>
+<td style="text-align: left;">Denote true and false</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span></td>
+<td style="text-align: left;">Denote propositions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(P\wedge Q\)</span></td>
+<td style="text-align: left;">Denoting conjunction</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(P\vee Q\)</span></td>
+<td style="text-align: left;">Denoting disjunction</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\neg P\)</span></td>
+<td style="text-align: left;">Denoting negation</td>
+</tr>
+</tbody>
+</table>
+<p>Other people define different syntax</p>
+</section>
+<section id="alternative-syntax" class="level2">
+<h2>Alternative Syntax</h2>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(1\)</span> and <span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">Denote true and false</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span></td>
+<td style="text-align: left;">Denote propositions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(P.Q\)</span></td>
+<td style="text-align: left;">Denoting conjunction</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(P + Q\)</span></td>
+<td style="text-align: left;">Denoting disjunction</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\overline{P}\)</span></td>
+<td style="text-align: left;">Denoting negation</td>
+</tr>
+</tbody>
+</table>
+<p>let's call these <strong>terms</strong>.</p>
+</section>
+<section id="forming-sentences" class="level2">
+<h2>Forming Sentences</h2>
+<p>All terms are sentences.</p>
+<p>If <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are sentences then <span class="math inline">\((\alpha \wedge \beta)\)</span> is a sentence.</p>
+<p>Similarly <span class="math inline">\((\alpha \vee \beta)\)</span> is a sentence.</p>
+</section>
+<section id="semantics-of-boolean-logic" class="level2">
+<h2>Semantics of Boolean Logic</h2>
+<p>A sentence in Boolean logic evaluates to either <strong>true</strong> or <strong>false</strong>.</p>
+</section>
+<section id="and-diagrammatically" class="level2">
+<h2>'And' diagrammatically</h2>
+<p><a href="images/venn-and.svg"><img src="images/venn-and.svg" alt="" /></a></p>
+</section>
+<section id="or-diagrammatically" class="level2">
+<h2>'Or' diagrammatically</h2>
+<p><a href="images/venn-or.svg"><img src="images/venn-or.svg" alt="" /></a></p>
+</section>
+<section id="not-diagrammatically" class="level2">
+<h2>'Not' diagrammatically?</h2>
+<p>Your turn.</p>
+</section>
+</section>
+<section id="misunderstandings" class="slide level1" data-background="#0075B2" data-transition="fade-in fade-out">
+<h1>Misunderstandings</h1>
+<section id="section-1" class="level2">
+<h2></h2>
+<p>Mostly stem from applying linguistic interpretation of a sentence rather than an logical interpretation.</p>
+</section>
+<section id="and" class="level2">
+<h2>'and'</h2>
+<blockquote>
+Aidan bought a motorbike <strong>and</strong> went to work.
+</blockquote>
+<p>The English sentence has issues</p>
+<ul>
+<li>temporal implicature</li>
+<li>causality</li>
+</ul>
+<p>Which is why we formalise in the first place.</p>
+</section>
+<section id="or" class="level2">
+<h2>'or'</h2>
+<blockquote>
+Eat your carrots <strong>or</strong> your peas.
+</blockquote>
+<ul>
+<li>Exclusive <code>or</code> <em>versus</em> inclusive <code>or</code>.</li>
+</ul>
+<p>Logical <strong>or</strong> is inclusive. Exclusive <strong>or</strong> more precisely translates as</p>
+<blockquote>
+<strong>Either</strong> eat your carrots <strong>or</strong> your peas.
+</blockquote>
+</section>
+<section id="implication" class="level2">
+<h2>implication</h2>
+<p>Some people add implication to their set of Boolean connectives.</p>
+<p><span class="math inline">\(P\rightarrow Q\)</span> read as &quot;if P then Q&quot;</p>
+<p>This shorthand for <span class="math inline">\((\neg P \vee Q)\)</span>, it causes significant confusion.</p>
+</section>
+<section id="as-a-diagram" class="level2">
+<h2>As a diagram</h2>
+<p><a href="images/venn-implication.svg"><img src="images/venn-implication.svg" alt="" /></a></p>
+</section>
+</section>
+<section id="game-time" class="slide level1" data-background="images/god.jpeg">
+<h1>Game Time</h1>
+<section id="section-2" class="level2">
+<h2></h2>
+<p><a href="images/implication-cards.svg"><img src="images/implication-cards.svg" alt="" /></a></p>
+<blockquote>
+If a card has a vowel on one side, then it has an even number on the other side.
+</blockquote>
+</section>
+<section id="reasoning-rules" class="level2">
+<h2>Reasoning Rules</h2>
+<p>In light of this game <em>modus tollens</em> and <em>modus ponens</em> make more sense.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">modus ponens</th>
+<th style="text-align: right;">modus tollens</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\frac{\matrix{P\rightarrow Q, P}}{Q}\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\frac{\matrix{P\rightarrow Q, \neg Q}}{\neg P}\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="first-order-logic" class="slide level1" data-background="#fa0" data-transition="fade-in fade-out">
+<h1>First Order Logic</h1>
+<section id="syllogism" class="level2">
+<h2>Syllogism</h2>
+<p>All Ducks are Mortal</p>
+<p>Aristotle is a Duck</p>
+<p>Therefore, Aristotle is Mortal</p>
+</section>
+<section id="another-game" class="level2">
+<h2>Another Game</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">All</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">No</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Some</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Some Not</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p>Quantifier <span class="math inline">\(P\)</span> are <span class="math inline">\(Q\)</span>.</p>
+</section>
+<section id="self-test" class="level2">
+<h2>Self-test</h2>
+<p><a href="images/Newstead-test.svg"><img src="images/Newstead-test.svg" alt="" /></a></p>
+</section>
+</section>
+<section id="misunderstandings-1" class="slide level1">
+<h1>Misunderstandings</h1>
+<section id="some" class="level2">
+<h2>'Some'</h2>
+<blockquote>
+After the pub, <strong>some</strong> of us went to the club.
+</blockquote>
+<p>Issues</p>
+<ul>
+<li>linguistic implicature that at least 2 but not all.</li>
+</ul>
+</section>
+<section id="all" class="level2">
+<h2>'All'</h2>
+<blockquote>
+<p>Scene: 14 blue circles, 2 blue squares, 3 red squares.</p>
+<p>Q: Are all the circles blue?</p>
+<p>A: No, there are two blue squares.</p>
+<cite>-- Inhelder and Piaget (1959)</cite>
+</blockquote>
+</section>
+<section id="all-1" class="level2">
+<h2>'All'</h2>
+<blockquote>
+<p>Scene: 5 apples and 3 pigs eating 1 apple each.</p>
+<p>Q: Every pig is eating an apple . . . Does this picture go with the story?</p>
+<p>A: No. Those two apples have no pig.</p>
+<cite>-- Philip and Takahashi (1991)</cite>
+</blockquote>
+</section>
+<section id="all-2" class="level2">
+<h2>'All'</h2>
+<blockquote>
+<p>Scene: 5 cars and 4 garages, each occupied by 1 of the cars.</p>
+<p>Q: All the cars are in the garages.</p>
+<p>A: Yes.</p>
+<cite>-- Donaldson and Lloyd (1974)</cite>
+</blockquote>
+</section>
+<section id="all-3" class="level2">
+<h2>'All'</h2>
+<blockquote>
+<p>Scene: 3 cats holding a balloon, and 1 mouse holding an umbrella.</p>
+<p>Q: Is every cat holding a balloon?</p>
+<p>A: No.</p>
+<cite>-- Philip and Verrips (1994)</cite>
+</blockquote>
+</section>
+</section>
+<section id="conclusion" class="slide level1" data-background="#00d414" data-transition="fade-in fade-out">
+<h1>Conclusion</h1>
+<section id="section-3" class="level2">
+<h2></h2>
+<ul>
+<li>Boolean Logic is a useful system for demonstrating computational thinking.</li>
+<li>A visual approach to Boolean Logic is useful.</li>
+<li>The visual approach extends to First-order logic (and Second-order).</li>
+<li>Learners make consistent types of mistakes -- knowing these allow us to target interventions.</li>
+</ul>
+</section>
+<section id="thank-you" class="level2" data-background="images/ThankYou.jpg">
+<h2>Thank you</h2>
+<ul>
+<li>I'm always happy to answer questions over email.
+<ul>
+<li><a href="mailto:aidan@ontologyengineering.org">aidan@ontologyengineering.org</a> | <a href="http://www.twitter.com/aidandelaney"><span class="citation" data-cites="aidandelaney">@aidandelaney</span></a></li>
+</ul></li>
+<li>My Youtube Channel has some of this content.
+<ul>
+<li><a href="http://www.youtube.com/moobarbaz">youtube.com/moobarbaz</a></li>
+</ul></li>
+</ul>
+</section>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+      center: true,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: true,                // Display the page number of the current slide
+        theme: 'black', // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
