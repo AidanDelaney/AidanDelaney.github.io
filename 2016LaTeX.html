@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney" />
+  <title>Writing Documents with \LaTeX</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+    </style>
+    <link rel="stylesheet" href="css/vmg.css"/>
+    <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script src="js/Mathjax/MathJax.js?config=TeX-AMS_HTML-full" type="text/javascript"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Writing Documents with <span class="math">\(\LaTeX\)</span></h1>
+    <h2 class="author">Aidan Delaney</h2>
+    <h3 class="date"><a href="mailto:aidan@ontologyengineering.org">aidan@ontologyengineering.org</a> | <a href="http://www.twitter.com/aidandelaney">@aidandelaney</a></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/about-me">About Me</a></li>
+<li><a href="#/document-preparation">Document Preparation</a></li>
+<li><a href="#/source-code">Source Code</a></li>
+<li><a href="#/source-control">Source Control</a></li>
+<li><a href="#/mathematics-support">Mathematics Support</a></li>
+<li><a href="#/source-code-snippits">Source Code Snippits</a></li>
+<li><a href="#/bibliography-support">Bibliography Support</a></li>
+<li><a href="#/cross-referencing">Cross-referencing</a></li>
+<li><a href="#/libreoffice-google-docs">LibreOffice &amp; Google Docs</a></li>
+<li><a href="#/writing-your-first-latex-file">Writing your first LaTeX file</a></li>
+<li><a href="#/compiling-your-latex-document">Compiling your LaTeX document</a></li>
+<li><a href="#/citing-work">Citing work</a></li>
+<li><a href="#/adding-lists">Adding lists</a></li>
+<li><a href="#/adding-sections">Adding sections</a></li>
+<li><a href="#/adding-images">Adding images</a></li>
+<li><a href="#/adding-tables">Adding tables</a></li>
+<li><a href="#/cross-references">Cross References</a></li>
+<li><a href="#/working-with-latex">Working <strong>with</strong> <span class="math">\(\LaTeX\)</span></a></li>
+<li><a href="#/the-twist">The Twist</a></li>
+<li><a href="#/thank-you">Thank You</a></li>
+</ul>
+</section>
+
+<section id="about-me" class="slide level1" data-background="images/royal-pavilion-brighton.jpg">
+<h1>About Me</h1>
+<ul>
+<li>Academic for over a decade (PhD in CS involving logic).</li>
+<li>Researcher in Visual Languages and Visual Reasoning.</li>
+<li>Shipped code in Haskell, C, Java, Perl, Python, C++, JavaScript &amp; others.</li>
+<li>Director of an Eastbourne not-for-profit <a href="http://techresort.co.uk/"><strong>TechResort</strong></a>.</li>
+<li>Founder of a submarine-mode startup.</li>
+</ul>
+</section>
+<section id="document-preparation" class="slide level1">
+<h1>Document Preparation</h1>
+<ul>
+<li>I'm good with source code.</li>
+<li>I <em>do</em> source control.</li>
+<li>I require good support for math formulae.</li>
+<li>I need source code snippets.</li>
+<li>I need <em>excellent</em> bibliography support.</li>
+<li>Cross-reference support is necessary.</li>
+</ul>
+</section>
+<section id="source-code" class="slide level1">
+<h1>Source Code</h1>
+<pre class="tex"><code>\documentclass{article}
+
+\title{Something}
+\author{Aidan}
+
+\begin{document}
+My first document.
+\end{document}</code></pre>
+</section>
+<section id="source-control" class="slide level1">
+<h1>Source Control</h1>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">commit</span> e71a29bef2cf2a4f9e3584c297c99285bcf16435
+<span class="kw">Author</span>: Aidan Delaney <span class="kw">&lt;</span>aidan@ontologyengineering.org<span class="kw">&gt;</span>
+<span class="kw">Date</span>:   Thu Jan 21 10:08:08 2016 +0000
+
+    <span class="kw">Enabled</span> beamer output with automagic conversion of SVG to PDF/PNG etc...
+
+<span class="kw">commit</span> cef2fe4fdf21145d3565d816fba0eb1389532990
+<span class="kw">Author</span>: Aidan Delaney <span class="kw">&lt;</span>aidan@ontologyengineering.org<span class="kw">&gt;</span>
+<span class="kw">Date</span>:   Mon Jan 18 09:59:57 2016 +0000
+
+    <span class="kw">Added</span> KTP presentation to index.
+
+<span class="kw">commit</span> 51a3c731d492622fe2c44eb037ece6de57e3bbce
+<span class="kw">Author</span>: Aidan Delaney <span class="kw">&lt;</span>aidan@ontologyengineering.org<span class="kw">&gt;</span>
+<span class="kw">Date</span>:   Mon Jan 18 09:56:37 2016 +0000
+
+    <span class="kw">Reveal.js</span> bump</code></pre>
+</section>
+<section id="mathematics-support" class="slide level1" data-background="#fff" data-transition="fade-in fade-out">
+<h1>Mathematics Support</h1>
+<p>I might need inline <span class="math">\(e^{\pi i}=-1\)</span> equations.</p>
+<p>Or something in a block: <span class="math">\[
+\bigcup\limits_{z\in MZ(d)}\Psi(z) = \emptyset
+\]</span></p>
+<p>Or even something much more complicated: <span class="math">\[
+f^\prime(s^\prime)=\left\{
+\begin{array}{cr}
+(k,(in\cup\{l\},out))&amp;\textrm{where }\eta(\pi^{-1}(s^\prime))\in\Psi(in\cup\{l\},out)\\
+(k,(in,out\cup\{l\}))&amp;\textrm{where }\eta(\pi^{-1}(s^\prime))\in\Psi(in,out\cup\{l\})
+\end{array}
+\right.
+\]</span></p>
+</section>
+<section id="source-code-snippits" class="slide level1">
+<h1>Source Code Snippits</h1>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="co">/**</span>
+<span class="co"> * Calculates the points of intersection.</span>
+<span class="co"> */</span>
+<span class="kw">protected</span> Collection&lt;Point2D&gt;
+           <span class="fu">intersectionPoints</span>(SplitArcBoundary other) {
+  Collection&lt;Point2D&gt; ixs = <span class="kw">new</span> HashSet&lt;Point2D&gt;();
+  <span class="kw">for</span>(CircleArc2D a1 : <span class="kw">this</span>.<span class="fu">curves</span>) {
+    <span class="kw">for</span>(CircleArc2D a2 : other.<span class="fu">curves</span>) {
+      Optional&lt;Collection&lt;Point2D&gt;&gt; is =
+              <span class="fu">nonTangentalIntersections</span>(a1, a2);
+      <span class="kw">if</span>(is.<span class="fu">isPresent</span>()) {
+        ixs.<span class="fu">addAll</span>(is.<span class="fu">get</span>());
+      }
+    }
+  }
+  <span class="kw">return</span> ixs;
+}</code></pre>
+</section>
+<section id="bibliography-support" class="slide level1">
+<h1>Bibliography Support</h1>
+<p>I need to cite papers from a database <span class="citation" data-cites="croucher:rpaolsorbwgsug">(Croucher et al. 2014)</span>.</p>
+</section>
+<section id="cross-referencing" class="slide level1">
+<h1>Cross-referencing</h1>
+<p><img src="images/image.png" alt="Caption." /> {#fig:description}</p>
+<p>Cross reference to <span class="citation" data-cites="fig:description">(<span class="citeproc-not-found" data-reference-id="fig:description"><strong>???</strong></span>)</span>.</p>
+</section>
+<section id="libreoffice-google-docs" class="slide level1">
+<h1>LibreOffice &amp; Google Docs</h1>
+<ul>
+<li>I'm good with source code -- neither are source code.</li>
+<li>I <em>do</em> source control -- neither support my standard workflow.</li>
+<li>I require good support for math formulae -- it's <em>passable</em> in both, but not great.</li>
+<li>I need source code snippets -- uugh!</li>
+<li>I need <em>excellent</em> bibliography support -- both are too complex.</li>
+<li>Cross-reference support is necessary -- YMMV.</li>
+</ul>
+</section>
+<section id="writing-your-first-latex-file" class="slide level1">
+<h1>Writing your first LaTeX file</h1>
+<pre class="sourceCode latex"><code class="sourceCode latex">\documentclass{article}
+
+\title{Something}
+\author{Aidan}
+
+\begin{document}
+\maketitle
+My first document.
+\end{document}</code></pre>
+</section>
+<section id="compiling-your-latex-document" class="slide level1">
+<h1>Compiling your LaTeX document</h1>
+<p>There are a number of differing compilers. Just use <code>pdflatex</code>.</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">pdflatex</span> myfile.tex</code></pre>
+</section>
+<section id="citing-work" class="slide level1">
+<h1>Citing work</h1>
+<pre class="sourceCode latex"><code class="sourceCode latex">\documentclass{article}
+
+\title{Something}
+\author{Aidan}
+
+\begin{document}
+\maketitle
+My first document cites some work \cite{mykey}
+
+\bibliographystyle{plain}
+\bibibliography{mybibfile}
+
+\end{document}</code></pre>
+</section>
+<section id="adding-lists" class="slide level1">
+<h1>Adding lists</h1>
+<p>We have three types of list <code>enumerate</code>, <code>itemize</code> and <code>description</code>:</p>
+<pre class="sourceCode latex"><code class="sourceCode latex">\begin{itemize}
+  \item A list item
+  \item Another list item
+\end{itemize}</code></pre>
+<p>The <code>begin</code> and <code>end</code> blocks mark the start and end of an <em>environment</em>.</p>
+</section>
+<section id="adding-sections" class="slide level1">
+<h1>Adding sections</h1>
+<pre class="sourceCode latex"><code class="sourceCode latex">\section{Section Title}</code></pre>
+<p>Note it's not a <code>begin</code> &amp; <code>end</code> environment.</p>
+</section>
+<section id="adding-images" class="slide level1">
+<h1>Adding images</h1>
+<p>People argue far too much with images in LaTeX. Here's the skinny -- Use Inkscape to draw any images you require as SVG. Alternatively download images as PNG or JPEG.</p>
+<pre class="sourceCode latex"><code class="sourceCode latex">\begin{figure}
+  \begin{center} <span class="co">% Note Yanqui spelling</span>
+    \includegraphics{images/foo} <span class="co">% no extension</span>
+    \caption[width=0.8\textwidth]{A figure caption}
+    \label{fig:foo}
+  \end{center}
+\end{figure}</code></pre>
+<p>But first you need to use the <code>graphicx</code> package.</p>
+</section>
+<section id="adding-tables" class="slide level1">
+<h1>Adding tables</h1>
+<p>Tables are a PITA (Note again the use of <code>figure</code>, <code>caption</code> and <code>label</code>.</p>
+<pre class="sourceCode latex"><code class="sourceCode latex">\begin{figure}
+  \begin{center}
+    \begin{tabular}{l|l|l|l|l|l|l|l|}
+    &amp;a&amp;b&amp;aa&amp;ab&amp;ba&amp;aba&amp;aab\\\hline
+    a&amp;aa&amp;ab&amp;aa&amp;aab&amp;aba&amp;aab&amp;aab\\
+    b&amp;ba&amp;b&amp;aab&amp;ba&amp;ba&amp;aab&amp;aab\\
+    \end{tabular}
+    \caption{A table of stuff}
+    \label{tab:stuff}
+  \end{center}
+\end{figure}</code></pre>
+</section>
+<section id="cross-references" class="slide level1">
+<h1>Cross References</h1>
+<p>Any <code>\label{x}</code> can be referenced with a <code>\ref{x}</code>.</p>
+</section>
+<section id="working-with-latex" class="slide level1">
+<h1>Working <strong>with</strong> <span class="math">\(\LaTeX\)</span></h1>
+<ul>
+<li>If you're fighting <span class="math">\(\LaTeX\)</span> then you're probably wrong, work <em>with</em> it, not against it.</li>
+<li>Don't hard position figures until the document is completely finished.</li>
+<li>Don't try and save space (eg: respect a page limit) until the document is completely finished.</li>
+<li>Remember that your content is <em>always</em> more important than the tools you use to develop it.</li>
+</ul>
+</section>
+<section id="the-twist" class="slide level1">
+<h1>The Twist</h1>
+<ul>
+<li>LaTeX is often used in source code comments.</li>
+<li>This presentation was not written in :)</li>
+<li>the magic of pandoc, or</li>
+<li>the power of markup.</li>
+</ul>
+</section>
+<section id="thank-you" class="slide level1" data-background="#08f" data-transition="fade-in fade-out">
+<h1>Thank You</h1>
+<ul>
+<li>To you, for giving up your time.</li>
+</ul>
+<div id="references" class="references">
+<h1 id="references" class="unnumbered">References</h1>
+<div id="ref-croucher:rpaolsorbwgsug">
+<p>Croucher, Nicholas, Andrew Page, Thomas Connor, Aidan Delaney, Jacqueline Keane, Stephen Bentley, Julian Parkhill, and Simon Harris. 2014. “Rapid Phylogenetic Analysis of Large Samples of Recombinant Bacterial Whole Genome Sequences Using Gubbins.” <em>Nucleic Acids Research</em>, 1–13.</p>
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'black', // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
