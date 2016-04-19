@@ -4,6 +4,8 @@
 
 # About Me {data-background='images/royal-pavilion-brighton.jpg'}
 
+##
+
 * Academic for over a decade (PhD in CS involving logic).
 * Researcher in Visual Languages and Visual Reasoning.
 * Shipped code in Haskell, C, Java, Perl, Python, C++, JavaScript & others.
