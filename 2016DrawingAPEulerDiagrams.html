@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney">
+  <title>Drawing Area Proportional Euler Diagrams</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <script src="js/Mathjax/MathJax.js?config=TeX-AMS_HTML-full" type="text/javascript"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Drawing Area Proportional Euler Diagrams</h1>
+  <h2 class="author">Aidan Delaney</h2>
+  <h3 class="date"><a href="mailto:aidan@ontologyengineering.org">aidan@ontologyengineering.org</a> | <a href="http://www.twitter.com/aidandelaney">@aidandelaney</a></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/ap-euler-diagrams">AP Euler Diagrams</a></li>
+<li><a href="#/gnu-r">GNU R</a></li>
+<li><a href="#/requirements">Requirements</a></li>
+<li><a href="#/two-architectures">Two Architectures</a></li>
+<li><a href="#/area-calculation">Area Calculation</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+</ul>
+</section>
+
+<section><section id="ap-euler-diagrams" class="titleslide slide level1"><h1>AP Euler Diagrams</h1></section><section id="previous-work" class="slide level2">
+<h1>Previous Work</h1>
+<ul>
+<li>EulerAPE <span class="citation" data-cites="10.1371/journal.pone.0101717">(Micallef and Rodgers 2014)</span>
+<ul>
+<li><a href="http://www.eulerdiagrams.org/eulerAPE/">3 Area proportional Ellipses</a></li>
+<li>71 cites <em>mostly</em> bioinf.</li>
+</ul></li>
+<li>Wilkinson <span class="citation" data-cites="wilkinson:eaaacvaed">(Wilkinson 2012)</span>
+<ul>
+<li><a href="https://www.cs.uic.edu/~wilkinson/Publications/venneuler.pdf">Statistical model to draw Euler diagrams with circles</a>.</li>
+<li>Defines a &quot;stress&quot; model and tries to minimise it.</li>
+<li>63 cites <em>mostly</em> bioinf.</li>
+</ul></li>
+<li>Example from yesterday's <a href="images/wsj.jpg">Wall Street Journal</a></li>
+</ul>
+</section><section id="our-contribution" class="slide level2">
+<h1>Our Contribution</h1>
+<ul>
+<li>&quot;Standard&quot; algorithms -- force directed graph layout <span class="citation" data-cites="eades:ahfgd">(Eades 1984)</span>.</li>
+<li>Use a force model to attract/repel circle centres.
+<ul>
+<li>Hooke's law &amp; Coulomb's law.</li>
+<li>well understood optimisations, advantages and disadvantages.</li>
+</ul></li>
+<li>Usable &amp; <strong>maintainable</strong> implementation.</li>
+</ul>
+</section><section id="section" class="slide level2">
+<h1></h1>
+<figure>
+<img src="images/force-directed-circles.svg" alt="Force Directed Circles" style="width:80.0%" /><figcaption>Force Directed Circles</figcaption>
+</figure>
+</section><section id="vennom" class="slide level2">
+<h1>Vennom</h1>
+<ul>
+<li>Implements the force directed layout algorithm.</li>
+<li>Key-weakness #1 - calculates area by drawing a bitmap.</li>
+<li>Key-weakness #2 - calculates forces in a pairwise manner.</li>
+</ul>
+</section><section id="bitmaps" class="slide level2">
+<h1>Bitmaps</h1>
+<figure>
+<img src="images/zone-bitmap.svg" style="width:80.0%" />
+</figure>
+</section><section id="advantages" class="slide level2">
+<h1>Advantages</h1>
+<ul>
+<li>Computationally fast <span class="math inline">\(O(n^2)\)</span>, if the bitmap is small.</li>
+<li>Straightforward to implement.</li>
+</ul>
+</section><section id="disadvantages" class="slide level2">
+<h1>Disadvantages</h1>
+<ul>
+<li>Not perfectly accurate.</li>
+<li><span class="math inline">\(O(n^2)\)</span> grows poorly.</li>
+<li>Optimisations cause some corner cases with &quot;holes&quot;.</li>
+</ul>
+</section><section id="pairwise" class="slide level2">
+<h1>Pairwise</h1>
+<figure>
+<img src="images/pairwise-force-directed-circles.svg" style="width:70.0%" />
+</figure>
+</section><section id="todo" class="slide level2">
+<h1>TODO</h1>
+<ul>
+<li>We need to add good area reporting to Vennom.</li>
+<li>In about 5 slides time...</li>
+<li>Need to compute forces is a concurrent manner.</li>
+</ul>
+</section></section>
+<section><section id="gnu-r" class="titleslide slide level1"><h1>GNU R</h1></section><section id="prevalence" class="slide level2">
+<h1>Prevalence</h1>
+<ul>
+<li>Use in Bioinformatics <span class="citation" data-cites="croucher:rpaolsorbwgsug">(Croucher et al. 2014, <span class="citation" data-cites="page:sreeosfma">A. J. Page et al. (2016)</span>)</span>.</li>
+<li><a href="https://a-little-book-of-r-for-bioinformatics.readthedocs.org/en/latest/">Little Book of Bioinformatics</a></li>
+<li>Done well it will <em>significantly</em> improve impact.</li>
+</ul>
+</section><section id="example-t-test" class="slide level2">
+<h1>Example t-test</h1>
+<p>Paired t-test:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">before =<span class="st"> </span><span class="kw">c</span>(<span class="fl">12.9</span>, <span class="fl">13.5</span>, <span class="fl">12.8</span>, <span class="fl">15.6</span>, <span class="fl">17.2</span>, <span class="fl">19.2</span>, <span class="fl">12.6</span>, <span class="fl">15.3</span>, <span class="fl">14.4</span>, <span class="fl">11.3</span>)
+after  =<span class="st"> </span><span class="kw">c</span>(<span class="fl">12.7</span>, <span class="fl">13.6</span>, <span class="fl">12.0</span>, <span class="fl">15.2</span>, <span class="fl">16.8</span>, <span class="fl">20.0</span>, <span class="fl">12.0</span>, <span class="fl">15.9</span>, <span class="fl">16.0</span>, <span class="fl">11.1</span>)
+
+<span class="kw">t.test</span>(before, after, <span class="dt">paired=</span><span class="ot">TRUE</span>)</code></pre></div>
+</section><section id="example-histogram" class="slide level2">
+<h1>Example histogram</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">before =<span class="st"> </span><span class="kw">c</span>(<span class="fl">12.9</span>, <span class="fl">13.5</span>, <span class="fl">12.8</span>, <span class="fl">15.6</span>, <span class="fl">17.2</span>, <span class="fl">19.2</span>, <span class="fl">12.6</span>, <span class="fl">15.3</span>, <span class="fl">14.4</span>, <span class="fl">11.3</span>)
+
+<span class="kw">pdf</span>(<span class="st">&quot;myhistogram.pdf&quot;</span>)
+<span class="kw">hist</span>(before)
+<span class="kw">svg</span>(<span class="st">&quot;myhistogram.svg&quot;</span>)
+<span class="kw">hist</span>(before)</code></pre></div>
+</section><section id="more-examples" class="slide level2">
+<h1>More Examples</h1>
+<figure>
+<img src="http://www.statmethods.net/advgraphs/images/ggplotdensity.png" alt="ggplot2 example" width="200" /><figcaption>ggplot2 example</figcaption>
+</figure>
+<ul>
+<li>See <a href="http://www.statmethods.net/" class="uri">http://www.statmethods.net/</a> for some good examples.</li>
+<li><a href="http://ggplot2.org/">ggplot2</a> is an <em>extremely</em> powerful graphics library for R.
+<ul>
+<li>The ideas behind ggplot2 are similar to the motivation for the VMG; developing semantics for visualisations (or vice-versa).</li>
+</ul></li>
+</ul>
+</section><section id="exensible" class="slide level2">
+<h1>Exensible</h1>
+<ul>
+<li>There exists an &quot;app-store&quot; for R.</li>
+<li>CRAN: <em>Comprehensive R Archive Network</em>.</li>
+<li>Modelled on CPAN (from 1993!).</li>
+<li><code>ggplot2</code> and <code>venneuler</code> are distributed via CRAN.</li>
+</ul>
+</section><section id="using-venneuler" class="slide level2">
+<h1>Using VennEuler</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;venneuler&quot;</span>)
+
+vd &lt;-<span class="st"> </span><span class="kw">venneuler</span>(<span class="kw">c</span>(<span class="dt">A=</span><span class="fl">0.3</span>, <span class="dt">B=</span><span class="fl">0.3</span>, <span class="dt">C=</span><span class="fl">1.1</span>, <span class="st">&quot;A&amp;B&quot;</span>=<span class="fl">0.1</span>, <span class="st">&quot;A&amp;C&quot;</span>=<span class="fl">0.2</span>, <span class="st">&quot;B&amp;C&quot;</span>=<span class="fl">0.1</span> ,<span class="st">&quot;A&amp;B&amp;C&quot;</span>=<span class="fl">0.1</span>))
+<span class="kw">plot</span>(vd)</code></pre></div>
+</section><section id="euler-wish" class="slide level2">
+<h1>EuleR wish?</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;euleR&quot;</span>)
+
+ed &lt;-<span class="st"> </span><span class="kw">euleR</span>(<span class="kw">c</span>(<span class="dt">A=</span><span class="fl">0.3</span>, <span class="dt">B=</span><span class="fl">0.3</span>, <span class="dt">C=</span><span class="fl">1.1</span>, <span class="st">&quot;A&amp;B&quot;</span>=<span class="fl">0.1</span>, <span class="st">&quot;A&amp;C&quot;</span>=<span class="fl">0.2</span>, <span class="st">&quot;B&amp;C&quot;</span>=<span class="fl">0.1</span> ,<span class="st">&quot;A&amp;B&amp;C&quot;</span>=<span class="fl">0.1</span>))
+<span class="kw">plot</span>(ed)</code></pre></div>
+<p>Be source compatible!</p>
+</section></section>
+<section><section id="requirements" class="titleslide slide level1"><h1>Requirements</h1></section><section id="section-1" class="slide level2">
+<h1></h1>
+<ol type="1">
+<li>Source compatibility with venneuler.</li>
+<li>Distributable via CRAN.</li>
+<li>Calculate area more accurately than vennom.</li>
+<li>Be maintainable.</li>
+</ol>
+</section></section>
+<section><section id="two-architectures" class="titleslide slide level1"><h1>Two Architectures</h1></section><section id="monolith" class="slide level2">
+<h1>Monolith</h1>
+<ul>
+<li>Use RJava -- vennom is written in Java.</li>
+<li>Bundle vennom, area calculation and R-bridge as CRAN package.</li>
+<li>Manually manage transitive dependencies</li>
+</ul>
+</section><section id="monolith-1" class="slide level2">
+<h1>Monolith</h1>
+<figure>
+<img src="images/monolith.svg" alt="euleR monolithic architecture" /><figcaption>euleR monolithic architecture</figcaption>
+</figure>
+</section><section id="web-service" class="slide level2">
+<h1>Web Service</h1>
+<ul>
+<li>Require Internet connection.</li>
+<li>Move R-bridge, vennom, area calculation an dependencies to cloud.</li>
+<li>Allows <em>tracking</em> or user requests.</li>
+</ul>
+</section><section id="web-service-1" class="slide level2">
+<h1>Web Service</h1>
+<figure>
+<img src="images/cloud.svg" alt="euleR cloud architecture" style="height:80.0%" /><figcaption>euleR cloud architecture</figcaption>
+</figure>
+</section></section>
+<section><section id="area-calculation" class="titleslide slide level1"><h1>Area Calculation</h1></section><section id="problem" class="slide level2">
+<h1>Problem</h1>
+<ul>
+<li>As discussed, the bitmap approach is inaccurate and doesn't scale (<span class="math inline">\(O(n^2)\)</span>).</li>
+<li>How to practically calculate the area of a concrete zone.</li>
+</ul>
+</section><section id="inkscape-inspired" class="slide level2">
+<h1>Inkscape inspired</h1>
+<ul>
+<li>Represent all primitives as paths.</li>
+<li>A path is a &quot;sequence of symmetric power basis polynomials&quot;.</li>
+<li>Calculating the intersection of two paths is straightforward.
+<ul>
+<li>Paths can be arbitrarily shaped -- fun for the future.</li>
+</ul></li>
+<li>Somewhat inaccurate when representing circles (I'd like to quantify this).</li>
+<li>Inkscape's area calculation is broken for some complex paths.</li>
+</ul>
+</section><section id="s-basis-area" class="slide level2">
+<h1>s-basis area</h1>
+<figure>
+<img src="images/s-basis-area.svg" alt="S-basis closed path" style="width:60.0%" /><figcaption>S-basis closed path</figcaption>
+</figure>
+</section><section id="javageom" class="slide level2">
+<h1>JavaGeom</h1>
+<ul>
+<li>A geometry package for Java</li>
+<li>Provides a <code>CircleArc2D</code>
+<ul>
+<li>we added <code>getChordArea()</code> and a few other things.</li>
+</ul></li>
+<li>Implemented an area calculation for <code>BoundaryPolyCurve2D&lt;CircleArc2D&gt;</code>.</li>
+</ul>
+</section><section id="our-solution" class="slide level2">
+<h1>Our Solution</h1>
+<ul>
+<li>Take an input concrete diagram.</li>
+<li>Calculate the concrete Euler graph.</li>
+<li>Split each circle into 'arcs' at the intersection points indicated by the Euler graph.</li>
+<li>Represent each concrete zone as a <code>BoundaryPolyCurve2D&lt;CircleArc2D&gt;</code>.</li>
+<li>Calculate the concrete inclusion hierarchy for concrete zones.</li>
+</ul>
+</section></section>
+<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="examples" class="slide level2">
+<h1>Examples</h1>
+<p><img src="images/rand3-venneuler.svg" alt="Venneuler example" style="width:40.0%" /> <img src="images/rand3-vennom.svg" alt="Vennom example" style="width:40.0%" /></p>
+<p>But we're <strong>significantly</strong> faster.</p>
+</section><section id="development" class="slide level2">
+<h1>Development</h1>
+<ul>
+<li>The <em>supposed</em> hard bits were easy.</li>
+<li>The <em>easy</em> bit -- area calculation -- is surprisingly involved.</li>
+<li>The core vennom algorithm needs improvement.</li>
+<li>Development -- i.e. impact -- is a full-time commitment.</li>
+</ul>
+</section><section id="bibliography" class="slide level2 unnumbered">
+<h1>Bibliography</h1>
+<div id="refs" class="references">
+<div id="ref-croucher:rpaolsorbwgsug">
+<p>Croucher, Nicholas, Andrew Page, Thomas Connor, Aidan Delaney, Jacqueline Keane, Stephen Bentley, Julian Parkhill, and Simon Harris. 2014. “Rapid Phylogenetic Analysis of Large Samples of Recombinant Bacterial Whole Genome Sequences Using Gubbins.” <em>Nucleic Acids Research</em>, 1–13.</p>
+</div>
+<div id="ref-eades:ahfgd">
+<p>Eades, Peter. 1984. “A Heuristic for Graph Drawing.” <em>Congressus Numerantium</em> 42 (11): 149–60.</p>
+</div>
+<div id="ref-10.1371/journal.pone.0101717">
+<p>Micallef, Luana, and Peter Rodgers. 2014. “Euler<em>APE</em>: Drawing Area-Proportional 3-Venn Diagrams Using Ellipses.” <em>PLoS ONE</em> 9 (7). Public Library of Science: 1–18. doi:<a href="https://doi.org/10.1371/journal.pone.0101717">10.1371/journal.pone.0101717</a>.</p>
+</div>
+<div id="ref-page:sreeosfma">
+<p>Page, Andrew J., Ben Taylor, Aidan J. Delaney, Jorge Soares, Torsten Seemann, Jacqueline A. Keane, and Simon R. Harris. 2016. “SNP-Sites: Rapid Efficient Extraction of SNPs from Multi-FASTA Alignments.” <em>BioRxiv</em>. Cold Spring Harbor Labs Journals. doi:<a href="https://doi.org/10.1101/038190">10.1101/038190</a>.</p>
+</div>
+<div id="ref-wilkinson:eaaacvaed">
+<p>Wilkinson, Leland. 2012. “Exact and Approximate Area-Proportional Circular Venn and Euler Diagrams.” <em>IEEE Trans Vis Comput Graph</em> 18 (2): 321–31.</p>
+</div>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'linear', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
