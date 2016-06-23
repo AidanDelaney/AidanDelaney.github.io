@@ -16,6 +16,7 @@ We consider some practical tips for implementing the new computing curriculum in
 * <span style="color:#ffffff">Shipped code in Haskell, C, Java, Perl, Python, C++, JavaScript & others.</span>
 * <span style="color:#ffffff">Director of an Eastbourne not-for-profit [__TechResort__](http://techresort.co.uk/).</span>
 * <span style="color:#ffffff">School Governor at Pashley Down and Gildridge House.</span>
+* <span style="color:#ffffff">Involved with CAS for a while.</span>
 
 ## Takeaways
 
@@ -32,12 +33,15 @@ We consider some practical tips for implementing the new computing curriculum in
 
 * OCR password example from A453
     - Write a program to test the "strength" of a password.
+    - strong passwords have a capital letter and a digit.
+    - medium passwords have a capital letter or a digit.
+    - all passwords are between 6 and 12 characters long.
 
 # Full-fat
 
 ## Dev env
 
-Professional developers use a full-fat dev environment.  Most are open-source, and this is important.
+Professional developers use a full-fat dev environment.  Most are cross-platform & open-source, and this is important.
 
 | Python   |     Java      |  C#   |
 |:----------:|:-------------:|:------:|
@@ -67,7 +71,7 @@ for(int i = 0; i <= is.size() - 1; i++) {
 
 // since 2004
 for(int i : is) {
-  sum += is.get(i);
+  sum += is.get(i);  // since 2006
 }
 
 // since 2014
@@ -188,24 +192,26 @@ Date:   Thu Jun 23 11:56:52 2016 +0100
 
 ```Java
 public class PasswordStrengthTest {
-    public List<Optional<String>> strong = new ArrayList<>();
+  public List<Optional<String>> strong = new ArrayList<>();
 
-    @Before
-    public void setUp() {
-        strong.add(Optional.of("ABCDE1GHIJKL"));
-        strong.add(Optional.of("ABE1GH2JKL"));
-    }
+  @Before
+  public void setUp() {
+    strong.add(Optional.of("ABCDE1GHIJKL"));
+    strong.add(Optional.of("ABE1GH2JKL"));
+  }
 
-    @Test
-    public void testStrong() {
-        PasswordStrength ps = new PasswordStrength();
-        assertThat(strong.stream().map(ps::checkPassword).collect(Collectors.toSet())
-                , Every.everyItem(is(PasswordStrength.PStrength.STRONG)));
+  @Test
+  public void testStrong() {
+    PasswordStrength ps = new PasswordStrength();
+    assertThat(
+       strong.stream().map(ps::checkPassword).collect(Collectors.toSet())
+     , Every.everyItem(is(PasswordStrength.PStrength.STRONG))
+     );
     }
 }
 ```
 
-# Takeaway
+## Takeaway
 
 * Industry-level software development practices help
     - planning: There are de-jour standards for planning documents.
@@ -215,10 +221,12 @@ public class PasswordStrengthTest {
 
 # Conclusion
 
+## Takeaways
+
 1. Use a full-fat open-source development environment.
 2. Professional software development practices help.
 
-# Solution
+## Solution
 
 ```Java
 public PStrength checkPassword(Optional<String> password) {
@@ -236,7 +244,7 @@ public PStrength checkPassword(Optional<String> password) {
   return PStrength.WEAK;
 }
 ```
-# OCR Solution
+## OCR Solution
 ![An image of some bad code](images/code.png)
 
 # References

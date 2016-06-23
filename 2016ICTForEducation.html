@@ -77,10 +77,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#/introduction">Introduction</a></li>
 <li><a href="#/full-fat">Full-fat</a></li>
 <li><a href="#/industry-grade-development">Industry-grade Development</a></li>
-<li><a href="#/takeaway-1">Takeaway</a></li>
 <li><a href="#/conclusion">Conclusion</a></li>
-<li><a href="#/solution">Solution</a></li>
-<li><a href="#/ocr-solution">OCR Solution</a></li>
 <li><a href="#/references">References</a></li>
 </ul>
 </section>
@@ -96,6 +93,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><span style="color:#ffffff">Shipped code in Haskell, C, Java, Perl, Python, C++, JavaScript &amp; others.</span></li>
 <li><span style="color:#ffffff">Director of an Eastbourne not-for-profit <a href="http://techresort.co.uk/"><strong>TechResort</strong></a>.</span></li>
 <li><span style="color:#ffffff">School Governor at Pashley Down and Gildridge House.</span></li>
+<li><span style="color:#ffffff">Involved with CAS for a while.</span></li>
 </ul>
 </section><section id="takeaways" class="slide level2">
 <h1>Takeaways</h1>
@@ -116,12 +114,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>OCR password example from A453
 <ul>
 <li>Write a program to test the &quot;strength&quot; of a password.</li>
+<li>strong passwords have a capital letter and a digit.</li>
+<li>medium passwords have a capital letter or a digit.</li>
+<li>all passwords are between 6 and 12 characters long.</li>
 </ul></li>
 </ul>
 </section></section>
 <section><section id="full-fat" class="titleslide slide level1"><h1>Full-fat</h1></section><section id="dev-env" class="slide level2">
 <h1>Dev env</h1>
-<p>Professional developers use a full-fat dev environment. Most are open-source, and this is important.</p>
+<p>Professional developers use a full-fat dev environment. Most are cross-platform &amp; open-source, and this is important.</p>
 <table>
 <thead>
 <tr class="header">
@@ -165,7 +166,7 @@ List&lt;Integer&gt; is = Arrays.<span class="fu">asList</span>(<span class="dv">
 
 <span class="co">// since 2004</span>
 <span class="kw">for</span>(<span class="dt">int</span> i : is) {
-  sum += is.<span class="fu">get</span>(i);
+  sum += is.<span class="fu">get</span>(i);  <span class="co">// since 2006</span>
 }
 
 <span class="co">// since 2014</span>
@@ -326,26 +327,63 @@ sum = is.<span class="fu">stream</span>().<span class="fu">mapToInt</span>(Integ
 </section><section id="example-2" class="slide level2">
 <h1>Example</h1>
 <div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> PasswordStrengthTest {
-    <span class="kw">public</span> List&lt;Optional&lt;String&gt;&gt; strong = <span class="kw">new</span> ArrayList&lt;&gt;();
+  <span class="kw">public</span> List&lt;Optional&lt;String&gt;&gt; strong = <span class="kw">new</span> ArrayList&lt;&gt;();
 
-    <span class="fu">@Before</span>
-    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setUp</span>() {
-        strong.<span class="fu">add</span>(Optional.<span class="fu">of</span>(<span class="st">&quot;ABCDE1GHIJKL&quot;</span>));
-        strong.<span class="fu">add</span>(Optional.<span class="fu">of</span>(<span class="st">&quot;ABE1GH2JKL&quot;</span>));
-    }
+  <span class="fu">@Before</span>
+  <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setUp</span>() {
+    strong.<span class="fu">add</span>(Optional.<span class="fu">of</span>(<span class="st">&quot;ABCDE1GHIJKL&quot;</span>));
+    strong.<span class="fu">add</span>(Optional.<span class="fu">of</span>(<span class="st">&quot;ABE1GH2JKL&quot;</span>));
+  }
 
-    <span class="fu">@Test</span>
-    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">testStrong</span>() {
-        PasswordStrength ps = <span class="kw">new</span> <span class="fu">PasswordStrength</span>();
-        <span class="fu">assertThat</span>(strong.<span class="fu">stream</span>().<span class="fu">map</span>(ps::checkPassword).<span class="fu">collect</span>(Collectors.<span class="fu">toSet</span>())
-                , Every.<span class="fu">everyItem</span>(<span class="fu">is</span>(PasswordStrength.<span class="fu">PStrength</span>.<span class="fu">STRONG</span>)));
+  <span class="fu">@Test</span>
+  <span class="kw">public</span> <span class="dt">void</span> <span class="fu">testStrong</span>() {
+    PasswordStrength ps = <span class="kw">new</span> <span class="fu">PasswordStrength</span>();
+    <span class="fu">assertThat</span>(
+       strong.<span class="fu">stream</span>().<span class="fu">map</span>(ps::checkPassword).<span class="fu">collect</span>(Collectors.<span class="fu">toSet</span>())
+     , Every.<span class="fu">everyItem</span>(<span class="fu">is</span>(PasswordStrength.<span class="fu">PStrength</span>.<span class="fu">STRONG</span>))
+     );
     }
 }</code></pre></div>
+</section><section id="takeaway-1" class="slide level2">
+<h1>Takeaway</h1>
+<ul>
+<li>Industry-level software development practices help
+<ul>
+<li>planning: There are de-jour standards for planning documents.</li>
+<li>project control: source control &amp; burn down chart provides transparency over project progress.</li>
+<li>assessment: automating tests makes assessment more straightforward &amp; build description describes project dependencies.</li>
+<li>plagiarism &amp; cheating: much harder to cheat using source-control.</li>
+</ul></li>
+</ul>
 </section></section>
-<section><section id="takeaway-1" class="titleslide slide level1"><h1>Takeaway</h1></section></section>
-<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section></section>
-<section><section id="solution" class="titleslide slide level1"><h1>Solution</h1></section></section>
-<section><section id="ocr-solution" class="titleslide slide level1"><h1>OCR Solution</h1></section></section>
+<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="takeaways-1" class="slide level2">
+<h1>Takeaways</h1>
+<ol type="1">
+<li>Use a full-fat open-source development environment.</li>
+<li>Professional software development practices help.</li>
+</ol>
+</section><section id="solution" class="slide level2">
+<h1>Solution</h1>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> PStrength <span class="fu">checkPassword</span>(Optional&lt;String&gt; password) {
+  <span class="kw">if</span>(!password.<span class="fu">isPresent</span>() || password.<span class="fu">get</span>().<span class="fu">length</span>() &lt; <span class="dv">6</span> || password.<span class="fu">get</span>().<span class="fu">length</span>() &gt; <span class="dv">12</span>) {
+    <span class="kw">return</span> PStrength.<span class="fu">FAIL</span>;
+  }
+
+  PStrength strength = PStrength.<span class="fu">WEAK</span>;
+  <span class="kw">if</span> (Pattern.<span class="fu">matches</span>(<span class="st">&quot;(</span><span class="ch">\\</span><span class="st">w*[</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">w*</span><span class="ch">\\</span><span class="st">p{javaUpperCase}|</span><span class="ch">\\</span><span class="st">p{javaUpperCase}</span><span class="ch">\\</span><span class="st">w*</span><span class="ch">\\</span><span class="st">d]</span><span class="ch">\\</span><span class="st">w*)&quot;</span>, password.<span class="fu">get</span>())) { <span class="co">// strong check</span>
+    <span class="kw">return</span> PStrength.<span class="fu">STRONG</span>;
+  } <span class="kw">else</span> <span class="kw">if</span> (Pattern.<span class="fu">matches</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">w*[</span><span class="ch">\\</span><span class="st">d|</span><span class="ch">\\</span><span class="st">p{javaUpperCase}]</span><span class="ch">\\</span><span class="st">w*&quot;</span>, password.<span class="fu">get</span>())) { <span class="co">// medium check</span>
+    <span class="kw">return</span> PStrength.<span class="fu">MEDIUM</span>;
+  }
+
+  <span class="kw">return</span> PStrength.<span class="fu">WEAK</span>;
+}</code></pre></div>
+</section><section id="ocr-solution" class="slide level2">
+<h1>OCR Solution</h1>
+<figure>
+<img src="images/code.png" alt="An image of some bad code" /><figcaption>An image of some bad code</figcaption>
+</figure>
+</section></section>
 <section><section id="references" class="titleslide slide level1 unnumbered"><h1>References</h1></section></section>
     </div>
   </div>
