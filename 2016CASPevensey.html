@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney">
+  <title>Implementing Computing</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <script src="js/Mathjax/MathJax.js?config=TeX-AMS_HTML-full" type="text/javascript"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Implementing Computing</h1>
+  <h2 class="author">Aidan Delaney</h2>
+  <h3 class="date"><a href="mailto:aidan@ontologyengineering.org">aidan@ontologyengineering.org</a> | <a href="http://www.twitter.com/aidandelaney">@aidandelaney</a></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/introduction">Introduction</a></li>
+<li><a href="#/industry-grade-development">Industry-grade Development</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+<li><a href="#/references">References</a></li>
+</ul>
+</section>
+
+<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="about-me" class="slide level2" data-background="images/royal-pavilion-brighton.jpg">
+<h1>About Me</h1>
+<ul>
+<li><span style="color:#ffffff">Academic for over a decade (PhD in CS involving logic).</span></li>
+<li><span style="color:#ffffff">Researcher in Visual Languages and Visual Reasoning.</span></li>
+<li><span style="color:#ffffff">Shipped code in Haskell, C, Java, Perl, Python, C++, JavaScript &amp; others.</span></li>
+<li><span style="color:#ffffff">Director of an Eastbourne not-for-profit <a href="http://techresort.co.uk/"><strong>TechResort</strong></a>.</span></li>
+<li><span style="color:#ffffff">School Governor at Pashley Down and Gildridge House.</span></li>
+<li><span style="color:#ffffff">Involved with CAS for a while.</span></li>
+</ul>
+</section><section id="takeaways" class="slide level2">
+<h1>Takeaways</h1>
+<ol type="1">
+<li>Testing frameworks help.</li>
+<li>Automated testing helps assessment.</li>
+</ol>
+</section><section id="assumptions" class="slide level2">
+<h1>Assumptions</h1>
+<ul>
+<li>Discussing a small, but important, facet of the curriculum i.e. programming.</li>
+<li>Using a text-based programming language.</li>
+<li>Writing small programmes; generally <span class="math inline">\(\le\)</span> 100 LOC.</li>
+</ul>
+</section><section id="running-example" class="slide level2">
+<h1>Running example</h1>
+<ul>
+<li>OCR password example from A453
+<ul>
+<li>Write a program to test the &quot;strength&quot; of a password.</li>
+<li>strong passwords have a capital letter and a digit.</li>
+<li>medium passwords have a capital letter or a digit.</li>
+<li>all passwords are between 6 and 12 characters long.</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="industry-grade-development" class="titleslide slide level1"><h1>Industry-grade Development</h1></section><section id="practices" class="slide level2">
+<h1>Practices</h1>
+<ul>
+<li>Agile planning
+<ul>
+<li>backlog, user stories, sprint planning.</li>
+</ul></li>
+<li>Build system
+<ul>
+<li>dependency resolution, supports &quot;higher-level&quot; QA practices.</li>
+</ul></li>
+<li>Test framework
+<ul>
+<li>system and unit testing.</li>
+</ul></li>
+<li>Source control
+<ul>
+<li>aids with transparency of development project.</li>
+</ul></li>
+</ul>
+</section><section id="test-framework" class="slide level2">
+<h1>Test Framework</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Python</th>
+<th style="text-align: center;">Java</th>
+<th style="text-align: center;">C#</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">pytest</td>
+<td style="text-align: center;">JUnit</td>
+<td style="text-align: center;">NUnit</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Provides structure for automated tests.</li>
+<li>Helps in test planning.</li>
+</ul>
+</section><section id="triangulation" class="slide level2">
+<h1>Triangulation</h1>
+</section><section id="specification" class="slide level2">
+<h1>Specification</h1>
+<ul>
+<li><em>Really</em> helps design.</li>
+<li>Cucumber is a nice specification language</li>
+<li><em>Feature</em>: The feature to be tested</li>
+<li><em>Scenario</em>: A flow of events through a feature.</li>
+<li><em>Given</em>, <em>And</em>, <em>When</em>, <em>Then</em>: Descriptions in natural language.</li>
+</ul>
+</section><section id="example" class="slide level2">
+<h1>Example</h1>
+<pre class="cucumber"><code>Scenario: Short password
+  Given a &lt;short&gt; password
+  And the password is less than 6 letters long
+  Then the password is unacceptable
+
+  Examples:
+    | short |
+    | a     |
+    | ab    |</code></pre>
+</section><section id="your-turn" class="slide level2">
+<h1>Your Turn</h1>
+<p>It should be at least 6, and no more than 12 characters long The system must indicate that the password has failed and why...</p>
+<p>Password strength can be assessed against simple criteria to assess its suitability; for example a password system using only upper and lower case alphabetical characters and numeric characters could assess the password strength as:</p>
+<ul>
+<li>WEAK if only one type used, e.g. all lower case or all numeric</li>
+<li>MEDIUM if two types are used</li>
+<li>STRONG if all three types are used.</li>
+</ul>
+</section><section id="steps" class="slide level2">
+<h1>Steps</h1>
+<ul>
+<li>We can map each scenario into executable tests.</li>
+<li><em>Automated systems can figure out where we've missed a step</em>.</li>
+<li>Tests can be run multiple times and <strong>are their own documentation</strong>.</li>
+</ul>
+</section><section id="example-1" class="slide level2">
+<h1>Example</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="at">@given</span>(<span class="st">&#39;a &lt;short&gt; password&#39;</span>)
+<span class="kw">def</span> step_input_password(short):
+    <span class="cf">return</span> PasswordCheck.check(short)</code></pre></div>
+</section><section id="test-first" class="slide level2">
+<h1>Test First</h1>
+<ul>
+<li>Now we have a spec and a test we know &quot;when to go home&quot;.</li>
+<li>the code is done when the tests run.</li>
+<li>Our code is nicely decomposed into functions with</li>
+<li>user view</li>
+<li>system view</li>
+<li>module/unit view</li>
+</ul>
+</section></section>
+<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="spec-test-code" class="slide level2">
+<h1>Spec-Test-Code</h1>
+<ul>
+<li>Triangulation is <em>key</em>.</li>
+<li>Triangulated projects make good stories.</li>
+<li>This is what I'm going to do.</li>
+<li>This is how it works.</li>
+<li>This is what I've done.</li>
+<li>Triangulation <em>is</em> assessment.</li>
+</ul>
+</section><section id="my-code" class="slide level2">
+<h1>My Code</h1>
+</section><section id="ocr-solution" class="slide level2">
+<h1>OCR Solution</h1>
+<figure>
+<img src="images/code.png" alt="An image of some bad code" /><figcaption>An image of some bad code</figcaption>
+</figure>
+</section></section>
+<section><section id="references" class="titleslide slide level1 unnumbered"><h1>References</h1></section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'linear', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
