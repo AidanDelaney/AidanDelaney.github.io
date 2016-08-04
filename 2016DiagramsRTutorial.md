@@ -2,11 +2,60 @@
 % Aidan Delaney & Brent Yorgey
 % [aidan@ontologyengineering.org](mailto:aidan@ontologyengineering.org) | [\@aidandelaney](http://www.twitter.com/aidandelaney) <br /> [yorgey@hendrix.edu](mailto:yorgey@hendrix.edu) | [https://byorgey.wordpress.com/](https://byorgey.wordpress.com)
 
+# Motivation
+
+## Bioinformatics
+
+![images/F2.large.jpg](images/F2.large.jpg)
+
+<aside class="notes">
+* I first came across R working on a bioinformatics project.
+* A de-facto standard for repeatable statistical tests:
+    - available to *all* researchers.
+* [Microsoft R Open](https://mran.revolutionanalytics.com/).
+* Becoming a de-facto standard for data science.
+</aside>
+
+## Repeatability
+
+* Fits into repeatable workflows: see [Taverna](https://taverna.incubator.apache.org/).
+* Is a programming language, so:
+    - supports standard software development processes such as source control eg: [euleR](https://github.com/aidandelaney/euleR).
+    - component reuse
+    - testing
+
 # Introduction
 
 ## R History
 
-## Grammar of Graphics
+* Based on S, developed by John Chambers [@chambers:s].
+* Developed by Ross Ihaka and Robert Gentleman at University of Auckland [@ihaka:r].
+* 30 year old(ish) interpreted language for statistical computation.
+* Well established
+    - graphical IDE: [RStudio](https://www.rstudio.com/).
+    - third party packages: [CRAN](https://cran.r-project.org/).
+    - stewardship: [R Foundation](https://www.r-project.org/foundation/), [useR! conference](https://www.r-project.org/conferences.html).
+
+<aside class="notes">
+* https://en.wikipedia.org/wiki/Comparison_of_statistical_packages
+</aside>
+
+## GG
+
+* Leyland Wilkinson developed the _Grammar of Graphics_ [@wilkinson:gg].
+* R impementation by Hadley Wickham in 2005 [@wickham:ggplot]
+    - [Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf).
+
+<aside class="notes">
+> Statistical graphic specifications are expressed in six statements
+>
+> 1. DATA: a set of data operations that create variables from datasets
+> 2. TRANS: variable transformations
+> 3. SCALE: scale transformations
+> 4. COORD: a coordinate system
+> 5. ELEMENT: graphs and their aesthetic attributes
+> 6. GUIDE: one or more guides
+</aside>
 
 # First Steps
 
@@ -22,6 +71,12 @@
 | Valiant           | 18.1 | 6     | 225   | 0    | 3 |
 | Duster 360        | 14.3 | 8     | 360   | 0    | 3 |
 
+<aside class="notes">
+```R
+View(mtcars)
+```
+</aside>
+
 ## R DataFrame
 
 * Usually rows are the observations
@@ -29,7 +84,7 @@
 * Often (normally?) imported from a CSV or similar file.
 
 ```R
-> mtcars$mpg
+mtcars$mpg
 ```
 
 Returns a vector of the values of the `mpg` variable in top-to-bottom row order.
@@ -58,14 +113,24 @@ We can get dataframe information by column, row or create a _slice_.
 ```R
 # by column
 mtcars$gear
-mtcars["gear",]
+mtcars[,"gear"]
 
 # by row
-mtcars[,1]
+mtcars[1,]
+mtcars["Fiat 128",]
 
 # dataframe slice
 mtcars[c("gear", "mpg")]
 ```
+
+# Simple Charts
+
+## Types
+
+* bar chart
+* line chart
+* point chart
+* box & whisker chart
 
 ## BarChart
 
@@ -76,21 +141,21 @@ p <- ggplot(mtcars, aes(x=factor(cyl))) + geom_bar()
 plot(p)
 ```
 
-Or similarly, let's use mean `mpg` as our `y` _aesthetic_. First we have to reshape our data.
+
+## BoxPlot
 
 ```R
-require(ggplot2)
-require(reshape2)
-
-plot.data <- melt(tapply(mtcars$mpg, factor(mtcars$cyl),mean), varnames="cyl", value.name="mean")
-ggplot(plot.data, aes(x=factor(cyl),y=mean)) + geom_bar(stat="identity")
+p <- ggplot(mtcars, aes(x=factor(cyl), y=mpg))
+p + geom_boxplot()
 ```
 
-Or
+## Histogram
 
 ```R
-ggplot(mtcars, aes(y=mpg, x=factor(cyl), group=factor(cyl))) + stat_summary(fun.y=mean, geom="bar")
+ggplot(mtcars, aes(x=mpg)) + geom_histogram(binwidth=1)
 ```
+
+# Complex Diagrams
 
 ## PieChart
 
@@ -114,14 +179,38 @@ We can change the coordinate system of any plot.
 p <- ggplot(mtcars, aes(x=factor(cyl))) + geom_bar(width = 1) + coord_polar()
 ```
 
-## BoxPlot
+## Histogram
+
+Plot a histogram with an overlaid normal distribution:
 
 ```R
-p <- ggplot(mtcars, aes(x=factor(cyl), y=mpg))
-p + geom_boxplot()
+
+ggplot(mtcars, aes(x=mpg)) +
+  geom_histogram(aes(y = ..density..), binwidth=1) +
+  stat_function(fun=dnorm,
+                aes(colour = "red"),
+                args = with(mtcars, c(mean = mean(mpg), sd = sd(mpg)))
+                ) +
+  labs(x="Miles per gallon", legend.position = "bottom", legend.direction = "horizontal")
 ```
 
-## Histogram
+## Complex BarChart
+
+Or similarly, let's use mean `mpg` as our `y` _aesthetic_. First we have to reshape our data.
+
+```R
+require(ggplot2)
+require(reshape2)
+
+plot.data <- melt(tapply(mtcars$mpg, factor(mtcars$cyl),mean), varnames="cyl", value.name="mean")
+ggplot(plot.data, aes(x=factor(cyl),y=mean)) + geom_bar(stat="identity")
+```
+
+Or
+
+```R
+ggplot(mtcars, aes(y=mpg, x=factor(cyl), group=factor(cyl))) + stat_summary(fun.y=mean, geom="bar")
+```
 
 ## Short example
 
@@ -130,7 +219,30 @@ ggplot(mtcars, aes(x=mpg, y=disp)) + geom_point()
 ggplot(mtcars, aes(x=mpg, y=disp)) + geom_point() + geom_smooth()
 ggplot(mtcars, aes(x=mpg, y=disp)) + geom_point() + geom_smooth() + coord_flip()
 ggplot(mtcars, aes(x=mpg, y=disp)) + geom_point(aes(color=factor(am))) + geom_smooth() + coord_flip()
-ggplot(mtcars, aes(disp,mpg)) + geom_point(aes(colour=factor(am))) + geom_smooth() + coord_flip() + facet_grid(gear ~ .)
+
+ggplot(mtcars, aes(x=mpg, y=disp)) + geom_point(aes(color=factor(am))) + stat_smooth(method="lm") + coord_flip()
+```
+
+## Reusable Function
+
+```R
+ggplotRegression <- function (fit) {
+
+ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1])) +
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  labs(title = paste("Adj R2 = ",signif(summary(fit)$adj.r.squared, 5),
+                     "Intercept =",signif(fit$coef[[1]],5 ),
+                     " Slope =",signif(fit$coef[[2]], 5),
+                     " P =",signif(summary(fit)$coef[2,4], 5)))
+}
+
+fit <- lm(mpg~disp, data=mtcars)
+ggplotRegression(fit)
+
+<aside class="notes">
+* Taken from [https://susanejohnston.wordpress.com/2012/08/09/a-quick-and-easy-function-to-plot-lm-results-in-r/](https://susanejohnston.wordpress.com/2012/08/09/a-quick-and-easy-function-to-plot-lm-results-in-r/)
+</aside>
 ```
 
 # ggplot2 Grammar
@@ -140,10 +252,10 @@ ggplot(mtcars, aes(disp,mpg)) + geom_point(aes(colour=factor(am))) + geom_smooth
 * Diagrams are built up in layers
 * Each diagram has
     1. A _data_ layer,
-    2. a _stat_istics layer,
-    3. a _geom_etry layer,
-    4. a _scale_s layer, and
-    5. a theme layer.
+    2. a _stat_ istics layer,
+    3. a _geom_ etry layer,
+    4. a _scale_ layer, and
+    5. a _theme_ layer.
 * We can write `ggplot(mtcars, aes(x=mpg, y=disp)) + geom_point()` because of /sane defaults/.
 
 ## Data
@@ -215,6 +327,8 @@ p + geom_tile() + labs(title = "geom_tile")
 p + geom_polygon() + labs(title = "geom_polygon")
 ```
 
+The "cheat sheet" has many more types.
+
 ## Scales
 
 Adding a scale modifies the axes or:
@@ -228,38 +342,21 @@ p + scale_fill_brewer()
 Implementing many of Tufte's guidelines becomes:
 
 ```R
-p + theme_minimal()
+p + geom_bar(stat="identity") + labs(title = "geom_bar(stat=\"identity\")") + theme_minimal()
+p + geom_bar(stat="identity") + labs(title = "geom_bar(stat=\"identity\")") + theme_bw()
 ```
 
-# Diagrams Diagrams
-
-# Exploring ANOVA
-
-## Hypothesis
-
-> An Automatic transmission is better for miles per gallon
-
-## Dependent Variable
-
-In this case `mpg` is our dependent variable.
-
-## Histogram
+or my favourite
 
 ```R
-ggplot(mtcars, aes(x=mpg)) +
-  geom_histogram(binwidth=1)
+p + xkcdrect(
++     aes(xmin = x, xmax = x+1, ymin = 0, ymax = y),
++     df
++ ) + theme_xkcd()
 ```
-
-## Hist & Normal
-
-```R
-ggplot(mtcars, aes(x=mpg)) +
-  geom_histogram(aes(y = ..density..), binwidth=1) +
-  stat_function(fun=dnorm,
-                aes(colour = "red"),
-                args = with(mtcars, c(mean = mean(mpg), sd = sd(mpg)))
-                )
-```
-
 
 # Conclusion
+
+* The _Grammar of Graphics_ provides power and flexibility for generating statistical plots.
+* Statistical visualisations can be mixed with Anova and other tests.
+* The statistical "Diagrams of Diagrams" are generally straightforward to draw using `ggplot2`.

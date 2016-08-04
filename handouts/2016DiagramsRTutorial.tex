@@ -1,0 +1,99 @@
+\documentclass{tufte-handout}
+
+\usepackage{url}
+\usepackage{listings}
+\usepackage{graphicx}
+
+\lstset{language=R
+  , breaklines = true}
+
+% add numbers to chapters, sections, subsections
+\setcounter{secnumdepth}{2}
+
+% chapter format
+\titleformat{\chapter}%
+            {\huge\rmfamily\itshape\color{red}}% format applied to label+text
+            {\llap{\colorbox{red}{\parbox{1.5cm}{\hfill\itshape\huge\color{white}\thechapter}}}}% label
+            {2pt}% horizontal separation between label and title body
+            {}% before the title body
+            []% after the title body
+
+% section format
+\titleformat{\section}%
+            {\normalfont\Large\itshape\color{orange}}% format applied to label+text
+            {\llap{\colorbox{orange}{\parbox{1.5cm}{\hfill\color{white}\thesection}}}}% label
+            {1em}% horizontal separation between label and title body
+            {}% before the title body
+            []% after the title body
+
+\title{Programming your Pictures: R}
+\author{Aidan Delaney \& Brent Yorgey}
+
+\begin{document}
+\maketitle
+\section*{Introduction}
+This is a worksheet to support the ``Programming your Pictures'' workshop at Diagrams 2016.  There are two versions of this worksheet, one with answers and one without.  If you'd like the version with the answers then have a look at \sidenote{\url{http://aidandelaney.github.io/handouts/2016DiagramsRTutorial-answers.pdf}}.  In these questions we will use the \lstinline{mpg} dataset shipped with \lstinline{ggplot2}.  You might also find the cheat sheet at \sidenote{\url{https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf}} to be helpful.
+
+\section*{First Plot}
+
+\section*{Exercise 1: Plot and colour}
+Plot the \lstinline{mpg} of cars for all manufacturers.  An example plot can be seen in figure~\ref{fig:mpg-per-manufacturer}.  Can you add in some colour based on the number of cylinders in the individual model?
+\begin{marginfigure}
+  \includegraphics[width=\textwidth]{images/mpg-per-manufacturer}
+  \caption{Plotting mpg for each manufacturer}
+  \label{fig:mpg-per-manufacturer}
+\end{marginfigure}
+
+\noindent Furthermore, can the visualisation be coaxed to provide the specific model for the car with the highest \lstinline{mpg}?
+\ifanswers
+The following will plot car \lstinline{mpg} over the \lstinline{manufacturer}
+\begin{lstlisting}
+ggplot(mpg, aes(x=factor(manufacturer), y=hwy)) + geom_point(aes(colour=factor(cyl))) + scale_color_brewer(type="div")
+\end{lstlisting}
+
+If you want to unveil the name of the best performing model we can change our \lstinline{geom_point} to \lstinline{geom_text}.  It's not very pretty, but it works for data exploration.
+\begin{lstlisting}
+ggplot(mpg, aes(x=factor(manufacturer), y=hwy)) + geom_text(aes(label=model,colour=factor(cyl))) + scale_color_brewer(type="div")
+\end{lstlisting}
+\fi
+
+\section*{Exercise 2: Histogram}
+Generate a histogram of the \lstinline{mpg} values for cars.  You are advised to examine the tutorial notes for an example and some help\sidenote{\url{http://aidandelaney.github.io/}}.
+
+\ifanswers
+The following will plot the histogram of all \lstinline{mpg} values
+\begin{lstlisting}
+ggplot(mpg, aes(x=hwy)) + geom_histogram()
+\end{lstlisting}
+
+It could be more useful if we consider cars to the nearest 5 mpg.
+\begin{lstlisting}
+ggplot(mpg, aes(x=hwy)) + geom_histogram(binwidth=5)
+\end{lstlisting}
+
+Or maybe you'd prefer minor breaks every 2 mpg?
+\begin{lstlisting}
+ggplot(mpg, aes(x=hwy)) + geom_histogram(binwidth=5) + scale_x_continuous(minor_breaks = c(2:max(mpg$hwy)))
+\end{lstlisting}
+\fi
+
+\section*{Exercise 3: Fit a linear model}
+
+It might be useful to see the relationship between the cars' \lstinline{city} and \lstinline{hwy} mpg listings.  Please generate a point plot of one over the other and fit a linear model to the points.
+
+\ifanswers
+For this we have to plot both the points and the smoothed conditional mean.  We also have to set the right method for what we want to achieve.
+\begin{lstlisting}
+ggplot(mpg, aes(x=hwy, y=cty)) + geom_point() + geom_smooth(method="lm")
+\end{lstlisting}
+
+This plot might look better in a paper if there were less around it, and the line was dashed.
+\begin{lstlisting}
+ggplot(mpg, aes(x=hwy, y=cty)) + geom_smooth(method="lm", linetype="dashed") + theme_minimal()
+\end{lstlisting}
+\fi
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\end{document}
