@@ -6,9 +6,9 @@
 
 ## Programme
 
-* Short introduction (15mins).
-* Diagrams in R (45 mins) -- with some activities.
-* Diagrams in Haskell (45 mins) -- with fewer activities.
+* Short introduction (10mins).
+* Diagrams in R (60 mins) -- with some activities.
+* Diagrams in Haskell (35 mins) -- with fewer activities.
 * Conclusion (5 mins).
 
 We'll find 10 mins for a comfort break at an appropriate time.
@@ -35,6 +35,7 @@ We'll find 10 mins for a comfort break at an appropriate time.
 ## Prerequisites
 
 * You have [RStudio](https://www.rstudio.com/) installed to follow the R examples.
+    - available on USB disk.
 * You're using [Stack](http://docs.haskellstack.org/en/stable/README/) to follow Haskell examples.
     - this is a huge download and I've structured the tutorial to work without it too.
 
