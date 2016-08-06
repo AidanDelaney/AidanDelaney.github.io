@@ -1,132 +1,169 @@
-% Implementing Computing
-% Aidan Delaney
-% <a href="mailto:aidan@ontologyengineering.org">aidan@ontologyengineering.org</a> | <a href="http://www.twitter.com/aidandelaney">\@aidandelaney</a>
+% Programming your Pictures in Haskell
+% Aidan Delaney & Brent Yorgey
+% [aidan@ontologyengineering.org](mailto:aidan@ontologyengineering.org) | [\@aidandelaney](http://www.twitter.com/aidandelaney) <br /> [yorgey@hendrix.edu](mailto:yorgey@hendrix.edu) | [https://byorgey.wordpress.com/](https://byorgey.wordpress.com)
 
 # Introduction
 
-## About Me {data-background='images/royal-pavilion-brighton.jpg' }
+## DSL
 
+* Diagrams is a Domain Specific Language
+* Uses many _combinators_ to compose diagrams.
+* Layout is handled in horizontal and vertical boxes
+   - similar to GTK
+* [Excellent documentation](http://projects.haskell.org/diagrams/doc/quickstart.html)
 
-* <span style="color:#ffffff">Academic for over a decade (PhD in CS involving logic).</span>
-* <span style="color:#ffffff">Researcher in Visual Languages and Visual Reasoning.</span>
-* <span style="color:#ffffff">Shipped code in Haskell, C, Java, Perl, Python, C++, JavaScript & others.</span>
-* <span style="color:#ffffff">Director of an Eastbourne not-for-profit [__TechResort__](http://techresort.co.uk/).</span>
-* <span style="color:#ffffff">School Governor at Pashley Down and Gildridge House.</span>
-* <span style="color:#ffffff">Involved with CAS for a while.</span>
+##  Wide usage
+* [Weaving a Torus](http://mathr.co.uk/blog/2013-04-05_weaving_a_torus.html)
+* [Parking Maps](https://idontgetoutmuch.wordpress.com/2013/10/23/parking-in-westminster-an-analysis-in-haskell/)
+* [System event visualisation](http://www.well-typed.com/blog/86/)
+* [Maze Creation](http://www.corentindupont.info/blog/posts/2014-02-17-Cretan-Maze.html)
+* [Puzzle Generation](https://maybepuzzles.wordpress.com/2014/04/07/drawing-puzzles-with-the-haskell-diagrams-framework/)
+* [Data Type Documentation](https://readerunner.wordpress.com/2014/04/29/red-black-neighbourhood-stencil-diagrams/)
+* [Tree Visualization](https://martingalemeasure.wordpress.com/2014/07/07/haskell-numeric-types-quick-reference/)
 
-## Takeaways
+## Usage
+Particularly useful for programmatic generation of large numbers of diagrams.  For instance [Bracelets](https://byorgey.wordpress.com/2015/07/10/the-species-of-bracelets/).  Backends exist for SVG, PNG, PDF, HTML 5 canvas and GTK.
 
-1. Testing frameworks help.
-2. Automated testing helps assessment.
+![https://byorgey.files.wordpress.com/2015/07/9bf376e5e3d8e6ab.png?w=640]
 
-## Assumptions
+# First Steps
 
-* Discussing a small, but important, facet of the curriculum i.e. programming.
-* Using a text-based programming language.
-* Writing small programmes; generally $\le$ 100 LOC.
+## Haskell
 
-## Running example
+Functions are defined with a type signature:
 
-* OCR password example from A453
-    - Write a program to test the "strength" of a password.
-    - strong passwords have a capital letter and a digit.
-    - medium passwords have a capital letter or a digit.
-    - all passwords are between 6 and 12 characters long.
-
-# Industry-grade Development
-
-## Practices
-
-* Agile planning
-    - backlog, user stories, sprint planning.
-* Build system
-    - dependency resolution, supports "higher-level" QA practices.
-* Test framework
-    - system and unit testing.
-* Source control
-    - aids with transparency of development project.
-
-## Test Framework
-
-| Python   |     Java      |  C#   |
-|:----------:|:-------------:|:------:|
-| pytest |  JUnit | NUnit |
-
-* Provides structure for automated tests.
-* Helps in test planning.
-
-## Triangulation
-
-
-## Specification
-
-* *Really* helps design.
-* Cucumber is a nice specification language
-  - _Feature_: The feature to be tested
-  - _Scenario_: A flow of events through a feature.
-  - _Given_, _And_, _When_, _Then_: Descriptions in natural language.
-
-## Example
-
-```Cucumber
-Scenario: Short password
-  Given a <short> password
-  And the password is less than 6 letters long
-  Then the password is unacceptable
-
-  Examples:
-    | short |
-    | a     |
-    | ab    |
+```haskell
+example :: Diagram B
 ```
 
-## Your Turn
+defines a function to return a `Diagram B`.  Both `Diagram` and `B` are defined by the diagrams module.
 
-It should be at least 6, and no more than 12 characters long The system must indicate that the password has failed and why...
+Functions are implemented as such:
 
-Password strength can be assessed against simple criteria to assess its suitability; for example a password system using only upper and lower case alphabetical characters and numeric characters could assess the password strength as:
-
-* WEAK if only one type used, e.g. all lower case or all numeric
-* MEDIUM if two types are used
-* STRONG if all three types are used.
-
-## Steps
-
-* We can map each scenario into executable tests.
-* _Automated systems can figure out where we've missed a step_.
-* Tests can be run multiple times and __are their own documentation__.
-
-## Example
-
-```Python
-@given('a <short> password')
-def step_input_password(short):
-    return PasswordCheck.check(short)
+```haskell
+example = circle 1
 ```
 
-## Test First
+## Primitives
 
-* Now we have a spec and a test we know "when to go home".
-  - the code is done when the tests run.
-* Our code is nicely decomposed into functions with
-  - user view
-  - system view
-  - module/unit view
+```haskell
+example :: Diagram B
+example = circle 1 ||| square 1 ||| pentagon 1
+```
+
+See [TwoD-Shapes](http://projects.haskell.org/diagrams/haddock/Diagrams-TwoD-Shapes.html) documentation for full details.
+
+## Points & Vectors
+
+Diagrams doesn't conflate 2d points with 2d vectors! Many, many graphics APIs don't.
+
+```haskell
+r2 (3, 3) -- a vector
+p2 (3, 3) -- a point
+```
+
+## Beside
+
+Rather than side-by side positioning we can:
+
+```haskell
+example :: Diagram B
+example = beside (r2 (0.5, 0.5)) (circle 1) (square 1)
+```
+
+## Multiple Combinators
+
+```haskell
+example3 :: Diagram B
+example3 = (circle 2 === square 1) ||| pentagon 3
+```
+
+## \# Attributes
+
+```haskell
+example2 :: Diagram B
+example2 = circle 2 # lc blue ||| pentagon 3
+```
+
+`\#` is simply a postfix function so `circle 1 # lc blue` is `lc blue (circle 1)`
+
+## More Attributes
+
+FIXME
+
+```haskell
+example4 :: Diagram B
+example4 = ((circle 2 # lc blue === square 1) ||| pentagon 3) # centerXY
+```
+
+## Horizontal composition
+
+FIXME
+
+```haskell
+example5 :: Diagram B
+example5 = hcat [(circle 2 # lc blue === square 1)
+                 , pentagon 3, triangle 4] # centerXY
+```
+
+## Vertical composition
+
+```haskell
+example6 :: Diagram B
+example6 = vcat [circle 2 # lc blue
+                 , square 1
+                 , pentagon 3] # centerXY
+```
+
+## Envelopes
+
+```haskell
+> example6 :: Diagram B
+> example6 = vcat [circle 2 # lc blue # showEnvelope' (with & eColor .~ green)
+>                 , square 1
+>                 , pentagon 3] # centerY # showEnvelope' (with & eColor .~ red)
+```
+
+# Case Study
+
+## Tree Viz
+
+We'll create a tree and visualise it's recursive structure.
+
+## Tree
+
+The following is one way of implementing a binary tree.
+
+```haskell
+data Tree = Leaf | Branch Tree Tree
+```
+
+## Visualisation
+
+We'll visualise each leaf as a square:
+
+```haskell
+square 1
+```
+
+## Patterns
+
+We can use haskell's pattern matching to build our visualisation.
+
+```haskell
+boxes :: Tree -> Diagram B
+boxes Leaf = ...
+boxes (Branch l r) = ...
+```
+
+## Danger
+
+Live demo from here on -- I shouldn't do this, but here we go.
 
 # Conclusion
 
-## Spec-Test-Code
-
-* Triangulation is _key_.
-* Triangulated projects make good stories.
-  - This is what I'm going to do.
-  - This is how it works.
-  - This is what I've done.
-* Triangulation _is_ assessment.
-
-## My Code
-
-## OCR Solution
-![An image of some bad code](images/code.png)
+* The Diagrams EDSL is straightforward and useful.
+* Diagrams and Haskell supports refactoring.
+    - a.k.a. exploring the data visualisation.
 
 # References
