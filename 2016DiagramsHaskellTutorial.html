@@ -96,8 +96,10 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
 <ul>
 <li>Diagrams is a Domain Specific Language</li>
 <li>Uses many <em>combinators</em> to compose diagrams.</li>
-<li>Layout is handled in horizontal and vertical boxes</li>
+<li>Layout is handled in horizontal and vertical boxes
+<ul>
 <li>similar to GTK</li>
+</ul></li>
 <li><a href="http://projects.haskell.org/diagrams/doc/quickstart.html">Excellent documentation</a></li>
 </ul>
 </section><section id="wide-usage" class="slide level2">
@@ -114,7 +116,9 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
 </section><section id="usage" class="slide level2">
 <h1>Usage</h1>
 <p>Particularly useful for programmatic generation of large numbers of diagrams. For instance <a href="https://byorgey.wordpress.com/2015/07/10/the-species-of-bracelets/">Bracelets</a>. Backends exist for SVG, PNG, PDF, HTML 5 canvas and GTK.</p>
-<p>[https://byorgey.files.wordpress.com/2015/07/9bf376e5e3d8e6ab.png?w=640]</p>
+<figure>
+<img src="https://byorgey.files.wordpress.com/2015/07/9bf376e5e3d8e6ab.png" alt="https://byorgey.files.wordpress.com/2015/07/9bf376e5e3d8e6ab.png?w=640" /><figcaption>https://byorgey.files.wordpress.com/2015/07/9bf376e5e3d8e6ab.png?w=640</figcaption>
+</figure>
 </section><section id="takeaways" class="slide level2">
 <h1>Takeaways</h1>
 <ol type="1">
@@ -136,7 +140,7 @@ example <span class="fu">=</span> circle <span class="dv">1</span> <span class="
 <p>See <a href="http://projects.haskell.org/diagrams/haddock/Diagrams-TwoD-Shapes.html">TwoD-Shapes</a> documentation for full details.</p>
 </section><section id="points-vectors" class="slide level2">
 <h1>Points &amp; Vectors</h1>
-<p>Diagrams doesn't conflate 2d points with 2d vectors! Many, many graphics APIs don't.</p>
+<p>Diagrams doesn't conflate 2d points with 2d vectors! Many, many graphics APIs do -- and that annoys me.</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">r2 (<span class="dv">3</span>, <span class="dv">3</span>) <span class="co">-- a vector</span>
 p2 (<span class="dv">3</span>, <span class="dv">3</span>) <span class="co">-- a point</span></code></pre></div>
 </section><section id="beside" class="slide level2">
@@ -152,24 +156,22 @@ example3 <span class="fu">=</span> (circle <span class="dv">2</span> <span class
 <h1># Attributes</h1>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">example2 ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>
 example2 <span class="fu">=</span> circle <span class="dv">2</span> <span class="fu">#</span> lc blue <span class="fu">|||</span> pentagon <span class="dv">3</span></code></pre></div>
-<p><code>\#</code> is simply a postfix function so <code>circle 1 # lc blue</code> is <code>lc blue (circle 1)</code></p>
+<p><code>#</code> is simply a postfix function so <code>circle 1 # lc blue</code> is <code>lc blue (circle 1)</code></p>
 </section><section id="more-attributes" class="slide level2">
 <h1>More Attributes</h1>
-<p>FIXME</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">example4 ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>
-example4 <span class="fu">=</span> ((circle <span class="dv">2</span> <span class="fu">#</span> lc blue <span class="fu">===</span> square <span class="dv">1</span>) <span class="fu">|||</span> pentagon <span class="dv">3</span>) <span class="fu">#</span> centerXY</code></pre></div>
+example4 <span class="fu">=</span> ((circle <span class="dv">2</span> <span class="fu">#</span> lc blue <span class="fu">===</span> square <span class="dv">1</span>) <span class="fu">#</span> centerY <span class="fu">|||</span> pentagon <span class="dv">3</span> <span class="fu">#</span> centerY)</code></pre></div>
 </section><section id="horizontal-composition" class="slide level2">
 <h1>Horizontal composition</h1>
-<p>FIXME</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">example5 ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>
 example5 <span class="fu">=</span> hcat [(circle <span class="dv">2</span> <span class="fu">#</span> lc blue <span class="fu">===</span> square <span class="dv">1</span>)
-                 , pentagon <span class="dv">3</span>, triangle <span class="dv">4</span>] <span class="fu">#</span> centerXY</code></pre></div>
+                 , pentagon <span class="dv">3</span>, triangle <span class="dv">4</span>]</code></pre></div>
 </section><section id="vertical-composition" class="slide level2">
 <h1>Vertical composition</h1>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">example6 ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>
 example6 <span class="fu">=</span> vcat [circle <span class="dv">2</span> <span class="fu">#</span> lc blue
                  , square <span class="dv">1</span>
-                 , pentagon <span class="dv">3</span>] <span class="fu">#</span> centerXY</code></pre></div>
+                 , pentagon <span class="dv">3</span>]</code></pre></div>
 </section><section id="envelopes" class="slide level2">
 <h1>Envelopes</h1>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span><span class="ot"> example6 ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>

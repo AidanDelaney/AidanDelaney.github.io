@@ -258,11 +258,11 @@ ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1])) 
 
 fit <- lm(mpg~disp, data=mtcars)
 ggplotRegression(fit)
+```
 
 <aside class="notes">
 * Taken from [https://susanejohnston.wordpress.com/2012/08/09/a-quick-and-easy-function-to-plot-lm-results-in-r/](https://susanejohnston.wordpress.com/2012/08/09/a-quick-and-easy-function-to-plot-lm-results-in-r/)
 </aside>
-```
 
 # ggplot2 Grammar
 
@@ -275,12 +275,12 @@ ggplotRegression(fit)
     3. a _geom_ etry layer,
     4. a _scale_ layer, and
     5. a _theme_ layer.
-* We can write `ggplot(mtcars, aes(x=mpg, y=disp)) + geom_point()` because of /sane defaults/.
+* We can write `ggplot(mtcars, aes(x=mpg, y=disp)) + geom_point()` because of _sane defaults_.
 
 ## Data
 
 * Must be in a data frame.
-* We map data columns to _aes_thetics.
+* We map data columns to _aes_ thetics.
     - generally _x_ is required
     - _color_ can be useful
     - _y_ is required by some
@@ -388,3 +388,5 @@ p + xkcdrect(
 ## Exercises
 
 There are three exercises for you to tackle, available at [http://aidandelaney.github.io/handouts/2016DiagramsRTutorial-questions.pdf](http://aidandelaney.github.io/handouts/2016DiagramsRTutorial-questions.pdf).
+
+## References

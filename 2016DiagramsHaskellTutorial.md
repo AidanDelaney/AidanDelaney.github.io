@@ -9,7 +9,7 @@
 * Diagrams is a Domain Specific Language
 * Uses many _combinators_ to compose diagrams.
 * Layout is handled in horizontal and vertical boxes
-   - similar to GTK
+    - similar to GTK
 * [Excellent documentation](http://projects.haskell.org/diagrams/doc/quickstart.html)
 
 ##  Wide usage
@@ -24,7 +24,7 @@
 ## Usage
 Particularly useful for programmatic generation of large numbers of diagrams.  For instance [Bracelets](https://byorgey.wordpress.com/2015/07/10/the-species-of-bracelets/).  Backends exist for SVG, PNG, PDF, HTML 5 canvas and GTK.
 
-![https://byorgey.files.wordpress.com/2015/07/9bf376e5e3d8e6ab.png?w=640]
+![https://byorgey.files.wordpress.com/2015/07/9bf376e5e3d8e6ab.png?w=640](https://byorgey.files.wordpress.com/2015/07/9bf376e5e3d8e6ab.png)
 
 ## Takeaways
 
@@ -60,7 +60,7 @@ See [TwoD-Shapes](http://projects.haskell.org/diagrams/haddock/Diagrams-TwoD-Sha
 
 ## Points & Vectors
 
-Diagrams doesn't conflate 2d points with 2d vectors! Many, many graphics APIs don't.
+Diagrams doesn't conflate 2d points with 2d vectors! Many, many graphics APIs do -- and that annoys me.
 
 ```haskell
 r2 (3, 3) -- a vector
@@ -90,25 +90,21 @@ example2 :: Diagram B
 example2 = circle 2 # lc blue ||| pentagon 3
 ```
 
-`\#` is simply a postfix function so `circle 1 # lc blue` is `lc blue (circle 1)`
+`#` is simply a postfix function so `circle 1 # lc blue` is `lc blue (circle 1)`
 
 ## More Attributes
 
-FIXME
-
 ```haskell
 example4 :: Diagram B
-example4 = ((circle 2 # lc blue === square 1) ||| pentagon 3) # centerXY
+example4 = ((circle 2 # lc blue === square 1) # centerY ||| pentagon 3 # centerY)
 ```
 
 ## Horizontal composition
 
-FIXME
-
 ```haskell
 example5 :: Diagram B
 example5 = hcat [(circle 2 # lc blue === square 1)
-                 , pentagon 3, triangle 4] # centerXY
+                 , pentagon 3, triangle 4]
 ```
 
 ## Vertical composition
@@ -117,7 +113,7 @@ example5 = hcat [(circle 2 # lc blue === square 1)
 example6 :: Diagram B
 example6 = vcat [circle 2 # lc blue
                  , square 1
-                 , pentagon 3] # centerXY
+                 , pentagon 3]
 ```
 
 ## Envelopes

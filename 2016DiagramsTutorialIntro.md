@@ -66,6 +66,6 @@ $ ./executeme --with-option 7
 
 ## My Code
 
-The slides (and question sheets) are available at (http://aidandelaney.github.io/)[http://aidandelaney.github.io/].
+The slides (and question sheets) are available at [http://aidandelaney.github.io/](http://aidandelaney.github.io/).
 
 # References
