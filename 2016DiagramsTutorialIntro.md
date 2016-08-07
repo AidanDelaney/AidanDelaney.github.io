@@ -39,10 +39,6 @@ We'll find 10 mins for a comfort break at an appropriate time.
 * You're using [Stack](http://docs.haskellstack.org/en/stable/README/) to follow Haskell examples.
     - this is a huge download and I've structured the tutorial to work without it too.
 
-## Running example
-
-* TODO
-
 ## Caveats
 
 * I am not a statistician (though I'm improving):
@@ -70,7 +66,6 @@ $ ./executeme --with-option 7
 
 ## My Code
 
-* My R code for the tutorial is available at TODO.
-* The Haskell code is available at TODO.
+The slides (and question sheets) are available at (http://aidandelaney.github.io/)[http://aidandelaney.github.io/].
 
 # References

@@ -24,6 +24,11 @@
     - component reuse
     - testing
 
+## Takeaways
+
+1. Declarative drawing of diagrams allows separation of concerns.
+2. Declarative drawing assists in rapid prototyping of visualisation.
+
 # Introduction
 
 ## R History
@@ -128,9 +133,10 @@ mtcars[c("gear", "mpg")]
 ## Types
 
 * bar chart
-* line chart
 * point chart
+* line chart
 * box & whisker chart
+* histogram
 
 ## BarChart
 
@@ -141,6 +147,27 @@ p <- ggplot(mtcars, aes(x=factor(cyl))) + geom_bar()
 plot(p)
 ```
 
+Will plot the count of cars that share a certain cylinder count.
+
+## Point Chart
+
+Let's plot the number of car models by their cylinder count.
+
+```R
+p <- ggplot(mtcars, aes(x=factor(cyl), y=mpg)) + geom_point()
+plot(p)
+```
+
+Requires both `x` and `y` aesthetics.
+
+## Line Chart
+
+Let's plot the number of car models by their cylinder count.
+
+```R
+p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_line()
+plot(p)
+```
 
 ## BoxPlot
 
@@ -162,21 +189,13 @@ ggplot(mtcars, aes(x=mpg)) + geom_histogram(binwidth=1)
 A piechart is a barchart with a single stacked bar
 
 ```R
-pie <- ggplot(mtcars, aes(x = 1, fill = factor(cyl))) + geom_bar(width = 1)
+pie <- ggplot(mtcars, aes(x = 1, fill = factor(cyl))) + geom_bar(position="stack")
 ```
 
 Plotted on a different coordinate space i.e. polar.
 
 ```R
-pie <- ggplot(mtcars, aes(x = 1, fill = factor(cyl))) + geom_bar(width = 1) + coord_polar(theta = "y")
-```
-
-## Polar BarChart
-
-We can change the coordinate system of any plot.
-
-```R
-p <- ggplot(mtcars, aes(x=factor(cyl))) + geom_bar(width = 1) + coord_polar()
+pie <- ggplot(mtcars, aes(x = 1, fill = factor(cyl))) + geom_bar(position="stack") + coord_polar(theta = "y")
 ```
 
 ## Histogram
@@ -360,3 +379,12 @@ p + xkcdrect(
 * The _Grammar of Graphics_ provides power and flexibility for generating statistical plots.
 * Statistical visualisations can be mixed with Anova and other tests.
 * The statistical "Diagrams of Diagrams" are generally straightforward to draw using `ggplot2`.
+
+## Takeaways
+
+1. Declarative drawing of diagrams allows separation of concerns.
+2. Declarative drawing assists in rapid prototyping of visualisation.
+
+## Exercises
+
+There are three exercises for you to tackle, available at [http://aidandelaney.github.io/handouts/2016DiagramsRTutorial-questions.pdf](http://aidandelaney.github.io/handouts/2016DiagramsRTutorial-questions.pdf).

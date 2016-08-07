@@ -26,6 +26,11 @@ Particularly useful for programmatic generation of large numbers of diagrams.  F
 
 ![https://byorgey.files.wordpress.com/2015/07/9bf376e5e3d8e6ab.png?w=640]
 
+## Takeaways
+
+1. Declarative drawing of diagrams allows separation of concerns.
+2. Declarative drawing assists in rapid prototyping of visualisation.
+
 # First Steps
 
 ## Haskell
@@ -165,5 +170,10 @@ Live demo from here on -- I shouldn't do this, but here we go.
 * The Diagrams EDSL is straightforward and useful.
 * Diagrams and Haskell supports refactoring.
     - a.k.a. exploring the data visualisation.
+
+## Takeaways
+
+1. Declarative drawing of diagrams allows separation of concerns.
+2. Declarative drawing assists in rapid prototyping of visualisation.
 
 # References
