@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney &amp; Brent Yorgey">
+  <title>Programming your Pictures in R</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Programming your Pictures in R</h1>
+  <h2 class="author">Aidan Delaney &amp; Brent Yorgey</h2>
+  <h3 class="date"><script type="text/javascript">
+<!--
+h='&#x6f;&#110;&#116;&#x6f;&#108;&#x6f;&#x67;&#x79;&#x65;&#110;&#x67;&#x69;&#110;&#x65;&#x65;&#114;&#x69;&#110;&#x67;&#46;&#x6f;&#114;&#x67;';a='&#64;';n='&#x61;&#x69;&#100;&#x61;&#110;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x61;&#x69;&#100;&#x61;&#110;&#32;&#x61;&#116;&#32;&#x6f;&#110;&#116;&#x6f;&#108;&#x6f;&#x67;&#x79;&#x65;&#110;&#x67;&#x69;&#110;&#x65;&#x65;&#114;&#x69;&#110;&#x67;&#32;&#100;&#x6f;&#116;&#32;&#x6f;&#114;&#x67;</noscript> | <a href="http://www.twitter.com/aidandelaney">@aidandelaney</a> <br /> <script type="text/javascript">
+<!--
+h='&#104;&#x65;&#110;&#100;&#114;&#x69;&#120;&#46;&#x65;&#100;&#x75;';a='&#64;';n='&#x79;&#x6f;&#114;&#x67;&#x65;&#x79;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x79;&#x6f;&#114;&#x67;&#x65;&#x79;&#32;&#x61;&#116;&#32;&#104;&#x65;&#110;&#100;&#114;&#x69;&#120;&#32;&#100;&#x6f;&#116;&#32;&#x65;&#100;&#x75;</noscript> | <a href="https://byorgey.wordpress.com">https://byorgey.wordpress.com/</a></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/motivation">Motivation</a></li>
+<li><a href="#/introduction">Introduction</a></li>
+<li><a href="#/first-steps">First Steps</a></li>
+<li><a href="#/simple-charts">Simple Charts</a></li>
+<li><a href="#/complex-diagrams">Complex Diagrams</a></li>
+<li><a href="#/ggplot2-grammar">ggplot2 Grammar</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+</ul>
+</section>
+
+<section><section id="motivation" class="titleslide slide level1"><h1>Motivation</h1></section><section id="bioinformatics" class="slide level2">
+<h1>Bioinformatics</h1>
+<figure>
+<img src="images/F2.large.jpg" alt="images/F2.large.jpg" /><figcaption>images/F2.large.jpg</figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>I first came across R working on a bioinformatics project.</li>
+<li>A de-facto standard for repeatable statistical tests:
+<ul>
+<li>available to <em>all</em> researchers.</li>
+</ul></li>
+<li><a href="https://mran.revolutionanalytics.com/">Microsoft R Open</a>.</li>
+<li>Becoming a de-facto standard for data science.</li>
+</ul>
+</aside>
+</section><section id="repeatability" class="slide level2">
+<h1>Repeatability</h1>
+<ul>
+<li>Fits into repeatable workflows: see <a href="https://taverna.incubator.apache.org/">Taverna</a>.</li>
+<li>Is a programming language, so:
+<ul>
+<li>supports standard software development processes such as source control eg: <a href="https://github.com/aidandelaney/euleR">euleR</a>.</li>
+<li>component reuse</li>
+<li>testing</li>
+</ul></li>
+</ul>
+</section><section id="takeaways" class="slide level2">
+<h1>Takeaways</h1>
+<ol type="1">
+<li>Declarative drawing of diagrams allows separation of concerns.</li>
+<li>Declarative drawing assists in rapid prototyping of visualisation.</li>
+</ol>
+</section></section>
+<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="r-history" class="slide level2">
+<h1>R History</h1>
+<ul>
+<li>Based on S, developed by John Chambers <span class="citation" data-cites="chambers:s">(Becker and Chambers 1984)</span>.</li>
+<li>Developed by Ross Ihaka and Robert Gentleman at University of Auckland <span class="citation" data-cites="ihaka:r">(Ihaka and Gentleman 1996)</span>.</li>
+<li>30 year old(ish) interpreted language for statistical computation.</li>
+<li>Well established
+<ul>
+<li>graphical IDE: <a href="https://www.rstudio.com/">RStudio</a>.</li>
+<li>third party packages: <a href="https://cran.r-project.org/">CRAN</a>.</li>
+<li>stewardship: <a href="https://www.r-project.org/foundation/">R Foundation</a>, <a href="https://www.r-project.org/conferences.html">useR! conference</a>.</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>https://en.wikipedia.org/wiki/Comparison_of_statistical_packages</li>
+</ul>
+</aside>
+</section><section id="gg" class="slide level2">
+<h1>GG</h1>
+<ul>
+<li>Leyland Wilkinson developed the <em>Grammar of Graphics</em> <span class="citation" data-cites="wilkinson:gg">(Wilkinson 2005)</span>.</li>
+<li>R impementation by Hadley Wickham in 2005 <span class="citation" data-cites="wickham:ggplot">(Wickham 2010)</span>
+<ul>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">Cheat Sheet</a>.</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<blockquote>
+<p>Statistical graphic specifications are expressed in six statements</p>
+<ol type="1">
+<li>DATA: a set of data operations that create variables from datasets</li>
+<li>TRANS: variable transformations</li>
+<li>SCALE: scale transformations</li>
+<li>COORD: a coordinate system</li>
+<li>ELEMENT: graphs and their aesthetic attributes</li>
+<li>GUIDE: one or more guides</li>
+</ol>
+</blockquote>
+</aside>
+</section></section>
+<section><section id="first-steps" class="titleslide slide level1"><h1>First Steps</h1></section><section id="r-dataframe" class="slide level2">
+<h1>R DataFrame</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">mpg</th>
+<th style="text-align: left;">cyl</th>
+<th style="text-align: left;">disp</th>
+<th style="text-align: left;">am</th>
+<th style="text-align: left;">gear</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mazda RX4</td>
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">160</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mazda RX4 Wag</td>
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">160</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Datsun 710</td>
+<td style="text-align: left;">22.8</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">108</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hornet 4 Drive</td>
+<td style="text-align: left;">21.4</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">258</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hornet Sportabout</td>
+<td style="text-align: left;">18.7</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">360</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Valiant</td>
+<td style="text-align: left;">18.1</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">225</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Duster 360</td>
+<td style="text-align: left;">14.3</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">360</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(mtcars)</code></pre></div>
+</aside>
+</section><section id="r-dataframe-1" class="slide level2">
+<h1>R DataFrame</h1>
+<ul>
+<li>Usually rows are the observations</li>
+<li>Columns are the variables</li>
+<li>Often (normally?) imported from a CSV or similar file.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars$mpg</code></pre></div>
+<p>Returns a vector of the values of the <code>mpg</code> variable in top-to-bottom row order.</p>
+</section><section id="importing-data" class="slide level2">
+<h1>Importing data</h1>
+<p>For a comma separated values file you can simply</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;patterns.csv&quot;</span>)</code></pre></div>
+<p>Import functions exist for Excel</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(xlsx)
+mydata &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(<span class="st">&quot;patterns.xlsx&quot;</span>, <span class="dt">sheetName =</span> <span class="st">&quot;all-data&quot;</span>)</code></pre></div>
+<p>and SPSS, SAS and several other file formats.</p>
+</section><section id="dataframe-queries" class="slide level2">
+<h1>DataFrame &quot;Queries&quot;</h1>
+<p>We can get dataframe information by column, row or create a <em>slice</em>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># by column</span>
+mtcars$gear
+mtcars[,<span class="st">&quot;gear&quot;</span>]
+
+<span class="co"># by row</span>
+mtcars[<span class="dv">1</span>,]
+mtcars[<span class="st">&quot;Fiat 128&quot;</span>,]
+
+<span class="co"># dataframe slice</span>
+mtcars[<span class="kw">c</span>(<span class="st">&quot;gear&quot;</span>, <span class="st">&quot;mpg&quot;</span>)]</code></pre></div>
+</section></section>
+<section><section id="simple-charts" class="titleslide slide level1"><h1>Simple Charts</h1></section><section id="types" class="slide level2">
+<h1>Types</h1>
+<ul>
+<li>bar chart</li>
+<li>point chart</li>
+<li>line chart</li>
+<li>box &amp; whisker chart</li>
+<li>histogram</li>
+</ul>
+</section><section id="barchart" class="slide level2">
+<h1>BarChart</h1>
+<p>Let's plot the number of car models by their cylinder count.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(cyl))) +<span class="st"> </span><span class="kw">geom_bar</span>()
+<span class="kw">plot</span>(p)</code></pre></div>
+<p>Will plot the count of cars that share a certain cylinder count.</p>
+</section><section id="point-chart" class="slide level2">
+<h1>Point Chart</h1>
+<p>Let's plot the number of car models by their cylinder count.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(cyl), <span class="dt">y=</span>mpg)) +<span class="st"> </span><span class="kw">geom_point</span>()
+<span class="kw">plot</span>(p)</code></pre></div>
+<p>Requires both <code>x</code> and <code>y</code> aesthetics.</p>
+</section><section id="line-chart" class="slide level2">
+<h1>Line Chart</h1>
+<p>Let's plot the number of car models by their cylinder count.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>mpg)) +<span class="st"> </span><span class="kw">geom_line</span>()
+<span class="kw">plot</span>(p)</code></pre></div>
+</section><section id="boxplot" class="slide level2">
+<h1>BoxPlot</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(cyl), <span class="dt">y=</span>mpg))
+p +<span class="st"> </span><span class="kw">geom_boxplot</span>()</code></pre></div>
+</section><section id="histogram" class="slide level2">
+<h1>Histogram</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>mpg)) +<span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth=</span><span class="dv">1</span>)</code></pre></div>
+</section></section>
+<section><section id="complex-diagrams" class="titleslide slide level1"><h1>Complex Diagrams</h1></section><section id="piechart" class="slide level2">
+<h1>PieChart</h1>
+<p>A piechart is a barchart with a single stacked bar</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pie &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">fill =</span> <span class="kw">factor</span>(cyl))) +<span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">position=</span><span class="st">&quot;stack&quot;</span>)</code></pre></div>
+<p>Plotted on a different coordinate space i.e. polar.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pie &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">fill =</span> <span class="kw">factor</span>(cyl))) +<span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">position=</span><span class="st">&quot;stack&quot;</span>) +<span class="st"> </span><span class="kw">coord_polar</span>(<span class="dt">theta =</span> <span class="st">&quot;y&quot;</span>)</code></pre></div>
+</section><section id="histogram-1" class="slide level2">
+<h1>Histogram</h1>
+<p>Plot a histogram with an overlaid normal distribution:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>mpg)) +
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">binwidth=</span><span class="dv">1</span>) +
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun=</span>dnorm,
+                <span class="kw">aes</span>(<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>),
+                <span class="dt">args =</span> <span class="kw">with</span>(mtcars, <span class="kw">c</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(mpg), <span class="dt">sd =</span> <span class="kw">sd</span>(mpg)))
+                ) +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Miles per gallon&quot;</span>, <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.direction =</span> <span class="st">&quot;horizontal&quot;</span>)</code></pre></div>
+</section><section id="complex-barchart" class="slide level2">
+<h1>Complex BarChart</h1>
+<p>Or similarly, let's use mean <code>mpg</code> as our <code>y</code> <em>aesthetic</em>. First we have to reshape our data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(ggplot2)
+<span class="kw">require</span>(reshape2)
+
+plot.data &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">tapply</span>(mtcars$mpg, <span class="kw">factor</span>(mtcars$cyl),mean), <span class="dt">varnames=</span><span class="st">&quot;cyl&quot;</span>, <span class="dt">value.name=</span><span class="st">&quot;mean&quot;</span>)
+<span class="kw">ggplot</span>(plot.data, <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(cyl),<span class="dt">y=</span>mean)) +<span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)</code></pre></div>
+<p>Or</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">y=</span>mpg, <span class="dt">x=</span><span class="kw">factor</span>(cyl), <span class="dt">group=</span><span class="kw">factor</span>(cyl))) +<span class="st"> </span><span class="kw">stat_summary</span>(<span class="dt">fun.y=</span>mean, <span class="dt">geom=</span><span class="st">&quot;bar&quot;</span>)</code></pre></div>
+</section><section id="short-example" class="slide level2">
+<h1>Short example</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>mpg, <span class="dt">y=</span>disp)) +<span class="st"> </span><span class="kw">geom_point</span>()
+<span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>mpg, <span class="dt">y=</span>disp)) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_smooth</span>()
+<span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>mpg, <span class="dt">y=</span>disp)) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_smooth</span>() +<span class="st"> </span><span class="kw">coord_flip</span>()
+<span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>mpg, <span class="dt">y=</span>disp)) +<span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span><span class="kw">factor</span>(am))) +<span class="st"> </span><span class="kw">geom_smooth</span>() +<span class="st"> </span><span class="kw">coord_flip</span>()
+
+<span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>mpg, <span class="dt">y=</span>disp)) +<span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span><span class="kw">factor</span>(am))) +<span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>) +<span class="st"> </span><span class="kw">coord_flip</span>()</code></pre></div>
+</section><section id="reusable-function" class="slide level2">
+<h1>Reusable Function</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ggplotRegression &lt;-<span class="st"> </span>function (fit) {
+
+<span class="kw">ggplot</span>(fit$model, <span class="kw">aes_string</span>(<span class="dt">x =</span> <span class="kw">names</span>(fit$model)[<span class="dv">2</span>], <span class="dt">y =</span> <span class="kw">names</span>(fit$model)[<span class="dv">1</span>])) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste</span>(<span class="st">&quot;Adj R2 = &quot;</span>,<span class="kw">signif</span>(<span class="kw">summary</span>(fit)$adj.r.squared, <span class="dv">5</span>),
+                     <span class="st">&quot;Intercept =&quot;</span>,<span class="kw">signif</span>(fit$coef[[<span class="dv">1</span>]],<span class="dv">5</span> ),
+                     <span class="st">&quot; Slope =&quot;</span>,<span class="kw">signif</span>(fit$coef[[<span class="dv">2</span>]], <span class="dv">5</span>),
+                     <span class="st">&quot; P =&quot;</span>,<span class="kw">signif</span>(<span class="kw">summary</span>(fit)$coef[<span class="dv">2</span>,<span class="dv">4</span>], <span class="dv">5</span>)))
+}
+
+fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg~disp, <span class="dt">data=</span>mtcars)
+<span class="kw">ggplotRegression</span>(fit)</code></pre></div>
+<aside class="notes">
+<ul>
+<li>Taken from <a href="https://susanejohnston.wordpress.com/2012/08/09/a-quick-and-easy-function-to-plot-lm-results-in-r/" class="uri">https://susanejohnston.wordpress.com/2012/08/09/a-quick-and-easy-function-to-plot-lm-results-in-r/</a></li>
+</ul>
+</aside>
+</section></section>
+<section><section id="ggplot2-grammar" class="titleslide slide level1"><h1>ggplot2 Grammar</h1></section><section id="overview" class="slide level2">
+<h1>Overview</h1>
+<ul>
+<li>Diagrams are built up in layers</li>
+<li>Each diagram has
+<ol type="1">
+<li>A <em>data</em> layer,</li>
+<li>a <em>stat</em> istics layer,</li>
+<li>a <em>geom</em> etry layer,</li>
+<li>a <em>scale</em> layer, and</li>
+<li>a <em>theme</em> layer.</li>
+</ol></li>
+<li>We can write <code>ggplot(mtcars, aes(x=mpg, y=disp)) + geom_point()</code> because of <em>sane defaults</em>.</li>
+</ul>
+</section><section id="data" class="slide level2">
+<h1>Data</h1>
+<ul>
+<li>Must be in a data frame.</li>
+<li>We map data columns to <em>aes</em> thetics.
+<ul>
+<li>generally <em>x</em> is required</li>
+<li><em>color</em> can be useful</li>
+<li><em>y</em> is required by some</li>
+</ul></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>cyl))
+&gt;<span class="st"> </span><span class="kw">summary</span>(p)
+data:<span class="st"> </span>mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb, x [32x12]
+mapping:<span class="st">  </span>x =<span class="st"> </span>cyl
+faceting:<span class="st"> </span><span class="kw">facet_null</span>()</code></pre></div>
+</section><section id="statistics" class="slide level2">
+<h1>Statistics</h1>
+<p>We can add <code>count</code> as a statistic layer to our plot</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>q &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">stat_count</span>()
+&gt;<span class="st"> </span><span class="kw">summary</span>(q)
+data:<span class="st"> </span>mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb, x [32x12]
+mapping:<span class="st">  </span>x =<span class="st"> </span>cyl
+faceting:<span class="st"> </span><span class="kw">facet_null</span>()
+-----------------------------------
+geom_bar:<span class="st"> </span>na.rm =<span class="st"> </span><span class="ot">FALSE</span>, width =<span class="st"> </span><span class="ot">NULL</span>
+stat_count:<span class="st"> </span>na.rm =<span class="st"> </span><span class="ot">FALSE</span>, width =<span class="st"> </span><span class="ot">NULL</span>
+position_stack</code></pre></div>
+</section><section id="geometry" class="slide level2">
+<h1>Geometry</h1>
+<p>We can choose a geometry to combine with our data and statistic:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>q &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">geom_bar</span>()
+&gt;<span class="st"> </span><span class="kw">summary</span>(q)
+data:<span class="st"> </span>mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb, x [32x12]
+mapping:<span class="st">  </span>x =<span class="st"> </span>cyl
+faceting:<span class="st"> </span><span class="kw">facet_null</span>()
+-----------------------------------
+geom_bar:<span class="st"> </span>na.rm =<span class="st"> </span><span class="ot">FALSE</span>, width =<span class="st"> </span><span class="ot">NULL</span>
+stat_count:<span class="st"> </span>na.rm =<span class="st"> </span><span class="ot">FALSE</span>, width =<span class="st"> </span><span class="ot">NULL</span>
+position_stack</code></pre></div>
+<p>We've made no difference yet, as adding <code>stat_count</code> gives a default of <code>geom_bar</code>.</p>
+</section><section id="geom-summary" class="slide level2">
+<h1>Geom Summary</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>),
+  <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>),
+  <span class="dt">label =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>)
+)
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(x, y, <span class="dt">label =</span> label)) +<span class="st"> </span><span class="kw">xlab</span>(<span class="ot">NULL</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="ot">NULL</span>)
+p +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;geom_point&quot;</span>)
+p +<span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>) +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;geom_bar(stat=</span><span class="ch">\&quot;</span><span class="st">identity</span><span class="ch">\&quot;</span><span class="st">)&quot;</span>)
+p +<span class="st"> </span><span class="kw">geom_line</span>() +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;geom_line&quot;</span>)
+p +<span class="st"> </span><span class="kw">geom_area</span>() +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;geom_area&quot;</span>)
+p +<span class="st"> </span><span class="kw">geom_path</span>() +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;geom_path&quot;</span>)
+p +<span class="st"> </span><span class="kw">geom_text</span>() +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;geom_text&quot;</span>)
+p +<span class="st"> </span><span class="kw">geom_tile</span>() +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;geom_tile&quot;</span>)
+p +<span class="st"> </span><span class="kw">geom_polygon</span>() +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;geom_polygon&quot;</span>)</code></pre></div>
+<p>The &quot;cheat sheet&quot; has many more types.</p>
+</section><section id="scales" class="slide level2">
+<h1>Scales</h1>
+<p>Adding a scale modifies the axes or:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p +<span class="st"> </span><span class="kw">scale_fill_brewer</span>()</code></pre></div>
+</section><section id="aesthetics" class="slide level2">
+<h1>Aesthetics</h1>
+<p>Implementing many of Tufte's guidelines becomes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p +<span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>) +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;geom_bar(stat=</span><span class="ch">\&quot;</span><span class="st">identity</span><span class="ch">\&quot;</span><span class="st">)&quot;</span>) +<span class="st"> </span><span class="kw">theme_minimal</span>()
+p +<span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>) +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;geom_bar(stat=</span><span class="ch">\&quot;</span><span class="st">identity</span><span class="ch">\&quot;</span><span class="st">)&quot;</span>) +<span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p>or my favourite</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p +<span class="st"> </span><span class="kw">xkcdrect</span>(
++<span class="st">     </span><span class="kw">aes</span>(<span class="dt">xmin =</span> x, <span class="dt">xmax =</span> x<span class="dv">+1</span>, <span class="dt">ymin =</span> <span class="dv">0</span>, <span class="dt">ymax =</span> y),
++<span class="st">     </span>df
++<span class="st"> </span>) +<span class="st"> </span><span class="kw">theme_xkcd</span>()</code></pre></div>
+</section></section>
+<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="takeaways-1" class="slide level2">
+<h1>Takeaways</h1>
+<ol type="1">
+<li>Declarative drawing of diagrams allows separation of concerns.</li>
+<li>Declarative drawing assists in rapid prototyping of visualisation.</li>
+</ol>
+</section><section id="exercises" class="slide level2">
+<h1>Exercises</h1>
+<p>There are three exercises for you to tackle, available at <a href="http://aidandelaney.github.io/handouts/2016DiagramsRTutorial-questions.pdf" class="uri">http://aidandelaney.github.io/handouts/2016DiagramsRTutorial-questions.pdf</a>.</p>
+</section><section id="references" class="slide level2 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-chambers:s">
+<p>Becker, R, and J Chambers. 1984. <em>S: An Interactive Environment for Data Analysis and Graphics</em>. Wadsworth &amp; Brooks/Cole.</p>
+</div>
+<div id="ref-ihaka:r">
+<p>Ihaka, R, and R Gentleman. 1996. “R: A Language for Data Analysis and Graphics.” <em>Journal of Computational and Graphical Statistics</em>, no. 5: 299–314.</p>
+</div>
+<div id="ref-wickham:ggplot">
+<p>Wickham, Hadley. 2010. “Ggplot2: Elegant Graphics for Data Analysis.” <em>Journal of Statistical Software</em> 35 (1).</p>
+</div>
+<div id="ref-wilkinson:gg">
+<p>Wilkinson, Leland. 2005. <em>The Grammar of Graphics</em>. 2nd ed. Springer-Verlag New York.</p>
+</div>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'linear', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
