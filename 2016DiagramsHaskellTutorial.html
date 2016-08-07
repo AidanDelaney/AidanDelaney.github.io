@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney &amp; Brent Yorgey">
+  <title>Programming your Pictures in Haskell</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Programming your Pictures in Haskell</h1>
+  <h2 class="author">Aidan Delaney &amp; Brent Yorgey</h2>
+  <h3 class="date"><script type="text/javascript">
+<!--
+h='&#x6f;&#110;&#116;&#x6f;&#108;&#x6f;&#x67;&#x79;&#x65;&#110;&#x67;&#x69;&#110;&#x65;&#x65;&#114;&#x69;&#110;&#x67;&#46;&#x6f;&#114;&#x67;';a='&#64;';n='&#x61;&#x69;&#100;&#x61;&#110;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x61;&#x69;&#100;&#x61;&#110;&#32;&#x61;&#116;&#32;&#x6f;&#110;&#116;&#x6f;&#108;&#x6f;&#x67;&#x79;&#x65;&#110;&#x67;&#x69;&#110;&#x65;&#x65;&#114;&#x69;&#110;&#x67;&#32;&#100;&#x6f;&#116;&#32;&#x6f;&#114;&#x67;</noscript> | <a href="http://www.twitter.com/aidandelaney">@aidandelaney</a> <br /> <script type="text/javascript">
+<!--
+h='&#104;&#x65;&#110;&#100;&#114;&#x69;&#120;&#46;&#x65;&#100;&#x75;';a='&#64;';n='&#x79;&#x6f;&#114;&#x67;&#x65;&#x79;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x79;&#x6f;&#114;&#x67;&#x65;&#x79;&#32;&#x61;&#116;&#32;&#104;&#x65;&#110;&#100;&#114;&#x69;&#120;&#32;&#100;&#x6f;&#116;&#32;&#x65;&#100;&#x75;</noscript> | <a href="https://byorgey.wordpress.com">https://byorgey.wordpress.com/</a></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/introduction">Introduction</a></li>
+<li><a href="#/first-steps">First Steps</a></li>
+<li><a href="#/case-study">Case Study</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+<li><a href="#/references">References</a></li>
+</ul>
+</section>
+
+<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="dsl" class="slide level2">
+<h1>DSL</h1>
+<ul>
+<li>Diagrams is a Domain Specific Language</li>
+<li>Uses many <em>combinators</em> to compose diagrams.</li>
+<li>Layout is handled in horizontal and vertical boxes</li>
+<li>similar to GTK</li>
+<li><a href="http://projects.haskell.org/diagrams/doc/quickstart.html">Excellent documentation</a></li>
+</ul>
+</section><section id="wide-usage" class="slide level2">
+<h1>Wide usage</h1>
+<ul>
+<li><a href="http://mathr.co.uk/blog/2013-04-05_weaving_a_torus.html">Weaving a Torus</a></li>
+<li><a href="https://idontgetoutmuch.wordpress.com/2013/10/23/parking-in-westminster-an-analysis-in-haskell/">Parking Maps</a></li>
+<li><a href="http://www.well-typed.com/blog/86/">System event visualisation</a></li>
+<li><a href="http://www.corentindupont.info/blog/posts/2014-02-17-Cretan-Maze.html">Maze Creation</a></li>
+<li><a href="https://maybepuzzles.wordpress.com/2014/04/07/drawing-puzzles-with-the-haskell-diagrams-framework/">Puzzle Generation</a></li>
+<li><a href="https://readerunner.wordpress.com/2014/04/29/red-black-neighbourhood-stencil-diagrams/">Data Type Documentation</a></li>
+<li><a href="https://martingalemeasure.wordpress.com/2014/07/07/haskell-numeric-types-quick-reference/">Tree Visualization</a></li>
+</ul>
+</section><section id="usage" class="slide level2">
+<h1>Usage</h1>
+<p>Particularly useful for programmatic generation of large numbers of diagrams. For instance <a href="https://byorgey.wordpress.com/2015/07/10/the-species-of-bracelets/">Bracelets</a>. Backends exist for SVG, PNG, PDF, HTML 5 canvas and GTK.</p>
+<p>[https://byorgey.files.wordpress.com/2015/07/9bf376e5e3d8e6ab.png?w=640]</p>
+</section></section>
+<section><section id="first-steps" class="titleslide slide level1"><h1>First Steps</h1></section><section id="haskell" class="slide level2">
+<h1>Haskell</h1>
+<p>Functions are defined with a type signature:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">example ::</span> <span class="dt">Diagram</span> <span class="dt">B</span></code></pre></div>
+<p>defines a function to return a <code>Diagram B</code>. Both <code>Diagram</code> and <code>B</code> are defined by the diagrams module.</p>
+<p>Functions are implemented as such:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">example <span class="fu">=</span> circle <span class="dv">1</span></code></pre></div>
+</section><section id="primitives" class="slide level2">
+<h1>Primitives</h1>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">example ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>
+example <span class="fu">=</span> circle <span class="dv">1</span> <span class="fu">|||</span> square <span class="dv">1</span> <span class="fu">|||</span> pentagon <span class="dv">1</span></code></pre></div>
+<p>See <a href="http://projects.haskell.org/diagrams/haddock/Diagrams-TwoD-Shapes.html">TwoD-Shapes</a> documentation for full details.</p>
+</section><section id="points-vectors" class="slide level2">
+<h1>Points &amp; Vectors</h1>
+<p>Diagrams doesn't conflate 2d points with 2d vectors! Many, many graphics APIs don't.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">r2 (<span class="dv">3</span>, <span class="dv">3</span>) <span class="co">-- a vector</span>
+p2 (<span class="dv">3</span>, <span class="dv">3</span>) <span class="co">-- a point</span></code></pre></div>
+</section><section id="beside" class="slide level2">
+<h1>Beside</h1>
+<p>Rather than side-by side positioning we can:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">example ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>
+example <span class="fu">=</span> beside (r2 (<span class="fl">0.5</span>, <span class="fl">0.5</span>)) (circle <span class="dv">1</span>) (square <span class="dv">1</span>)</code></pre></div>
+</section><section id="multiple-combinators" class="slide level2">
+<h1>Multiple Combinators</h1>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">example3 ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>
+example3 <span class="fu">=</span> (circle <span class="dv">2</span> <span class="fu">===</span> square <span class="dv">1</span>) <span class="fu">|||</span> pentagon <span class="dv">3</span></code></pre></div>
+</section><section id="attributes" class="slide level2">
+<h1># Attributes</h1>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">example2 ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>
+example2 <span class="fu">=</span> circle <span class="dv">2</span> <span class="fu">#</span> lc blue <span class="fu">|||</span> pentagon <span class="dv">3</span></code></pre></div>
+<p><code>\#</code> is simply a postfix function so <code>circle 1 # lc blue</code> is <code>lc blue (circle 1)</code></p>
+</section><section id="more-attributes" class="slide level2">
+<h1>More Attributes</h1>
+<p>FIXME</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">example4 ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>
+example4 <span class="fu">=</span> ((circle <span class="dv">2</span> <span class="fu">#</span> lc blue <span class="fu">===</span> square <span class="dv">1</span>) <span class="fu">|||</span> pentagon <span class="dv">3</span>) <span class="fu">#</span> centerXY</code></pre></div>
+</section><section id="horizontal-composition" class="slide level2">
+<h1>Horizontal composition</h1>
+<p>FIXME</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">example5 ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>
+example5 <span class="fu">=</span> hcat [(circle <span class="dv">2</span> <span class="fu">#</span> lc blue <span class="fu">===</span> square <span class="dv">1</span>)
+                 , pentagon <span class="dv">3</span>, triangle <span class="dv">4</span>] <span class="fu">#</span> centerXY</code></pre></div>
+</section><section id="vertical-composition" class="slide level2">
+<h1>Vertical composition</h1>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">example6 ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>
+example6 <span class="fu">=</span> vcat [circle <span class="dv">2</span> <span class="fu">#</span> lc blue
+                 , square <span class="dv">1</span>
+                 , pentagon <span class="dv">3</span>] <span class="fu">#</span> centerXY</code></pre></div>
+</section><section id="envelopes" class="slide level2">
+<h1>Envelopes</h1>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span><span class="ot"> example6 ::</span> <span class="dt">Diagram</span> <span class="dt">B</span>
+<span class="fu">&gt;</span> example6 <span class="fu">=</span> vcat [circle <span class="dv">2</span> <span class="fu">#</span> lc blue <span class="fu">#</span> showEnvelope&#39; (with <span class="fu">&amp;</span> eColor <span class="fu">.~</span> green)
+<span class="fu">&gt;</span>                 , square <span class="dv">1</span>
+<span class="fu">&gt;</span>                 , pentagon <span class="dv">3</span>] <span class="fu">#</span> centerY <span class="fu">#</span> showEnvelope&#39; (with <span class="fu">&amp;</span> eColor <span class="fu">.~</span> red)</code></pre></div>
+</section></section>
+<section><section id="case-study" class="titleslide slide level1"><h1>Case Study</h1></section><section id="tree-viz" class="slide level2">
+<h1>Tree Viz</h1>
+<p>We'll create a tree and visualise it's recursive structure.</p>
+</section><section id="tree" class="slide level2">
+<h1>Tree</h1>
+<p>The following is one way of implementing a binary tree.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Branch</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></pre></div>
+</section><section id="visualisation" class="slide level2">
+<h1>Visualisation</h1>
+<p>We'll visualise each leaf as a square:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">square <span class="dv">1</span></code></pre></div>
+</section><section id="patterns" class="slide level2">
+<h1>Patterns</h1>
+<p>We can use haskell's pattern matching to build our visualisation.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">boxes ::</span> <span class="dt">Tree</span> <span class="ot">-&gt;</span> <span class="dt">Diagram</span> <span class="dt">B</span>
+boxes <span class="dt">Leaf</span> <span class="fu">=</span> <span class="fu">...</span>
+boxes (<span class="dt">Branch</span> l r) <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
+</section><section id="danger" class="slide level2">
+<h1>Danger</h1>
+<p>Live demo from here on -- I shouldn't do this, but here we go.</p>
+</section></section>
+<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section></section>
+<section><section id="references" class="titleslide slide level1 unnumbered"><h1>References</h1></section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'linear', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
