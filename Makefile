@@ -12,5 +12,5 @@ all: ${HTML_OUTPUTS} ${PDF_OUTPUTS}
 	pdflatex $<
 
 %.tex: %.md
-	pandoc -s --filter=pandoc-svg.py --filter pandoc-citeproc  $< -t beamer -o $@ --bibliography bibliography.bib --slide-level=2
-	#pandoc -s --filter pandoc-citeproc  $< -t beamer -o $@ --bibliography bibliography.bib
+#	pandoc -s --filter=pandoc-svg.py --filter pandoc-citeproc  $< -t beamer -o $@ --bibliography bibliography.bib --slide-level=2
+	pandoc -s --filter pandoc-citeproc  $< -t beamer -o $@ --bibliography bibliography.bib

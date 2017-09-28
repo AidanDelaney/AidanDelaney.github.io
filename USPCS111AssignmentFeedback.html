@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney">
+  <title>Assignment 1 Feedback</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <script src="js/Mathjax/MathJax.js?config=TeX-AMS_HTML-full" type="text/javascript"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Assignment 1 Feedback</h1>
+  <p class="author">Aidan Delaney</p>
+  <p class="date"><a href="mailto:aidan@ontologyengineering.org">aidan@ontologyengineering.org</a> | <a href="http://www.twitter.com/aidandelaney">@aidandelaney</a></p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/assignment-1">Assignment 1</a></li>
+<li><a href="#/syntax-issues">Syntax Issues</a></li>
+<li><a href="#/semantic-issues">Semantic Issues</a></li>
+<li><a href="#/style-issues">Style Issues</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+</ul>
+</section>
+
+<section><section id="assignment-1" class="titleslide slide level1" data-background="#CCCCCC" data-transition="fade-in fade-out"><h1>Assignment 1</h1></section><section id="learning-objectives" class="slide level2">
+<h2>Learning Objectives</h2>
+<ul>
+<li>To review common misunderstandings as shown by Assignment 1</li>
+</ul>
+</section><section id="note" class="slide level2">
+<h2>Note</h2>
+<p>I have not copied code from any of your assignments to these slides. So if you recognise the pattern, then you made a common mistake.</p>
+</section></section>
+<section><section id="syntax-issues" class="titleslide slide level1"><h1>Syntax Issues</h1></section><section id="variable-declaration" class="slide level2">
+<h2>Variable declaration</h2>
+<p>Issue 1:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">char</span> choice = <span class="st">&#39;y&#39;</span> | <span class="st">&#39;Y&#39;</span> | <span class="st">&#39;q&#39;</span> | <span class="st">&#39;Q&#39;</span>;</code></pre></div>
+<p>Issue 2:</p>
+<pre><code>char y;
+char q;</code></pre>
+</section><section id="section" class="slide level2">
+<h2></h2>
+</section></section>
+<section><section id="semantic-issues" class="titleslide slide level1"><h1>Semantic Issues</h1></section><section id="multiple-srand" class="slide level2">
+<h2>Multiple <code>srand</code></h2>
+<p><code>srand</code> sets the seed of the random number generator. It only needs to be done once, not every time you ask for a random number.</p>
+<p>Calling <code>srand</code> multiple times suggests a lack of understanding in what is happening.</p>
+</section><section id="multiple-input-vars" class="slide level2">
+<h2>Multiple input vars</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> option1;
+<span class="dt">int</span> option2;
+<span class="dt">int</span> option3;</code></pre></div>
+<p>In this problem it is cleaner to have a single <code>option</code> and loop <code>3</code> times. Otherwise you have to write the validation code thrice.</p>
+</section><section id="p-vee-neg-p" class="slide level2">
+<h2><span class="math inline">\((P \vee \neg P)\)</span></h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="cf">if</span>(x&gt;<span class="dv">0</span>) {
+  <span class="co">// do something</span>
+} <span class="cf">else</span> <span class="cf">if</span> (x &lt;=<span class="dv">0</span>) {
+  <span class="co">// do something else</span>
+}</code></pre></div>
+</section><section id="missing-braces" class="slide level2">
+<h2>Missing braces</h2>
+<pre><code>for(int i;i&lt;10;i++)
+  cout &lt;&lt; i;
+  some_var = i * 2;</code></pre>
+<p>Because you omitted the braces, this has a different semantics than those (probably) intended.</p>
+</section><section id="all-input-is-tainted" class="slide level2">
+<h2>ALL INPUT IS TAINTED!!!</h2>
+<ul>
+<li>You <em>must</em> validate all user input.</li>
+<li>It is the first principle of application security.</li>
+<li>Garbage in - garbage out.</li>
+</ul>
+</section><section id="using-cin.ignore" class="slide level2">
+<h2>Using <code>cin.ignore()</code></h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">cin.ignore(<span class="dv">50</span>, <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>);</code></pre></div>
+<p>What happens if the user types more than 50 chars?</p>
+</section><section id="boolean-logic" class="slide level2">
+<h2>Boolean Logic</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="cf">if</span> (guess &gt; number &amp;&amp; guess &lt; number) {
+  <span class="co">// do something</span>
+}</code></pre></div>
+<p><a href="https://t.co/4mMj6VBw67">This Guy</a> can explain some boolean logic things.</p>
+</section></section>
+<section><section id="style-issues" class="titleslide slide level1"><h1>Style Issues</h1></section><section id="not-using-loops" class="slide level2">
+<h2>Not using loops</h2>
+<p>Some people wrote all the code <em>inline</em>. Suppose playing one round of a game is 50 lines of code, then inlining all three rounds is 150 lines of code.</p>
+<p>I hope that our discussions on <em>functions</em> have clarified your thinking on this.</p>
+</section><section id="indentation" class="slide level2">
+<h2>Indentation</h2>
+<p>This</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="cf">for</span>(<span class="dt">int</span> i=<span class="dv">0</span>;i&lt;<span class="dv">10</span>;i++) {
+<span class="cf">if</span>(i &gt; <span class="dv">5</span>) {
+cout &lt;&lt; i;
+}
+}</code></pre></div>
+<p>Should be</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="cf">for</span>(<span class="dt">int</span> i=<span class="dv">0</span>;i&lt;<span class="dv">10</span>;i++) {
+  <span class="cf">if</span>(i &gt; <span class="dv">5</span>) {
+    cout &lt;&lt; i;
+  }
+}</code></pre></div>
+</section><section id="swear-words" class="slide level2">
+<h2>Swear words</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// Can&#39;t get this ******** thing</span></code></pre></div>
+<p>This is unprofessional and insulting to the reader.</p>
+</section><section id="platform-specific-code" class="slide level2">
+<h2>Platform-specific code</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;windows.h&gt;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">system(<span class="st">&quot;PAUSE&quot;</span>);</code></pre></div>
+<p>We don't need to tie our code to a single platform.</p>
+</section></section>
+<section><section id="conclusion" class="titleslide slide level1" data-background="#00d414" data-transition="fade-in fade-out"><h1>Conclusion</h1></section><section id="section-1" class="slide level2">
+<h2></h2>
+<ul>
+<li>Some people made straightforward syntactic mistakes -- declaring unused variables.</li>
+<li>Many more had semantic issues -- ALL INPUT IS TAINED!</li>
+<li>Style issues are the easiest to fix and simply shouldn't happen.</li>
+</ul>
+</section><section id="thank-you" class="slide level2">
+<h2>Thank you</h2>
+<ul>
+<li>I'm always happy to answer questions over email.
+<ul>
+<li><a href="mailto:aidan.delaney@usp.ac.fj">aidan.delaney@usp.ac.fj</a> | <a href="http://www.twitter.com/aidandelaney">@aidandelaney</a></li>
+</ul></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'linear', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
