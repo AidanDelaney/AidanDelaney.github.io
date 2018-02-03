@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney aidan.delaney@usp.ac.fj">
+  <title>Introduction to CS111</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+  <link rel="stylesheet" href="css/pandoc.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Introduction to CS111</h1>
+  <p class="author">Aidan Delaney <a href="mailto:aidan.delaney@usp.ac.fj">aidan.delaney@usp.ac.fj</a></p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/hello">Hello</a></li>
+<li><a href="#/assessment">Assessment</a></li>
+<li><a href="#/computational-thinking">Computational Thinking</a></li>
+<li><a href="#/what-can-computers-do">What Can Computers Do?</a></li>
+<li><a href="#/what-can-computers-not-do">What Can Computers Not Do?</a></li>
+<li><a href="#/what-is-programming">What is Programming?</a></li>
+<li><a href="#/programming-in-c">Programming in C++</a></li>
+<li><a href="#/takeaway">Takeaway</a></li>
+</ul>
+</section>
+
+<section><section id="hello" class="titleslide slide level1"><h1>Hello</h1></section><section id="the-team" class="slide level2">
+<h2>The Team</h2>
+<p>CS111 coordinated by:</p>
+<ul>
+<li>Dr Aidan Delaney
+<ul>
+<li>ICT Building A</li>
+</ul></li>
+</ul>
+<p>Our lab team is:</p>
+<ul>
+<li>Vishal Chand</li>
+</ul>
+</section><section id="i-am" class="slide level2">
+<h2>I Am</h2>
+<ul>
+<li>Dr Aidan Delaney</li>
+<li>Email: <a href="mailto:aidan.delaney@usp.ac.fj">aidan.delaney@usp.ac.fj</a></li>
+<li>Github: <a href="https://github.com/AidanDelaney" class="uri">https://github.com/AidanDelaney</a></li>
+<li>Blogs: <a href="http://lambdau.com/" class="uri">http://lambdau.com/</a> and <a href="http://phoric.eu/" class="uri">http://phoric.eu/</a></li>
+</ul>
+</section><section id="about-me" class="slide level2">
+<h2>About Me</h2>
+<ul>
+<li>Academic for over 15 years (PhD in CS involving logic)</li>
+<li>Researcher in Visual Languages and Visual Reasoning.</li>
+<li>Shipped code in Haskell, C, Java, Perl, Python, C++, JavaScript &amp; others.</li>
+<li>Director of an Eastbourne not-for-profit <a href="http://techresort.co.uk/"><strong>TechResort</strong></a>.</li>
+<li>Involved with CAS for a while.</li>
+</ul>
+</section><section id="stuff-i-have-done" class="slide level2">
+<h2>Stuff I have done</h2>
+<ol start="0" type="1">
+<li>I run the <a href="www.diagrams-conference.org">Diagrams</a> series.</li>
+<li>C/Python RNA sequencing.</li>
+<li>Sketch recognition with Uni Kent and Uni Auckland.</li>
+<li>Work on high-assurance software in Haskell.</li>
+<li>Run several companies (none of which ever made money).</li>
+</ol>
+</section><section id="more-info" class="slide level2">
+<h2>More Info</h2>
+<ul>
+<li>I speak with an Irish accent (so ask me to clarify/slow down when necessary).</li>
+<li>I am regularly on Twitter.</li>
+<li>I like rugby.</li>
+</ul>
+</section><section id="lecture-times" class="slide level2">
+<h2>Lecture Times</h2>
+<dl>
+<dt>Monday</dt>
+<dd>0800-0900
+</dd>
+<dt>Thursday</dt>
+<dd>0800-0900
+</dd>
+<dt>Friday</dt>
+<dd>0800-0900
+</dd>
+</dl>
+</section><section id="lab-times" class="slide level2">
+<h2>Lab Times</h2>
+<dl>
+<dt>Monday</dt>
+<dd>1200-1400 &amp; 1400-1600
+</dd>
+<dt>Tuesday</dt>
+<dd>1200-1400 &amp; 1400-1600
+</dd>
+<dt>Thursday</dt>
+<dd>1200-1400
+</dd>
+<dt>Friday</dt>
+<dd>1200-1400
+</dd>
+</dl>
+</section><section id="lab-signup" class="slide level2">
+<h2>Lab Signup</h2>
+<p>You <strong>must</strong> sign up for a lab using our Moodle signup.</p>
+</section><section id="course-text" class="slide level2">
+<h2>Course Text</h2>
+<ul>
+<li>Available on Moodle.</li>
+<li>Open Access text.</li>
+<li><a href="https://github.com/AidanDelaney/ThinkCompSci-Cplusplus/tree/pacific-focus">Source Code is available</a></li>
+</ul>
+</section></section>
+<section><section id="assessment" class="titleslide slide level1"><h1>Assessment</h1></section><section id="course-work" class="slide level2">
+<h2>Course Work</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Weight</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Assignment 1</td>
+<td>10%</td>
+<td>On Moodle</td>
+</tr>
+<tr class="even">
+<td>Test</td>
+<td>15%</td>
+<td>Week 7</td>
+</tr>
+<tr class="odd">
+<td>Assignment 2</td>
+<td>10%</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>Weekly quizzes</td>
+<td>15%</td>
+<td>Each week</td>
+</tr>
+</tbody>
+</table>
+<p>You must attend at least 60% of the labs.</p>
+</section><section id="attendance" class="slide level2">
+<h2>Attendance</h2>
+<p>You must attend at least 60% of the labs.</p>
+<ul>
+<li>Weekly quizzes are open during lab times <em>only</em>.</li>
+<li>Completion of a weekly quiz registers your attendance.</li>
+</ul>
+</section><section id="exam" class="slide level2">
+<h2>Exam</h2>
+<ul>
+<li>Your end of semester exam is worth 50% of the total module marks.</li>
+</ul>
+</section><section id="assignment-1" class="slide level2">
+<h2>Assignment 1</h2>
+<p>Your assignment is available on Moodle.</p>
+<ul>
+<li>This will be done in groups of 3.</li>
+<li>Group signup will be open from lab 2 onwards.</li>
+<li>Moderated self-assessment.</li>
+</ul>
+<p>Note: Assignment 1 discussion here!</p>
+</section></section>
+<section><section id="computational-thinking" class="titleslide slide level1"><h1>Computational Thinking</h1></section><section id="elements" class="slide level2">
+<h2>Elements</h2>
+<dl>
+<dt>Decomposition</dt>
+<dd>Breaking down data, processes, or problems into smaller, manageable parts
+</dd>
+<dt>Pattern Recognition</dt>
+<dd>Observing patterns, trends, and regularities in data
+</dd>
+<dt>Abstraction</dt>
+<dd>Identifying the general principles that generate these patterns
+</dd>
+<dt>Algorithm Design</dt>
+<dd>Developing the step by step instructions for solving this and similar problems
+</dd>
+</dl>
+<p><cite><a href="https://computationalthinkingcourse.withgoogle.com/unit">Google's presentation</a> is a good introduction to Computational Thinking.</cite></p>
+</section><section id="concept-application" class="slide level2">
+<h2>Concept Application</h2>
+<table style="width:97%;">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">CT Concept</th>
+<th style="text-align: center;">CT Application</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Decomposition</td>
+<td style="text-align: center;"><strong>Literature</strong>: Break down the analysis of a poem into analysis of meter, rhyme, imagery, structure, tone, diction, and meaning.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Pattern Recognition</td>
+<td style="text-align: center;"><strong>Economics</strong>: Find cycle patterns in the rise and drop of the country's economy.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Abstraction</td>
+<td style="text-align: center;"><strong>Culinary Arts</strong>: Write a recipe for others to use.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Algorithm Design</td>
+<td style="text-align: center;"><strong>Chemistry</strong>: Determine the rules for chemical bonding and interactions.</td>
+</tr>
+</tbody>
+</table>
+</section><section id="jeanette-wing" class="slide level2">
+<h2>Jeanette Wing</h2>
+<ul>
+<li>Prof. at Columbia</li>
+<li>Developed, among <em>many</em> other things, the idea of Computational Thinking</li>
+</ul>
+<p>Her <a href="https://www.cs.cmu.edu/afs/cs/usr/wing/www/talks/ct-and-tc-long.pdf">CT presentation</a> is insightful.</p>
+<ul>
+<li>Check out the &quot;Simple Daily Examples&quot;!</li>
+</ul>
+</section></section>
+<section><section id="what-can-computers-do" class="titleslide slide level1"><h1>What Can Computers Do?</h1></section><section id="defining-computation" class="slide level2">
+<h2>Defining Computation</h2>
+</section></section>
+<section><section id="what-can-computers-not-do" class="titleslide slide level1"><h1>What Can Computers Not Do?</h1></section></section>
+<section><section id="what-is-programming" class="titleslide slide level1"><h1>What is Programming?</h1></section></section>
+<section><section id="programming-in-c" class="titleslide slide level1"><h1>Programming in C++</h1></section></section>
+<section><section id="takeaway" class="titleslide slide level1"><h1>Takeaway</h1></section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'linear', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
