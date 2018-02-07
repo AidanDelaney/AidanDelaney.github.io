@@ -10,6 +10,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
   <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
   <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
   <link rel="stylesheet" href="css/vmg.css"/>
   <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
@@ -40,7 +77,6 @@
 <li><a href="#/assessment">Assessment</a></li>
 <li><a href="#/computational-thinking">Computational Thinking</a></li>
 <li><a href="#/what-can-computers-do">What Can Computers Do?</a></li>
-<li><a href="#/what-can-computers-not-do">What Can Computers Not Do?</a></li>
 <li><a href="#/what-is-programming">What is Programming?</a></li>
 <li><a href="#/programming-in-c">Programming in C++</a></li>
 <li><a href="#/takeaway">Takeaway</a></li>
@@ -249,13 +285,62 @@
 <li>Check out the &quot;Simple Daily Examples&quot;!</li>
 </ul>
 </section></section>
-<section><section id="what-can-computers-do" class="titleslide slide level1"><h1>What Can Computers Do?</h1></section><section id="defining-computation" class="slide level2">
-<h2>Defining Computation</h2>
+<section><section id="what-can-computers-do" class="titleslide slide level1"><h1>What Can Computers Do?</h1></section><section id="automate-business-processes" class="slide level2" data-background-video="https://s3.amazonaws.com/cyclrcdn/videos/website-background-final.mp4, https://s3.amazonaws.com/cyclrcdn/videos/website-background-final.webm" data-transition="fade-in fade-out">
+<h2>Automate business processes</h2>
+</section><section id="control-industrial-systems" class="slide level2" data-background-image="https://media.giphy.com/media/26DNbCqVfLJbYrXIA/giphy.gif">
+<h2>Control industrial systems</h2>
+<ul>
+<li>mobile phone networks</li>
+<li>water networks</li>
+<li>hydrogen injection</li>
+</ul>
+</section><section id="process-data-sorting-searching" class="slide level2" data-background-image="https://www.geotab.com/geoimages/blog/data-visualization-101-2.png">
+<h2>Process data: sorting &amp; searching</h2>
+</section><section id="facilitate-communication" class="slide level2" data-background-image="http://www.martingrandjean.ch/wp-content/uploads/2015/12/StarWarsSocialNetworklarge.png">
+<h2>Facilitate communication</h2>
+<ul>
+<li>eg: translation, social networks</li>
+</ul>
+</section><section id="what-can-computers-not-do" class="slide level2">
+<h2>What Can Computers Not Do?</h2>
+<ul>
+<li>Love</li>
+<li>Think</li>
+<li>Solve <em>all</em> problems</li>
+</ul>
+<ol type="1">
+<li>If it can't be formalised then it can't be computed,</li>
+<li>There are some formalised problems that can't be computed,</li>
+<li>There are a large number of practical problems that can be computed but take too long to compute.</li>
+</ol>
+</section><section id="hard-problems" class="slide level2">
+<h2>Hard Problems</h2>
+<ul>
+<li>Travalling Salesman Problem</li>
+</ul>
 </section></section>
-<section><section id="what-can-computers-not-do" class="titleslide slide level1"><h1>What Can Computers Not Do?</h1></section></section>
-<section><section id="what-is-programming" class="titleslide slide level1"><h1>What is Programming?</h1></section></section>
-<section><section id="programming-in-c" class="titleslide slide level1"><h1>Programming in C++</h1></section></section>
-<section><section id="takeaway" class="titleslide slide level1"><h1>Takeaway</h1></section></section>
+<section><section id="what-is-programming" class="titleslide slide level1"><h1>What is Programming?</h1></section><section id="instruction-list" class="slide level2">
+<h2>Instruction List</h2>
+<p>Programming is the art of providing an <em>unambiguous</em> list of instructions to a computer.</p>
+<p><strong>Lovo Demo</strong></p>
+</section></section>
+<section><section id="programming-in-c" class="titleslide slide level1"><h1>Programming in C++</h1></section><section id="hello-world" class="slide level2">
+<h2>Hello World</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span>
+
+<span class="dt">int</span> main() {
+  <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;Hello, world&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;
+  <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+</section></section>
+<section><section id="takeaway" class="titleslide slide level1"><h1>Takeaway</h1></section><section id="section" class="slide level2">
+<h2></h2>
+<ul>
+<li>Sign up for a lab time <strong>now</strong>!</li>
+<li>Computers are useful</li>
+<li>Programming is useful to learn</li>
+</ul>
+</section></section>
     </div>
   </div>
 
