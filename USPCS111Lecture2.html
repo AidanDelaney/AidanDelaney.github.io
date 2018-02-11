@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney aidan.delaney@usp.ac.fj">
+  <title>Week 2 CS111</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+  <link rel="stylesheet" href="css/pandoc.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Week 2 CS111</h1>
+  <p class="author">Aidan Delaney <a href="mailto:aidan.delaney@usp.ac.fj">aidan.delaney@usp.ac.fj</a></p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/housekeeping">Housekeeping</a></li>
+<li><a href="#/the-console">The Console</a></li>
+<li><a href="#/purely-c11">Purely C++11</a></li>
+<li><a href="#/hello-world">Hello World</a></li>
+<li><a href="#/where-am-i">Where am I?</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+</ul>
+</section>
+
+<section><section id="housekeeping" class="titleslide slide level1"><h1>Housekeeping</h1></section><section id="acs-volunteers" class="slide level2">
+<h2>ACS Volunteers</h2>
+</section><section id="lab-at-1400-today" class="slide level2">
+<h2>Lab at 1400 today</h2>
+</section><section id="assignment-1" class="slide level2">
+<h2>Assignment 1</h2>
+<ul>
+<li>Group sign-up now open.</li>
+<li>Groups only for <em>face-to-face students</em>.</li>
+<li>No assignment groups for online students.</li>
+</ul>
+</section><section id="so-far" class="slide level2">
+<h2>So Far</h2>
+<ul>
+<li>Lab work is not assessed</li>
+<li>Assessments include
+<ul>
+<li>weekly quizzes</li>
+<li>assignment 1 (due date on Moodle)</li>
+<li>assignment 2</li>
+<li>mid-semester test</li>
+<li>end of semester exam</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="the-console" class="titleslide slide level1"><h1>The Console</h1></section><section id="in-the-beginning" class="slide level2">
+<h2>In the beginning</h2>
+<ul>
+<li><a href="http://cristal.inria.fr/~weis/info/commandline.html">was the command line</a></li>
+<li>A text-only mechanism for input and output.</li>
+<li>It can be used to control systems.</li>
+<li>We use it as an environment for our simple programs.</li>
+</ul>
+</section><section id="but" class="slide level2">
+<h2>But</h2>
+<p>The command line, i.e <strong>console</strong>, is <em>very</em> restricted.</p>
+<ul>
+<li>We only use the console for text output and text input.</li>
+<li>There is no nice graphical interation.</li>
+<li>You need to learn to interact in computers using a less forgiving metaphor.</li>
+</ul>
+</section><section id="output-only" class="slide level2">
+<h2>Output only</h2>
+<p>Output to the console prints a single character at a time.</p>
+<p>Everything in the console is a character.</p>
+<p>The <em>end of line</em> is marked with an <code>endl</code> character.</p>
+<ul>
+<li>No <code>endl</code> no <em>end of line</em>.</li>
+</ul>
+</section><section id="no-backsies" class="slide level2">
+<h2>No Backsies</h2>
+<ul>
+<li>After outputting a character, you can't go back and change it.</li>
+<li>You can't clear the screen</li>
+</ul>
+<p><strong>any designs you have must take this into account</strong> i.e. don't try and do something impossible.</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="er">$</span> batlestar</code></pre></div>
+</section><section id="adom" class="slide level2">
+<h2>ADOM</h2>
+<figure>
+<img src="images/TextModeVGUI.png" alt="ADOM Game" /><figcaption>ADOM Game</figcaption>
+</figure>
+</section></section>
+<section><section id="purely-c11" class="titleslide slide level1"><h1>Purely C++11</h1></section><section id="stdcout" class="slide level2">
+<h2><code>std::cout</code></h2>
+<ul>
+<li>The C++ mechanism for outputting to screen.</li>
+<li><code>std::</code> refers to the fact that it is in the C++ <em>standard</em>.</li>
+<li><code>cout</code> is short for <em>console out</em>.</li>
+</ul>
+</section><section id="stdendl" class="slide level2">
+<h2><code>std::endl</code></h2>
+<ul>
+<li><code>endl</code> means end-of-line.</li>
+<li>We need a special symbol for end of line as
+<ul>
+<li>UNIX uses <code>\n</code>.</li>
+<li>Windows uses <code>\r\n</code>.</li>
+<li>other platforms vary.</li>
+</ul></li>
+</ul>
+</section><section id="iostream" class="slide level2">
+<h2><code>iostream</code></h2>
+<ul>
+<li>Both <code>std::cout</code> and <code>std::endl</code> live in <code>iostream</code>.</li>
+<li><code>iostream</code> is the C++ Input/Output stream library.</li>
+<li>We need to include <code>iostream</code> into our programs.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></code></pre></div>
+</section><section id="section" class="slide level2">
+<h2><code>&lt;&lt;</code></h2>
+<ul>
+<li>The <code>&lt;&lt;</code> symbol (we'll call it a single symbol) directs output.</li>
+<li>We can direct information to the <em>console out</em>.</li>
+</ul>
+</section></section>
+<section><section id="hello-world" class="titleslide slide level1"><h1>Hello World</h1></section><section id="first-program" class="slide level2">
+<h2>First program</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span>
+
+<span class="dt">int</span> main() {
+  <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;Hello, world&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;
+  <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+</section><section id="notation" class="slide level2">
+<h2>Notation</h2>
+<dl>
+<dt>parentheses</dt>
+<dd><code>(</code> is a left parenthesis and <code>)</code> is a right parenthesis. You might commonly call these brackets, but programmers use the technical names for them.
+</dd>
+<dt>braces</dt>
+<dd>we've already seen <code>{</code> and <code>}</code> referred to as braces or curly braces.
+</dd>
+<dt>angular brackets</dt>
+<dd>the <code>&lt;</code> and <code>&gt;</code> characters are left and right angular brackets respectively.
+</dd>
+<dt>colons</dt>
+<dd>the <code>:</code> is a colon, whereas <code>;</code> is a semi-colon.
+</dd>
+</dl>
+</section><section id="anatomy" class="slide level2">
+<h2>Anatomy</h2>
+<ul>
+<li>Included libraries at the top.</li>
+<li>Some strange <code>int main()</code> stuff.</li>
+<li>Lines of code between the <code>{</code> and <code>}</code>.</li>
+<li>Each code statement ends with a <code>;</code>.</li>
+</ul>
+</section><section id="main" class="slide level2">
+<h2><code>main()</code></h2>
+<ul>
+<li>Is the starting point defined by Ken Thompson.</li>
+<li>All executable <code>C++</code> programs have a <code>main()</code> function.</li>
+<li>The program must have the signature:
+<ul>
+<li><code>int main()</code></li>
+</ul></li>
+<li>And the code is contained between braces.</li>
+</ul>
+</section><section id="return-0" class="slide level2">
+<h2><code>return 0</code></h2>
+<ul>
+<li>I'll explain this soon.</li>
+<li>Right now, all programs need to <code>return 0;</code> on their last line.</li>
+</ul>
+</section><section id="read-through" class="slide level2">
+<h2>Read-through</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span>
+
+<span class="dt">int</span> main() {
+  <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;Hello, world&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;
+  <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+</section></section>
+<section><section id="where-am-i" class="titleslide slide level1"><h1>Where am I?</h1></section><section id="self-evaluation" class="slide level2">
+<h2>Self Evaluation</h2>
+<ul>
+<li>Right now we're looking at simple things.</li>
+<li>We need to have <em>good style</em> in our code.</li>
+</ul>
+</section><section id="great-style" class="slide level2">
+<h2>Great Style</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span>
+
+<span class="dt">int</span> main() {
+  <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;Hello, world&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;
+  <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+<ul>
+<li>Great use of indentation.</li>
+</ul>
+</section><section id="acceptable-style" class="slide level2">
+<h2>Acceptable Style</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span>
+<span class="dt">int</span> main() {
+<span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;Hello, world&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;
+  <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+<ul>
+<li>Janky indentation.</li>
+</ul>
+</section><section id="poor-style" class="slide level2">
+<h2>Poor Style</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include</span><span class="im">&lt;iostream&gt;</span>
+<span class="dt">int</span> main() {<span class="bu">std::</span>cout&lt;&lt;<span class="st">&quot;Hello, world&quot;</span>&lt;&lt;<span class="bu">std::</span>endl;
+<span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+<ul>
+<li>No use of indentation</li>
+</ul>
+</section><section id="poor-style-1" class="slide level2">
+<h2>Poor Style</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span>
+<span class="pp">#include </span><span class="im">&lt;cstdlib&gt;</span>
+
+<span class="dt">int</span> main() {
+  <span class="bu">std::</span>cout&lt;&lt;<span class="st">&quot;Hello, world&quot;</span>&lt;&lt;<span class="bu">std::</span>endl;
+  <span class="bu">std::</span>system(<span class="st">&quot;CLR&quot;</span>);
+
+  <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+<ul>
+<li>Windows only -- here you're using the Windows command intepreter to run the <code>CLR</code> command.</li>
+</ul>
+</section><section id="frequent-issues" class="slide level2">
+<h2>Frequent Issues</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">using</span> <span class="kw">namespace</span> std;</code></pre></div>
+<p>Mistaking <code>&lt;&lt;</code> and <code>&gt;&gt;</code>.</p>
+</section></section>
+<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="simple-output" class="slide level2">
+<h2>Simple Output</h2>
+<ul>
+<li>We can write simple programs that output text.</li>
+<li>We understand the value of good code layout.</li>
+<li>We understand <code>std::</code>, <code>std::cout</code> and <code>std::endl</code>.</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'linear', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
