@@ -77,6 +77,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#/the-console">The Console</a></li>
 <li><a href="#/purely-c11">Purely C++11</a></li>
 <li><a href="#/hello-world">Hello World</a></li>
+<li><a href="#/compiling">Compiling</a></li>
 <li><a href="#/where-am-i">Where am I?</a></li>
 <li><a href="#/conclusion">Conclusion</a></li>
 </ul>
@@ -235,6 +236,76 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;Hello, world&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;
   <span class="cf">return</span> <span class="dv">0</span>;
 }</code></pre></div>
+</section></section>
+<section><section id="compiling" class="titleslide slide level1"><h1>Compiling</h1></section><section id="translation" class="slide level2">
+<h2>Translation</h2>
+<ul>
+<li>The compilation process translates our <em>high level</em> code into machine executable code.</li>
+<li><a href="https://godbolt.org/g/oHKG5Z">Click here</a> for an example.</li>
+<li>Using C++ this is a two step process.</li>
+</ul>
+</section><section id="process" class="slide level2">
+<h2>Process</h2>
+<ul>
+<li>Two step process</li>
+</ul>
+<ol type="1">
+<li>Compiling the code</li>
+<li>Linking the code</li>
+</ol>
+</section><section id="compiling-1" class="slide level2">
+<h2>Compiling</h2>
+<ul>
+<li>Translate the code you've written into machine code <strong>with gaps</strong>.</li>
+<li>The gaps are symbol names that are defined on your operating system.
+<ul>
+<li>for example <code>endl</code></li>
+</ul></li>
+</ul>
+</section><section id="compiling-eg" class="slide level2">
+<h2>Compiling Eg</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">objdump</span> -t hello_world.o
+
+<span class="ex">hello_world.o</span>:     file format elf64-x86-64
+
+<span class="ex">SYMBOL</span> TABLE:
+<span class="ex">0000000000000000</span> l    df *ABS*  0000000000000000 hello_world.cpp
+<span class="ex">0000000000000000</span> l    d  .text  0000000000000000 .text
+<span class="ex">0000000000000000</span> l    d  .data  0000000000000000 .data
+<span class="ex">0000000000000000</span> l    d  .bss   0000000000000000 .bss
+<span class="ex">0000000000000000</span> l    d  .rodata    0000000000000000 .rodata
+<span class="ex">0000000000000000</span> l     O .rodata    0000000000000001 _ZStL19piecewise_construct
+<span class="ex">0000000000000000</span> l     O .bss   0000000000000001 _ZStL8__ioinit
+<span class="ex">0000000000000027</span> l     F .text  000000000000003e _Z41__static_initialization_and_destruction_0ii
+<span class="ex">0000000000000065</span> l     F .text  0000000000000015 _GLOBAL__sub_I_main
+<span class="ex">0000000000000000</span> l    d  .init_array    0000000000000000 .init_array
+<span class="ex">0000000000000000</span> l    d  .note.GNU-stack    0000000000000000 .note.GNU-stack
+<span class="ex">0000000000000000</span> l    d  .eh_frame  0000000000000000 .eh_frame
+<span class="ex">0000000000000000</span> l    d  .comment   0000000000000000 .comment
+<span class="ex">0000000000000000</span> g     F .text  0000000000000027 main
+<span class="ex">0000000000000000</span>         *UND*  0000000000000000 _ZSt4cout
+<span class="ex">0000000000000000</span>         *UND*  0000000000000000 _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+<span class="ex">0000000000000000</span>         *UND*  0000000000000000 _ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+<span class="ex">0000000000000000</span>         *UND*  0000000000000000 _ZNSolsEPFRSoS_E
+<span class="ex">0000000000000000</span>         *UND*  0000000000000000 _ZNSt8ios_base4InitC1Ev
+<span class="ex">0000000000000000</span>         *UND*  0000000000000000 .hidden __dso_handle
+<span class="ex">0000000000000000</span>         *UND*  0000000000000000 _ZNSt8ios_base4InitD1Ev
+<span class="ex">0000000000000000</span>         *UND*  0000000000000000 __cxa_atexit</code></pre></div>
+</section><section id="linking" class="slide level2">
+<h2>Linking</h2>
+<blockquote>
+<p>it takes a name written by a programmer such as getline and binds it to &quot;the location 612 bytes from the beginning of the executable code in module iosys.&quot;</p>
+</blockquote>
+<p>http://www.iecc.com/linker/linker01.html</p>
+</section><section id="ide" class="slide level2">
+<h2>IDE</h2>
+<figure>
+<img src="images/IDE.png" alt="IDE" /><figcaption>IDE</figcaption>
+</figure>
+</section><section id="command-line" class="slide level2">
+<h2>Command Line</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">g++</span> -c hello_world.cpp
+$ <span class="ex">g++</span> -o hello_world hello_world.o</code></pre></div>
 </section></section>
 <section><section id="where-am-i" class="titleslide slide level1"><h1>Where am I?</h1></section><section id="self-evaluation" class="slide level2">
 <h2>Self Evaluation</h2>
