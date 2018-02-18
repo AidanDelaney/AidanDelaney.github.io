@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney aidan.delaney@usp.ac.fj">
+  <title>Week 3 CS111</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+  <link rel="stylesheet" href="css/pandoc.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Week 3 CS111</h1>
+  <p class="author">Aidan Delaney <a href="mailto:aidan.delaney@usp.ac.fj">aidan.delaney@usp.ac.fj</a></p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/types">Types</a></li>
+<li><a href="#/where-am-i">Where am I?</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+</ul>
+</section>
+
+<section><section id="types" class="titleslide slide level1"><h1>Types</h1></section><section id="section" class="slide level2">
+<h2></h2>
+<ul>
+<li>Types are a fundamental <strong>design languge</strong> for programmers</li>
+</ul>
+<blockquote>
+<p>A design language is an overarching scheme or style that guides the design of a complement of products or architectural settings. From <a href="https://en.wikipedia.org/wiki/Design_language">Wikipeda: The Free Encyclopedia</a></p>
+</blockquote>
+</section><section id="industial" class="slide level2">
+<h2>Industial</h2>
+<ul>
+<li>Braun as an example -- &quot;less but better&quot;</li>
+<li><a href="https://www.behance.net/gallery/14324153/Braun-Design-Language">Example here</a></li>
+<li><a href="http://www.braun.com/-/media/medialib/downloads/global/world-of-braun/braun-strength-of-pure-brochure.pdf">The corporate line</a></li>
+<li><p>c.f. with <a href="www.cultofmac.com/188753/the-braun-products-that-inspired-apples-iconic-designs-gallery/">Apple design</a></p></li>
+<li><p><a href="https://www.designprinciplesftw.com/collections/ten-principles-for-good-design">What to expect</a>? Durable, Understandable, Unobtrusive...</p></li>
+</ul>
+</section><section id="ux" class="slide level2">
+<h2>UX</h2>
+<ul>
+<li>Google's <em>Material Design</em> -- &quot;unlike real paper, our digital material can expand and reform intelligently. Material has physical surfaces and edges. Seams and shadows provide meaning about what you can touch.&quot;</li>
+<li><a href="https://material.io/">Home page</a></li>
+<li><p><a href="https://upload.wikimedia.org/wikipedia/commons/9/9c/Material_Design.svg">Example</a></p></li>
+<li><p><a href="https://material.io/guidelines/">What to expect?</a> &quot;single underlying system that allows for a unified experience across platforms and device sizes&quot;</p></li>
+</ul>
+</section><section id="back-to-types" class="slide level2">
+<h2>Back to Types</h2>
+<p>A function with the folowing signature</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> function_name(<span class="dt">int</span> x)</code></pre></div>
+<p>takes a whole number and returns a whole number.</p>
+<p>Hence, the view of types as a design language. We consruct our programs from type and around types.</p>
+</section><section id="list-of-types" class="slide level2">
+<h2>List of Types</h2>
+<p>The following are some primitive types in C++:</p>
+<ul>
+<li><code>int</code></li>
+<li><code>uint</code></li>
+<li><code>float</code></li>
+<li><code>double</code></li>
+<li><code>bool</code></li>
+</ul>
+</section><section id="complex-types" class="slide level2">
+<h2>Complex Types</h2>
+<p>The following are useful, non-primitive types:</p>
+<ul>
+<li><code>std::string</code> from <code>&lt;string&gt;</code></li>
+<li><code>std::shared_ptr</code> from <code>&lt;memory&gt;</code></li>
+</ul>
+</section><section id="variables" class="slide level2">
+<h2>Variables</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="ex">uint</span> age(<span class="dv">21</span>);
+<span class="bu">std::</span>string name (<span class="st">&quot;Hiro Protagonist&quot;</span>);</code></pre></div>
+</section><section id="variable-names" class="slide level2">
+<h2>Variable Names</h2>
+<ul>
+<li>Variables should have a name that describes what they contain.</li>
+<li><code>age</code> is good.</li>
+<li><code>age_of_character</code> is better in many contexts.</li>
+<li>variable names <strong>must</strong> start with a letter.</li>
+<li>variable names <strong>must not</strong> contain a space or any of $%*&amp;@.</li>
+<li>In most companies variable names <strong>must</strong> be in English.</li>
+</ul>
+</section><section id="using-variables" class="slide level2">
+<h2>Using Variables</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;string&gt;</span>
+<span class="pp">#include </span><span class="im">&lt;iostring&gt;</span>
+
+<span class="dt">int</span> main() {
+  <span class="ex">uint</span> age(<span class="dv">21</span>);
+  <span class="bu">std::</span>string name (<span class="st">&quot;Hiro Protagonist&quot;</span>);
+  
+  <span class="bu">std::</span>cout &lt;&lt; name &lt;&lt; <span class="st">&quot; is &quot;</span> &lt;&lt; age &lt;&lt; <span class="st">&quot; years old&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;
+}</code></pre></div>
+</section></section>
+<section><section id="where-am-i" class="titleslide slide level1"><h1>Where am I?</h1></section><section id="self-evaluation" class="slide level2">
+<h2>Self Evaluation</h2>
+<ul>
+<li>We need to have <em>good style</em> in our code.</li>
+<li>Good indentation.</li>
+<li>Good variable names.</li>
+</ul>
+</section></section>
+<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="simple-output" class="slide level2">
+<h2>Simple Output</h2>
+<ul>
+<li>We can write simple programs that output text.</li>
+<li>We understand the value of good code layout.</li>
+<li>We understand <code>std::</code>, <code>std::cout</code> and <code>std::endl</code>.</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'linear', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
