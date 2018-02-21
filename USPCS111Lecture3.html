@@ -74,6 +74,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="TOC">
 <ul>
 <li><a href="#/types">Types</a></li>
+<li><a href="#/scope">Scope</a></li>
 <li><a href="#/where-am-i">Where am I?</a></li>
 <li><a href="#/conclusion">Conclusion</a></li>
 </ul>
@@ -152,6 +153,56 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   
   <span class="bu">std::</span>cout &lt;&lt; name &lt;&lt; <span class="st">&quot; is &quot;</span> &lt;&lt; age &lt;&lt; <span class="st">&quot; years old&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;
 }</code></pre></div>
+</section><section id="updating-variables" class="slide level2">
+<h2>Updating Variables</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;string&gt;</span>
+<span class="pp">#include </span><span class="im">&lt;iostring&gt;</span>
+
+<span class="dt">int</span> main() {
+  <span class="ex">uint</span> age(<span class="dv">21</span>);
+  age = <span class="dv">24</span>;
+  
+  <span class="bu">std::</span>cout &lt;&lt; age &lt;&lt; <span class="bu">std::</span>endl;
+}</code></pre></div>
+</section><section id="constant-variables" class="slide level2">
+<h2>Constant Variables</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;string&gt;</span>
+<span class="pp">#include </span><span class="im">&lt;iostring&gt;</span>
+
+<span class="dt">int</span> main() {
+  <span class="at">const</span> <span class="ex">uint</span> age(<span class="dv">21</span>);
+  age = <span class="dv">24</span>; <span class="co">// not allowed</span>
+  
+  <span class="bu">std::</span>cout &lt;&lt; age &lt;&lt; <span class="bu">std::</span>endl;
+}</code></pre></div>
+<ul>
+<li>The idea of constant variables is <em>very</em> useful when we come to functions.</li>
+</ul>
+</section></section>
+<section><section id="scope" class="titleslide slide level1"><h1>Scope</h1></section><section id="existence" class="slide level2">
+<h2>Existence</h2>
+<p>Variables exist only within the <strong>scope</strong> in which they are defined.</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> main() {
+  <span class="dt">int</span> my_var(<span class="dv">42</span>);
+  
+  <span class="co">// more lines of code here</span>
+  
+  <span class="bu">std::</span>cout &lt;&lt; my_var &lt;&lt; <span class="bu">std::</span>endl;
+}</code></pre></div>
+</section><section id="more-scope" class="slide level2">
+<h2>More Scope</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> main() {
+  <span class="dt">int</span> my_var(<span class="dv">42</span>);
+  
+  {
+     <span class="dt">int</span> another_var(<span class="dv">7</span>);
+     <span class="bu">std::</span>cout &lt;&lt; another_var &lt;&lt; <span class="bu">std::</span>endl;
+  }
+  <span class="co">// more lines of code here</span>
+  
+  <span class="co">// ERROR!!</span>
+  <span class="bu">std::</span>cout &lt;&lt; my_var &lt;&lt; another_var &lt;&lt; <span class="bu">std::</span>endl;
+}</code></pre></div>
 </section></section>
 <section><section id="where-am-i" class="titleslide slide level1"><h1>Where am I?</h1></section><section id="self-evaluation" class="slide level2">
 <h2>Self Evaluation</h2>
@@ -159,6 +210,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>We need to have <em>good style</em> in our code.</li>
 <li>Good indentation.</li>
 <li>Good variable names.</li>
+</ul>
+</section><section id="global-variables" class="slide level2">
+<h2>Global variables</h2>
+<ul>
+<li>global variables are <strong>a bad thing(tm)</strong>.</li>
+<li><code>const</code> globals are sometimes OK.
+<ul>
+<li>eg: pi</li>
+</ul></li>
 </ul>
 </section></section>
 <section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="simple-output" class="slide level2">
