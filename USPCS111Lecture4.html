@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney aidan.delaney@usp.ac.fj">
+  <title>Week 4 CS111</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+  <link rel="stylesheet" href="css/pandoc.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Week 4 CS111</h1>
+  <p class="author">Aidan Delaney <a href="mailto:aidan.delaney@usp.ac.fj">aidan.delaney@usp.ac.fj</a></p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/functions">Functions</a></li>
+<li><a href="#/testing-functions">Testing Functions</a></li>
+<li><a href="#/returning-void">Returning <code>void</code></a></li>
+<li><a href="#/decomposing-problems">Decomposing Problems</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+</ul>
+</section>
+
+<section><section id="functions" class="titleslide slide level1"><h1>Functions</h1></section><section id="section" class="slide level2">
+<h2></h2>
+<ul>
+<li>IF Types are a fundamental <strong>design languge</strong> for programmers
+<ul>
+<li>THEN functions are the basic unit of composition and reuse.</li>
+</ul></li>
+</ul>
+</section><section id="example-i" class="slide level2">
+<h2>Example I</h2>
+<p><img src="https://static.houselogic.com/content/images/portable-generators-lessons-learned_3x2_643e70a504708a60ab096ba01044b7b2_540x360_q85.jpg" alt="Portable Electric Generator" /><!-- .element: style="float: right; width: 40%" --></p>
+<dl>
+<dt>Input</dt>
+<dd>Gasoline
+</dd>
+<dt>Output</dt>
+<dd>Electricity
+</dd>
+</dl>
+</section><section id="example-ii" class="slide level2">
+<h2>Example II</h2>
+<dl>
+<dt>Input</dt>
+<dd><code>&gt;=</code> RON 95 Gasoline
+</dd>
+<dt>Output</dt>
+<dd>220 V, 50Hz, 13A electricity
+</dd>
+</dl>
+</section><section id="example-iii" class="slide level2">
+<h2>Example III</h2>
+<ul>
+<li>The <strong>type</strong> of <code>Gasoline</code> mentioned as input can be passed to out <code>portable_generator</code> function.</li>
+<li>The <strong>type</strong> of <code>Electricity</code> mentioned as output can be used to power
+<ul>
+<li>an electric car,</li>
+<li>a mobile phone,</li>
+<li>...</li>
+</ul></li>
+<li>The electric generator is a function that maps from <code>Gasoline</code> to <code>Electricity</code>.</li>
+</ul>
+</section><section id="first-function" class="slide level2">
+<h2>First Function</h2>
+<p>Let's write a function that takes two integers and returns their product as a result.</p>
+<p>This function has the signature:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> mult(<span class="dt">int</span> x, <span class="dt">int</span> y)</code></pre></div>
+</section><section id="mult" class="slide level2">
+<h2><code>mult</code></h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span>
+
+<span class="dt">int</span> mult(<span class="dt">int</span> x, <span class="dt">int</span> y) {
+  <span class="dt">int</span> z = x * y;
+  <span class="cf">return</span> z;
+}
+
+<span class="dt">int</span> main() {
+  <span class="bu">std::</span>cout &lt;&lt; mult(<span class="dv">2</span>, <span class="dv">21</span>) &lt;&lt; <span class="bu">std::</span>endl;
+  <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+</section><section id="using-mult" class="slide level2">
+<h2>Using <code>mult</code></h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span>
+
+<span class="dt">int</span> mult(<span class="dt">int</span> x, <span class="dt">int</span> y) {
+  <span class="dt">int</span> z = x * y;
+  <span class="cf">return</span> z;
+}
+
+<span class="dt">int</span> main() {
+  <span class="dt">int</span> a(<span class="dv">2</span>);
+  <span class="dt">int</span> b(<span class="dv">21</span>);
+  <span class="dt">int</span> x = mult(a, b);
+  <span class="bu">std::</span>cout &lt;&lt; x &lt;&lt; <span class="bu">std::</span>endl;
+  <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+</section></section>
+<section><section id="testing-functions" class="titleslide slide level1"><h1>Testing Functions</h1></section><section id="rule-of-3" class="slide level2">
+<h2>Rule of 3</h2>
+<ul>
+<li>The rule of 3 asks you to pick:
+<ul>
+<li>3 values you expect to work</li>
+<li>3 values you expect to not work</li>
+</ul></li>
+<li>Test that the function works for the former and fails for the latter!</li>
+</ul>
+</section><section id="mult-again" class="slide level2">
+<h2><code>mult</code> again</h2>
+<ul>
+<li>I expect the following pairs to work for mult;
+<ul>
+<li><code>(0,0)</code>,</li>
+<li><code>(-1,-1)</code>, and</li>
+<li><code>(2, 2)</code>.</li>
+</ul></li>
+<li>The following pairs <em>won't</em> work as expected:
+<ul>
+<li><code>(2^32, 2^32)</code></li>
+<li><code>(-2^32, -2^32)</code></li>
+<li><code>(1, 2^64)</code></li>
+</ul></li>
+</ul>
+</section><section id="being-assertive" class="slide level2">
+<h2>Being <code>assert</code>ive</h2>
+<p>We can use the old <code>assert</code> function from <code>&lt;cassert&gt;</code> to help us rig up some tests:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;cassert&gt;</span>
+
+<span class="dt">bool</span> test_mult() {
+  <span class="at">const</span> <span class="dt">int</span> two_32 = <span class="dv">4294967296</span>;
+  <span class="at">const</span> <span class="dt">int</span> neg_two_32 = <span class="dv">-4294967296</span>;
+  <span class="at">const</span> <span class="dt">int</span> one = <span class="dv">1</span>;
+  
+  assert(mult(<span class="dv">0</span>,<span class="dv">0</span>) == <span class="dv">0</span>);
+  
+  assert(mult(two_32, two_32) == <span class="dv">0</span>);
+}</code></pre></div>
+</section><section id="assert" class="slide level2">
+<h2><code>assert</code></h2>
+<ul>
+<li>When calls to <code>assert</code> fail, the program aborts i.e. ends in failure.</li>
+<li>This is not pretty, but it is <strong>effective</strong>.</li>
+<li>In second year we will prefer to use <a href="http://cppunit.sourceforge.net/doc/cvs/cppunit_cookbook.html">cppunit</a> or <a href="http://www.boost.org/doc/libs/1_66_0/libs/test/doc/html/index.html">Boost Test</a>.</li>
+</ul>
+</section></section>
+<section><section id="returning-void" class="titleslide slide level1"><h1>Returning <code>void</code></h1></section><section id="section-1" class="slide level2">
+<h2></h2>
+<ul>
+<li>Some functions don't return anything.</li>
+<li>These should be rare.</li>
+<li>If your function returns nothing, you may wish to consider why it is there.
+<ul>
+<li>c.f. side-effects only.</li>
+</ul></li>
+<li>Returning integers is an <code>int</code> return, returning nothing is <code>void</code>.</li>
+</ul>
+</section><section id="print-menu" class="slide level2">
+<h2>Print Menu</h2>
+<p>You might want to print a price list menu such as:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">void</span> print_menu() {
+  <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;1.   70c Super Ice Cream&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;
+  <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;2. $1.40 SuperAwesome Ice Cream&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;
+  <span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>endl &lt;&lt; <span class="st">&quot;Choose either 1 or 2 :&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;
+}</code></pre></div>
+</section><section id="but-qestion" class="slide level2">
+<h2>But Qestion!</h2>
+<p>If I want a menu, surely I want the user's choice back. So</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">void</span> print_menu()</code></pre></div>
+<p>should be</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> print_menu()</code></pre></div>
+<p>or, even better,</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">enum</span> <span class="kw">class</span> UserChoice {SUPER, SUPER_AWESOME};
+UserChoice print_menu()</code></pre></div>
+</section></section>
+<section><section id="decomposing-problems" class="titleslide slide level1"><h1>Decomposing Problems</h1></section><section id="problem-statement" class="slide level2">
+<h2>Problem Statement</h2>
+<ul>
+<li>We <em>always</em> start our program design from the problem statement.</li>
+<li>Decomposition -- We break the problem down into functions.</li>
+<li>Recomposition -- We recompose the function implementations into a whole program.</li>
+</ul>
+</section><section id="decomposition" class="slide level2">
+<h2>Decomposition</h2>
+<p>Requirement 1 :The program <strong>MUST</strong> provide a <em>user interface</em> and functionality for users to convert between Fijiian Dollars, Vanuatu Vatu and Samoan Tala. - There must be an <em>option</em> to <em>convert from Fijiian Dollars to Vanuatu Vatu</em> and vice versa. - There must be an <em>option</em> to <em>convert from Fijiian Dollars to Samoan Tala</em> and vice versa. - There must be an <em>option</em> to <em>convert from Samoan Tala to Vanuatu Vatu</em> and vice versa.</p>
+<ul>
+<li>Identify
+<ul>
+<li>Nouns: These are often the things we are operating on.</li>
+<li>Verbs: These are often the action we are performing.</li>
+</ul></li>
+</ul>
+</section><section id="prior-knowledge" class="slide level2">
+<h2>Prior Knowledge</h2>
+<figure>
+<img src="http://screenshots.debian.net/screenshot/keurocalc" alt="KEuroKalc Screenshot" /><figcaption>KEuroKalc Screenshot</figcaption>
+</figure>
+<p>Do we have the prior knowledge to do this?</p>
+</section><section id="constraints" class="slide level2">
+<h2>Constraints</h2>
+<ul>
+<li>We work within the constraints we have: ```bash $ ./currency ~= Currency Convertor 2000 =~</li>
+</ul>
+<ol type="1">
+<li>Convert from FJD to V</li>
+<li>Convert from V to FJD</li>
+<li><p>Play Global Thermonuclear War</p></li>
+<li><p>Exit ```</p></li>
+</ol>
+</section></section>
+<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="simple-output" class="slide level2">
+<h2>Simple Output</h2>
+<ul>
+<li>We can write simple programs that output text.</li>
+<li>We understand the value of good code layout.</li>
+<li>We understand <code>std::</code>, <code>std::cout</code> and <code>std::endl</code>.</li>
+</ul>
+</section><section id="variables" class="slide level2">
+<h2>Variables</h2>
+<ul>
+<li>We undertand the value of types.</li>
+<li>We can choose appropriate types to store different values.</li>
+</ul>
+</section><section id="functions-1" class="slide level2">
+<h2>Functions</h2>
+<ul>
+<li>We can write simple functions.</li>
+<li>The functions accept parameters and return values.</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'linear', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
