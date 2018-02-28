@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney aidan@ontologyengineering.org">
+  <title>STL Algorithms</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">STL Algorithms</h1>
+  <p class="subtitle">Concepts, Usage, and Best Practices</p>
+  <p class="author">Aidan Delaney <a href="mailto:aidan@ontologyengineering.org">aidan@ontologyengineering.org</a></p>
+  <p class="date">February 2018</p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/introduction">Introduction</a></li>
+<li><a href="#/recap">Recap</a></li>
+<li><a href="#/what-usage">What (Usage)</a></li>
+<li><a href="#/how-concepts">How (Concepts)</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+<li><a href="#/bonus-material">Bonus Material</a></li>
+</ul>
+</section>
+
+<section><section id="introduction" class="titleslide slide level1" data-background="#CCCCCC" data-transition="fade-in fade-out"><h1>Introduction</h1></section><section id="about-aidan" class="slide level2" data-background="images/royal-pavilion-brighton.jpg">
+<h2><span style="color:#ffffff">About Aidan</span></h2>
+<div style="background-color:#333333cc">
+<ul>
+<li><span style="color:#ffffff">PhD in diagrams that can be used to reason about software constraints.</span></li>
+<li><span style="color:#ffffff">Researcher in Visual Languages and Visual Reasoning.</span></li>
+<li><span style="color:#ffffff">Shipped code in Haskell, C, Java, Perl, Python, C++, JavaScript &amp; others.</span></li>
+<li><span style="color:#ffffff">Director of an Eastbourne not-for-profit <a href="http://techresort.co.uk/"><strong>TechResort</strong></a>.</span></li>
+<li><span style="color:#ffffff">Involved with BCS Computing at School project for a while.</span></li>
+</ul>
+</div>
+</section><section id="objective" class="slide level2">
+<h2>Objective</h2>
+<ul>
+<li>To examine how <code>#include &lt;algorithm&gt;</code> can: <br /><br /></li>
+</ul>
+<ol type="1">
+<li>improve efficiency,</li>
+<li>improve code correctness, and</li>
+<li>improve code clarity.</li>
+</ol>
+</section><section id="your-skills-audit" class="slide level2">
+<h2>Your Skills Audit</h2>
+<ul>
+<li>You have experience with STL containers.</li>
+<li>You mostly write C++03 (our current standard).</li>
+<li>You're interested in C++11 improvements.</li>
+<li>You're not interested in move semantics.</li>
+</ul>
+</section><section id="approach" class="slide level2">
+<h2>Approach</h2>
+<ul>
+<li>Work-along
+<ul>
+<li><a href="github.com/AidanDelaney/FootballScores">http://github.com/AidanDelaney/FootballScores</a>.</li>
+</ul></li>
+<li>Timeboxed Answers (2min)</li>
+<li>Promises</li>
+</ul>
+</section></section>
+<section><section id="recap" class="titleslide slide level1" data-background="#0075B2" data-transition="fade-in fade-out"><h1>Recap</h1></section><section id="containers-i" class="slide level2">
+<h2>Containers I</h2>
+<p>STL sequence containers</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><code>list</code></th>
+<th><code>vector</code></th>
+<th><code>array</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>access</td>
+<td>sequential</td>
+<td>random</td>
+<td>random</td>
+</tr>
+<tr class="even">
+<td>insert</td>
+<td><span class="math inline"><em>O</em>(<em>n</em>)/<em>O</em>(1)</span></td>
+<td><span class="math inline"><em>O</em>(<em>n</em>)/<em>O</em>(1)</span><a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></td>
+<td><span class="math inline"><em>O</em>(1)</span></td>
+</tr>
+<tr class="odd">
+<td>find</td>
+<td><span class="math inline"><em>O</em>(<em>n</em>)</span></td>
+<td><span class="math inline"><em>O</em>(<em>n</em>)/<em>O</em>(<em>l</em><em>o</em><em>g</em><em>n</em>)</span><a href="#/fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></td>
+<td><span class="math inline"><em>O</em>(<em>n</em>)/<em>O</em>(<em>l</em><em>o</em><em>g</em><em>n</em>)</span></td>
+</tr>
+</tbody>
+</table>
+</section><section id="containers-ii" class="slide level2">
+<h2>Containers II</h2>
+<p>STL associative containers</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><code>map</code></th>
+<th><code>unordered_map</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>access</td>
+<td><span class="math inline"><em>O</em>(<em>l</em><em>o</em><em>g</em><em>n</em>)</span></td>
+<td><span class="math inline"><em>O</em>(1)</span></td>
+</tr>
+<tr class="even">
+<td>insert</td>
+<td><span class="math inline"><em>O</em>(<em>l</em><em>o</em><em>g</em><em>n</em>)</span></td>
+<td><span class="math inline"><em>O</em>(1)</span></td>
+</tr>
+<tr class="odd">
+<td>find</td>
+<td><span class="math inline"><em>O</em>(<em>l</em><em>o</em><em>g</em><em>n</em>)</span></td>
+<td><span class="math inline"><em>O</em>(1)/<em>O</em>(<em>n</em>)</span><a href="#/fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></td>
+</tr>
+</tbody>
+</table>
+<!--- 
+ - associative strcture with ordered keys -- access: $O(log n)$ insert: $O(log n)$ find: $O(log n)$ 
+ - `unordered_map` -- a.k.a. hash table -- access: $O(1)$ insert: $O(1)$ find: $O(1)$
+ -->
+<p><strong>bsearch.cpp: But constants matter and size matters!</strong></p>
+</section></section>
+<section><section id="what-usage" class="titleslide slide level1" data-background="#00d414" data-transition="fade-in fade-out"><h1>What (Usage)</h1></section><section id="running-example" class="slide level2">
+<h2>Running Example</h2>
+<ul>
+<li>Using 2016-2017 season English Championship results from the BBC.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> GameResult {
+  <span class="bu">std::</span>string home_team;
+  <span class="bu">std::</span>string away_team;
+  <span class="dt">int</span> home_score;
+  <span class="dt">int</span> away_score;
+};
+
+<span class="bu">std::</span>vector&lt;GameResult&gt; results;</code></pre></div>
+<ul>
+<li>We will interrogate the data to generate summary statistics.</li>
+</ul>
+</section><section id="loop-count" class="slide level2">
+<h2>Loop Count</h2>
+<p>How many games ended in a home team victory?</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> home_won = <span class="dv">0</span>;
+<span class="cf">for</span>(<span class="bu">std::</span>vector&lt;GameResult&gt;::const_iterator it 
+      = results.cbegin(); <span class="co">// C15, S26</span>
+    it &lt; results.cend(); 
+    ++it) <span class="co">// C28</span>
+  {
+    <span class="cf">if</span>(it-&gt;home_score &gt; it-&gt;away_score) {
+      ++home_won;
+    }
+  }</code></pre></div>
+</section><section id="include-algorithm" class="slide level2">
+<h2><code>#include &lt;algorithm&gt;</code></h2>
+<ul>
+<li>Provides Algorithms that work on STL containers</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// C25, S39/C87</span>
+<span class="dt">bool</span> home_win(<span class="at">const</span> GameResult &amp;gr) {
+  <span class="cf">return</span> gr.home_score &gt; gr.away_score;
+}
+
+<span class="co">// S43/C84, S45/C85</span>
+<span class="dt">int</span> home_won = <span class="bu">std::</span>count_if(results.cbegin() <span class="co">// S26</span>
+                             , results.cend()
+                             , home_win); <span class="co">// !C88</span></code></pre></div>
+</section><section id="our-objectives" class="slide level2">
+<h2>Our Objectives</h2>
+<dl>
+<dt>Efficiency (Demo: stats_eg.cpp)</dt>
+<dd><code>std::count_if</code> version is 10-200% faster on my machine.
+</dd>
+<dt>Correctness</dt>
+<dd><code>std::count_if</code> avoids common loop mistakes &amp; predicate is easily testable.
+</dd>
+<dt>Clarity</dt>
+<dd><code>std::count_if</code> communicates that we are counting based on a predicate.
+</dd>
+</dl>
+</section><section id="loop-correctness" class="slide level2">
+<h2>Loop Correctness</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> home_won = <span class="dv">0</span>; <span class="co">/* Issue 1 */</span>
+<span class="cf">for</span>(<span class="bu">std::</span>vector&lt;GameResult&gt;::const_iterator it <span class="co">/* Issue 2 */</span>
+      = results.cbegin();
+    it &lt; results.cend(); <span class="co">/* Issue 3 */</span>
+    ++it <span class="co">/* Issue 4 */</span>) 
+  {
+    <span class="cf">if</span>(it-&gt;home_score &gt; it-&gt;away_score) {
+      ++home_won; <span class="co">/* Issue 5 */</span>
+    }
+  }</code></pre></div>
+<ol type="1">
+<li>Initialisation of count variable is often forgotten.</li>
+<li>Remember to use <code>const_iterator</code> type.</li>
+<li>Is it <code>&lt;</code> or <code>&lt;=</code>? Or an accidental <code>&gt;</code>?</li>
+<li>Loop variable updates are often forgotten.</li>
+<li>Remember to update the count variable.</li>
+</ol>
+</section><section id="count_if-correctness" class="slide level2">
+<h2><code>count_if</code> Correctness</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">bool</span> home_win(<span class="at">const</span> GameResult &amp;gr) {
+  <span class="cf">return</span> gr.home_score &gt; gr.away_score; <span class="co">/* Issue 1 */</span>
+}
+
+                                  <span class="co">/* Issue 2 &amp; 3 */</span>
+<span class="dt">int</span> home_won = <span class="bu">std::</span>count_if(results.cbegin()
+                             , results.cend()
+                             , home_win);</code></pre></div>
+<ol type="1">
+<li>We could get the predicate wrong -- but it's now testable.</li>
+<li>We could mix up <code>cbegin</code> and <code>cend</code>.</li>
+<li>We may forget to use <code>const</code> iterators.</li>
+</ol>
+</section><section id="available-algorithms" class="slide level2">
+<h2>Available Algorithms</h2>
+<p>There are <a href="http://en.cppreference.com/w/cpp/algorithm">many, in the <code>algorithm</code> reference</a> manual</p>
+<dl>
+<dt>Non-modifying sequence operations<a href="#/fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></dt>
+<dd><code>count</code>, <strong><code>count_if</code></strong>, <code>find</code>, <code>find_if</code>, <code>search</code>
+</dd>
+<dt>Modifying sequence operations</dt>
+<dd><code>copy</code>, <code>fill</code>, <code>remove</code>, <code>remove_if</code>, <strong><code>transform</code></strong>
+</dd>
+<dt>Binary search operations -- sorted ranges</dt>
+<dd><strong><code>binary_search</code></strong>, <code>upper_bound</code>,
+</dd>
+<dt>Numeric operations</dt>
+<dd><code>accumulate</code>, <code>inner_product</code>,
+</dd>
+</dl>
+</section><section id="transform-example" class="slide level2">
+<h2>Transform Example</h2>
+<p>Suppose we wanted the data in the format:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">GameSpread {
+  <span class="bu">std::</span>string winner;
+  <span class="ex">uint</span> spread
+}</code></pre></div>
+<p>Given our previous <code>results</code> vector we can:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="bu">std::</span>vector&lt;<span class="bu">std::</span>shared_ptr&lt;GameSpread&gt;&gt; spread;
+spread.reserve(total_games);
+
+<span class="bu">std::</span>transform(results.cbegin(), results.cend()
+               , <span class="bu">std::</span>back_inserter(spread)
+               , <span class="co">// lambda elided for great good</span>
+               );</code></pre></div>
+</section><section id="isnt-that-for_each" class="slide level2">
+<h2>Isn't that <code>for_each</code>?</h2>
+<ul>
+<li><code>transform</code> conveys the semantics that we're mapping one struture to another.
+<ul>
+<li>no side-effects!</li>
+</ul></li>
+<li><code>for_each</code> function object may have side-effects (and often does).</li>
+<li>The calls return different things.</li>
+<li><code>for_each</code> applies the function object in sequential order. <code>transform</code> is not required to operate sequentially.</li>
+</ul>
+</section><section id="binary_search" class="slide level2">
+<h2><code>binary_search</code></h2>
+<p>Similar, to <code>transform</code> the <code>binary_serarch</code> algorithm operates over a range:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="bu">std::</span>vector&lt;<span class="bu">std::</span>pair&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt;&gt; zipped_intv;
+<span class="at">const</span> <span class="bu">std::</span>pair&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt; eg = mk_pair(EG_TO_FIND);
+<span class="bu">std::</span>binary_search(items.cbegin(), items.cend(), eg);</code></pre></div>
+</section><section id="commonalities" class="slide level2">
+<h2>Commonalities</h2>
+<p>From our three examples we can see characteristics shared by <code>&lt;algorithm&gt;</code> :</p>
+<ol type="1">
+<li>algorithms work on ranges</li>
+<li>ranges are provided by iterators</li>
+<li>function objects are commonly used</li>
+</ol>
+</section></section>
+<section><section id="how-concepts" class="titleslide slide level1" data-background="#c32" data-transition="fade-in fade-out"><h1>How (Concepts)</h1></section><section id="iterators" class="slide level2">
+<h2>Iterators</h2>
+<ul>
+<li>Iterators come in <a href="http://www.cplusplus.com/reference/iterator/">several flavours</a>:
+<ul>
+<li>InputIterator -- read-only, supports <code>==</code> testing.</li>
+<li>OutputIterator -- useable as an lvalue.</li>
+<li>ForwardIterator -- supports <code>=</code>.</li>
+<li>RandomAccessIterator</li>
+<li>...</li>
+</ul></li>
+<li>The flavour of iterator is one of the <strong>traits</strong> of an iterator
+<ul>
+<li>Uses templates and multiple inheritance to constrain iterators at compile time i.e. the type-level.</li>
+</ul></li>
+<li>E47 Use traits classes for information about types</li>
+</ul>
+</section><section id="iterator-invalidation" class="slide level2">
+<h2>Iterator Invalidation</h2>
+<p>Iterator use introduces a class of error:</p>
+<pre><code>vector&lt;int&gt; vs = {1,2,3,4,5};
+auto low = lower_bound(vs.cbegin(), vs.cend(), 3);
+auto high = upper_bound(vs.cbegin(), vs.cend(), 3);
+vs.insert(low, 101);
+
+// From now on `high` is incorrect.</code></pre>
+</section><section id="insert-erase" class="slide level2">
+<h2>Insert &amp; Erase</h2>
+<ul>
+<li>Inserting a new element invalidates some iterators on:
+<ul>
+<li><code>vector</code>, <code>deque</code></li>
+</ul></li>
+<li>Erasing an element invalidates iterators on:
+<ul>
+<li><code>vector</code>, <code>deque</code></li>
+</ul></li>
+<li>Erasing invalidates iterators to the erased element on:
+<ul>
+<li><code>list</code>, <code>set</code>, <code>map</code></li>
+</ul></li>
+<li>While STL alogrithms don't solve Iterator invalidation; they simplify the handling of iterators.</li>
+</ul>
+</section><section id="function-objects" class="slide level2">
+<h2>Function Objects</h2>
+</section><section id="pure-functions" class="slide level2">
+<h2>Pure Functions</h2>
+</section><section id="predicates" class="slide level2">
+<h2>Predicates</h2>
+</section><section id="on-e34-c88" class="slide level2">
+<h2>On E34 &amp; C88</h2>
+<blockquote>
+<p>Prefer lambdas to <code>std::bind</code> -- Scott Meyers, E34</p>
+</blockquote>
+<blockquote>
+<p>Compilers have routinely inlined [Function Object] calls since C++'s Bronze Age. -- Sutter &amp; Alexandrescu, C88</p>
+</blockquote>
+<ul>
+<li><code>std::bind</code> returns a functor</li>
+<li>replace it with a lambda where the lambda is more readable.</li>
+<li>use it where you need to call an overloaded function.</li>
+</ul>
+</section></section>
+<section><section id="conclusion" class="titleslide slide level1" data-background="#f08" data-transition="fade-in fade-out"><h1>Conclusion</h1></section><section id="summary" class="slide level2">
+<h2>Summary</h2>
+<ul>
+<li>We have considered
+<ul>
+<li>How to <strong>use</strong> STL algorithms</li>
+<li>Some <strong>best practices</strong> around STL algorithms.</li>
+<li>Iterator and Function Object as <strong>concepts</strong> used in STL algorithms.</li>
+</ul></li>
+<li>STL Algorithms improve code quality by:
+<ol type="1">
+<li>Being efficient.</li>
+<li>Simplifying correctness.</li>
+<li>Being clear.</li>
+</ol></li>
+</ul>
+</section><section id="more-advanced" class="slide level2">
+<h2>More Advanced</h2>
+<ul>
+<li>Idiomatic use of <code>&lt;algorithm&gt;</code></li>
+<li>Additional algorithms in BSL
+<ul>
+<li>notably hash functions</li>
+<li>note <code>count_if</code> is defined in <code>bslstl_algorithmworkaround.h</code></li>
+</ul></li>
+</ul>
+</section><section id="sources-i" class="slide level2">
+<h2>Sources I</h2>
+<p>Three books provide significant guidance on the use of <code>algorithm</code>:</p>
+<ul>
+<li>Scott Meyers, <em>Effective Modern C++</em>, O'Reilly, 2014.</li>
+<li>Scott Meyers, <em>Effective STL: 50 Specific Ways to Improve Your Use of the Standard Template Library</em>, Addison-Wesley, 2001.</li>
+<li>Herb Sutter &amp; Andrei Alexandrescu, <em>C++ Coding Standards: 101 Rules, Guidelines, and Best Practices</em>, Pearson, 2005.</li>
+</ul>
+</section><section id="sources-ii" class="slide level2">
+<h2>Sources II</h2>
+<p>As always, the FAQ is peerless:</p>
+<ul>
+<li>The ISO C++ FAQ: <a href="https://isocpp.org/faq" class="uri">https://isocpp.org/faq</a>.</li>
+</ul>
+</section></section>
+<section><section id="bonus-material" class="titleslide slide level1"><h1>Bonus Material</h1></section><section id="bjarne-quotes" class="slide level2">
+<h2>Bjarne Quotes</h2>
+<blockquote>
+<p>By default, use vector when you need a container.</p>
+</blockquote>
+<p>-- Bjarne Stroustrup</p>
+<blockquote>
+<p>Prefer [STL] algorithms to loops.</p>
+</blockquote>
+<p>-- Bjarne Stroustrup</p>
+</section><section id="scott-quotes" class="slide level2">
+<h2>Scott Quotes</h2>
+<blockquote>
+<p>When faced with a choice between an STL algorithm or a container member function with the same name, you should prefer the member function.</p>
+</blockquote>
+<p>-- Scott Meyers, Effective STL.</p>
+</section><section id="demos" class="slide level2">
+<h2>Demos</h2>
+</section><section id="idomatic-usage" class="slide level2">
+<h2>Idomatic Usage</h2>
+<dl>
+<dt>Erase-Remove (E32)</dt>
+<dd>Actually get rid of the elements you've removed. - <code>v.erase(std::remove_if(v.begin(), v.end(), IsOdd), v.end());</code>
+</dd>
+<dt>Swap-to-fit (E17)</dt>
+<dd>Shrink a container to reclaim space.
+</dd>
+<dt>Copy-swap</dt>
+<dd>Implementing <code>operator=</code> in a <em>move-friendly</em> way.
+</dd>
+<dt>Copy-print</dt>
+<dd>Use <code>std::copy</code> to copy elements to an output stream such as <code>std::cout</code>.
+</dd>
+</dl>
+</section><section id="stdbind" class="slide level2">
+<h2><code>std::bind</code></h2>
+<p><code>c++ std::string brighton(&quot;Brighton&quot;); auto brighton_pred = std::bind(IsNamedTeam(), brighton, _1); auto home_pred = std::bind(IsHomeWin(), _1); auto brighton_home_win_pred = std::bind(std::logical_and&lt;bool&gt;(), brighton_pred, home_pred);</code></p>
+</section><section id="equvalence-equality" class="slide level2">
+<h2>equvalence <code>!=</code> equality</h2>
+<p>Beware the difference between</p>
+<ul>
+<li>equality i.e. &quot;operator==&quot;, and</li>
+<li>equivalence as defined by <code>less</code> on partially ordered structures.</li>
+</ul>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><span class="math inline"><em>O</em>(1)</span> only at the back and if we're have previously reserved space.<a href="#/fnref1">↩</a></p></li>
+<li id="fn2"><p><span class="math inline"><em>O</em>(<em>l</em><em>o</em><em>g</em><em>n</em>)</span> if the vector is sorted.<a href="#/fnref2">↩</a></p></li>
+<li id="fn3"><p>This is worst case<a href="#/fnref3">↩</a></p></li>
+<li id="fn4"><p>May not actually be non-modifying!<a href="#/fnref4">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
