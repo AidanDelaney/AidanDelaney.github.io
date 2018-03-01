@@ -282,7 +282,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>There are <a href="http://en.cppreference.com/w/cpp/algorithm">many, in the <code>algorithm</code> reference</a> manual</p>
 <dl>
 <dt>Non-modifying sequence operations<a href="#/fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></dt>
-<dd><code>count</code>, <strong><code>count_if</code></strong>, <code>find</code>, <code>find_if</code>, <code>search</code>
+<dd><code>count</code>, <strong><code>count_if</code></strong>, <code>for_each</code>, <code>find_if</code>
 </dd>
 <dt>Modifying sequence operations</dt>
 <dd><code>copy</code>, <code>fill</code>, <code>remove</code>, <code>remove_if</code>, <strong><code>transform</code></strong>
@@ -314,7 +314,7 @@ spread.reserve(total_games);
 <ul>
 <li><code>transform</code> conveys the semantics that we're mapping one struture to another.
 <ul>
-<li>no side-effects!</li>
+<li>no side-effects in predicate!</li>
 </ul></li>
 <li><code>for_each</code> function object may have side-effects (and often does).</li>
 <li>The calls return different things.</li>
@@ -339,15 +339,13 @@ spread.reserve(total_games);
 <section><section id="how-concepts" class="titleslide slide level1" data-background="#c32" data-transition="fade-in fade-out"><h1>How (Concepts)</h1></section><section id="iterators" class="slide level2">
 <h2>Iterators</h2>
 <ul>
-<li>Generalised pointer.</li>
 <li>All Iterators suppport <code>++</code>.</li>
 <li>Iterators come in <a href="http://www.cplusplus.com/reference/iterator/">several flavours</a>:
 <ul>
 <li>InputIterator -- read-only, supports <code>==</code> testing.</li>
 <li>OutputIterator -- useable as an lvalue.</li>
-<li>ForwardIterator -- supports <code>=</code>.</li>
+<li>ForwardIterator.</li>
 <li>RandomAccessIterator</li>
-<li>...</li>
 </ul></li>
 <li>The flavour of iterator is one of the <strong>traits</strong> of an iterator
 <ul>
@@ -358,7 +356,10 @@ spread.reserve(total_games);
 </section><section id="iterator-invalidation" class="slide level2">
 <h2>Iterator Invalidation</h2>
 <p>Iterator use introduces a class of error:</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="cf">for</span>(<span class="kw">auto</span> it = <span class="bu">std::</span>lower_bound(vs.begin(), vs.end(), four)
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt; vs = {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>};
+<span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt; us = {<span class="dv">301</span>, <span class="dv">302</span>, <span class="dv">303</span>};
+  
+<span class="cf">for</span>(<span class="kw">auto</span> it = <span class="bu">std::</span>lower_bound(vs.begin(), vs.end(), <span class="dv">4</span>)
     ; it &lt; vs.end() ; ++it) {
     <span class="cf">for</span>(<span class="kw">auto</span> ut = us.begin()
       ; ut &lt; us.end(); ++ut) {
@@ -380,6 +381,14 @@ spread.reserve(total_games);
 <ul>
 <li><code>list</code>, <code>set</code>, <code>map</code></li>
 </ul></li>
+</ul>
+</section><section id="iterator-concept" class="slide level2">
+<h2>Iterator Concept</h2>
+<ul>
+<li>STL makes wide use of iterators
+<ul>
+<li>particularly ranges defined by iterators.</li>
+</ul></li>
 <li>While STL alogrithms don't solve iterator invalidation; they simplify the handling of iterators.</li>
 </ul>
 </section><section id="function-objects" class="slide level2">
@@ -389,9 +398,12 @@ spread.reserve(total_games);
 <li>Object on which the <code>()</code> operator is defined.</li>
 <li>Allows &quot;partial application&quot; of functions.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">auto</span> brighton_named = <span class="bu">std::</span>bind(IsNamedTeam(), brighton, _1);
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="bu">std::</span>string brighton(<span class="st">&quot;Brighton&quot;</span>);
+<span class="kw">auto</span> brighton_named = <span class="bu">std::</span>bind(IsNamedTeam(), brighton, _1);
 
-<span class="dt">int</span> brighton_played = <span class="bu">std::</span>count_if(results.cbegin(), results.cend(), brighton_named);</code></pre></div>
+<span class="dt">int</span> brighton_played 
+    = <span class="bu">std::</span>count_if(results.cbegin(), results.cend()
+                    , brighton_named);</code></pre></div>
 </section><section id="pure-functions" class="slide level2">
 <h2>Pure Functions</h2>
 <ul>
@@ -411,7 +423,9 @@ spread.reserve(total_games);
 <li><code>unary_function</code> and <code>binary_function</code> are widely required.</li>
 <li>The following is a functor, is pure and is a predicate:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> IsHomeWin : <span class="bu">std::</span>unary_function&lt;<span class="at">const</span> GameResult&amp;, <span class="dt">bool</span>&gt; {
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// C89</span>
+<span class="kw">struct</span> IsHomeWin 
+  : <span class="bu">std::</span>unary_function&lt;<span class="at">const</span> GameResult&amp;, <span class="dt">bool</span>&gt; {
   <span class="dt">bool</span> <span class="kw">operator</span>()(<span class="at">const</span> GameResult&amp; gr) <span class="at">const</span> <span class="kw">noexcept</span> {
     <span class="cf">return</span> gr.home_score &gt; gr.away_score;
   }
@@ -423,7 +437,6 @@ spread.reserve(total_games);
 <ul>
 <li><code>std::bind</code> returns a functor</li>
 <li>replace it with a lambda where the lambda is more readable.</li>
-<li>use it where you need to call an overloaded function.</li>
 </ul>
 </section></section>
 <section><section id="conclusion" class="titleslide slide level1" data-background="#f08" data-transition="fade-in fade-out"><h1>Conclusion</h1></section><section id="summary" class="slide level2">
