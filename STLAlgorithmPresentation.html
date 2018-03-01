@@ -184,10 +184,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tr>
 </tbody>
 </table>
-<!--- 
- - associative strcture with ordered keys -- access: $O(log n)$ insert: $O(log n)$ find: $O(log n)$ 
- - `unordered_map` -- a.k.a. hash table -- access: $O(1)$ insert: $O(1)$ find: $O(1)$
- -->
 <p><strong>bsearch.cpp: But constants matter and size matters!</strong></p>
 </section></section>
 <section><section id="what-usage" class="titleslide slide level1" data-background="#00d414" data-transition="fade-in fade-out"><h1>What (Usage)</h1></section><section id="running-example" class="slide level2">
@@ -202,6 +198,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <span class="dt">int</span> away_score;
 };
 
+<span class="co">// C79 -- Store only values and smart pointers in containers.</span>
 <span class="bu">std::</span>vector&lt;GameResult&gt; results;</code></pre></div>
 <ul>
 <li>We will interrogate the data to generate summary statistics.</li>
@@ -232,7 +229,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">// S43/C84, S45/C85</span>
 <span class="dt">int</span> home_won = <span class="bu">std::</span>count_if(results.cbegin() <span class="co">// S26</span>
                              , results.cend()
-                             , home_win); <span class="co">// !C88</span></code></pre></div>
+                             , home_win); <span class="co">// S46/C88, !C89</span></code></pre></div>
 </section><section id="our-objectives" class="slide level2">
 <h2>Our Objectives</h2>
 <dl>
@@ -300,10 +297,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section><section id="transform-example" class="slide level2">
 <h2>Transform Example</h2>
 <p>Suppose we wanted the data in the format:</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">GameSpread {
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> GameSpread {
   <span class="bu">std::</span>string winner;
   <span class="ex">uint</span> spread
-}</code></pre></div>
+};</code></pre></div>
 <p>Given our previous <code>results</code> vector we can:</p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="bu">std::</span>vector&lt;<span class="bu">std::</span>shared_ptr&lt;GameSpread&gt;&gt; spread;
 spread.reserve(total_games);
@@ -328,6 +325,7 @@ spread.reserve(total_games);
 <p>Similar, to <code>transform</code> the <code>binary_serarch</code> algorithm operates over a range:</p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="bu">std::</span>vector&lt;<span class="bu">std::</span>pair&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt;&gt; zipped_intv;
 <span class="at">const</span> <span class="bu">std::</span>pair&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt; eg = mk_pair(EG_TO_FIND);
+
 <span class="bu">std::</span>binary_search(items.cbegin(), items.cend(), eg);</code></pre></div>
 </section><section id="commonalities" class="slide level2">
 <h2>Commonalities</h2>
@@ -341,6 +339,8 @@ spread.reserve(total_games);
 <section><section id="how-concepts" class="titleslide slide level1" data-background="#c32" data-transition="fade-in fade-out"><h1>How (Concepts)</h1></section><section id="iterators" class="slide level2">
 <h2>Iterators</h2>
 <ul>
+<li>Generalised pointer.</li>
+<li>All Iterators suppport <code>++</code>.</li>
 <li>Iterators come in <a href="http://www.cplusplus.com/reference/iterator/">several flavours</a>:
 <ul>
 <li>InputIterator -- read-only, supports <code>==</code> testing.</li>
@@ -358,12 +358,13 @@ spread.reserve(total_games);
 </section><section id="iterator-invalidation" class="slide level2">
 <h2>Iterator Invalidation</h2>
 <p>Iterator use introduces a class of error:</p>
-<pre><code>vector&lt;int&gt; vs = {1,2,3,4,5};
-auto low = lower_bound(vs.cbegin(), vs.cend(), 3);
-auto high = upper_bound(vs.cbegin(), vs.cend(), 3);
-vs.insert(low, 101);
-
-// From now on `high` is incorrect.</code></pre>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="cf">for</span>(<span class="kw">auto</span> it = <span class="bu">std::</span>lower_bound(vs.begin(), vs.end(), four)
+    ; it &lt; vs.end() ; ++it) {
+    <span class="cf">for</span>(<span class="kw">auto</span> ut = us.begin()
+      ; ut &lt; us.end(); ++ut) {
+      vs.insert(it, *ut);
+    }
+  }</code></pre></div>
 </section><section id="insert-erase" class="slide level2">
 <h2>Insert &amp; Erase</h2>
 <ul>
@@ -379,22 +380,46 @@ vs.insert(low, 101);
 <ul>
 <li><code>list</code>, <code>set</code>, <code>map</code></li>
 </ul></li>
-<li>While STL alogrithms don't solve Iterator invalidation; they simplify the handling of iterators.</li>
+<li>While STL alogrithms don't solve iterator invalidation; they simplify the handling of iterators.</li>
 </ul>
 </section><section id="function-objects" class="slide level2">
 <h2>Function Objects</h2>
+<ul>
+<li>a.k.a. Functors</li>
+<li>Object on which the <code>()</code> operator is defined.</li>
+<li>Allows &quot;partial application&quot; of functions.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">auto</span> brighton_named = <span class="bu">std::</span>bind(IsNamedTeam(), brighton, _1);
+
+<span class="dt">int</span> brighton_played = <span class="bu">std::</span>count_if(results.cbegin(), results.cend(), brighton_named);</code></pre></div>
 </section><section id="pure-functions" class="slide level2">
 <h2>Pure Functions</h2>
+<ul>
+<li>Pure functions are functions without side effecs.
+<ul>
+<li>Given the same input, they always return the same output.</li>
+<li>they do not interact with their environment</li>
+<li>they do not write to the console, or read a file.</li>
+<li>they do not modify state.</li>
+</ul></li>
+<li>Many <code>&lt;algorithm&gt;</code>s reqire pure functions.</li>
+</ul>
 </section><section id="predicates" class="slide level2">
 <h2>Predicates</h2>
+<ul>
+<li>Are a special type of pure functions that take <span class="math inline"><em>n</em></span> parameters and return a <code>bool</code>:</li>
+<li><code>unary_function</code> and <code>binary_function</code> are widely required.</li>
+<li>The following is a functor, is pure and is a predicate:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> IsHomeWin : <span class="bu">std::</span>unary_function&lt;<span class="at">const</span> GameResult&amp;, <span class="dt">bool</span>&gt; {
+  <span class="dt">bool</span> <span class="kw">operator</span>()(<span class="at">const</span> GameResult&amp; gr) <span class="at">const</span> <span class="kw">noexcept</span> {
+    <span class="cf">return</span> gr.home_score &gt; gr.away_score;
+  }
+};</code></pre></div>
 </section><section id="on-e34-c88" class="slide level2">
 <h2>On E34 &amp; C88</h2>
-<blockquote>
-<p>Prefer lambdas to <code>std::bind</code> -- Scott Meyers, E34</p>
-</blockquote>
-<blockquote>
-<p>Compilers have routinely inlined [Function Object] calls since C++'s Bronze Age. -- Sutter &amp; Alexandrescu, C88</p>
-</blockquote>
+<p>E34 states &quot;Prefer lambdas to <code>std::bind</code>&quot;</p>
+<p>but C88 states &quot;Compilers have routinely inlined [Function Object] calls since C++'s Bronze Age.&quot;</p>
 <ul>
 <li><code>std::bind</code> returns a functor</li>
 <li>replace it with a lambda where the lambda is more readable.</li>
@@ -441,6 +466,12 @@ vs.insert(low, 101);
 <ul>
 <li>The ISO C++ FAQ: <a href="https://isocpp.org/faq" class="uri">https://isocpp.org/faq</a>.</li>
 </ul>
+</section><section id="thank-you" class="slide level2">
+<h2>Thank You</h2>
+<ul>
+<li>Aidan Delaney <a href="mailto:aidan@ontologyengineering.org">aidan@ontologyengineering.org</a></li>
+<li><span class="citation" data-cites="aidandelaney">@aidandelaney</span></li>
+</ul>
 </section></section>
 <section><section id="bonus-material" class="titleslide slide level1"><h1>Bonus Material</h1></section><section id="bjarne-quotes" class="slide level2">
 <h2>Bjarne Quotes</h2>
@@ -460,6 +491,14 @@ vs.insert(low, 101);
 <p>-- Scott Meyers, Effective STL.</p>
 </section><section id="demos" class="slide level2">
 <h2>Demos</h2>
+<ol type="1">
+<li>Iterator Invalidation: <code>src/i_invalidation.cpp</code></li>
+<li><code>count_if</code> and comparison with loop: <code>src/stats_eg.cpp</code></li>
+<li>Storing pointers in a container: <code>src/fail_delete_eg.cpp</code></li>
+<li>Binary search on structures: <code>src/bsearch.cpp</code></li>
+<li>Using <code>std::bind</code>: <code>src/bind_eg.cpp</code></li>
+<li>Determining strcture size: <code>src/stlsizeof.cpp</code></li>
+</ol>
 </section><section id="idomatic-usage" class="slide level2">
 <h2>Idomatic Usage</h2>
 <dl>
@@ -467,10 +506,10 @@ vs.insert(low, 101);
 <dd>Actually get rid of the elements you've removed. - <code>v.erase(std::remove_if(v.begin(), v.end(), IsOdd), v.end());</code>
 </dd>
 <dt>Swap-to-fit (E17)</dt>
-<dd>Shrink a container to reclaim space.
+<dd>Shrink a container to <a href="https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Shrink-to-fit">reclaim space</a>.
 </dd>
-<dt>Copy-swap</dt>
-<dd>Implementing <code>operator=</code> in a <em>move-friendly</em> way.
+<dt>Copy-and-swap</dt>
+<dd>Implementing <code>operator=</code> in a <a href="https://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom"><em>move-friendly</em> way</a>.
 </dd>
 <dt>Copy-print</dt>
 <dd>Use <code>std::copy</code> to copy elements to an output stream such as <code>std::cout</code>.
@@ -478,7 +517,8 @@ vs.insert(low, 101);
 </dl>
 </section><section id="stdbind" class="slide level2">
 <h2><code>std::bind</code></h2>
-<p><code>c++ std::string brighton(&quot;Brighton&quot;); auto brighton_pred = std::bind(IsNamedTeam(), brighton, _1); auto home_pred = std::bind(IsHomeWin(), _1); auto brighton_home_win_pred = std::bind(std::logical_and&lt;bool&gt;(), brighton_pred, home_pred);</code></p>
+<p>```c++ std::string brighton(&quot;Brighton&quot;); auto brighton_pred = std::bind(IsNamedTeam(), brighton, _1); auto home_pred = std::bind(IsHomeWin(), _1);</p>
+<p>auto brighton_home_win_pred = std::bind(std::logical_and<bool>(), brighton_pred, home_pred); ```</p>
 </section><section id="equvalence-equality" class="slide level2">
 <h2>equvalence <code>!=</code> equality</h2>
 <p>Beware the difference between</p>
