@@ -519,13 +519,14 @@ spread.reserve(total_games);
 <h2>Idomatic Usage</h2>
 <dl>
 <dt>Erase-Remove (E32)</dt>
-<dd>Actually get rid of the elements you've removed. - <code>v.erase(std::remove_if(v.begin(), v.end(), IsOdd), v.end());</code>
+<dd><p>Actually get rid of the elements you've removed.</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">v.erase(<span class="bu">std::</span>remove_if(v.begin(), v.end(), IsOdd), v.end());</code></pre></div>
 </dd>
 <dt>Swap-to-fit (E17)</dt>
 <dd>Shrink a container to <a href="https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Shrink-to-fit">reclaim space</a>.
 </dd>
 <dt>Copy-and-swap</dt>
-<dd>Implementing <code>operator=</code> in a <a href="https://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom"><em>move-friendly</em> way</a>.
+<dd><a href="https://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom"><em>move-friendly</em> way</a> <code>operator=</code>.
 </dd>
 <dt>Copy-print</dt>
 <dd>Use <code>std::copy</code> to copy elements to an output stream such as <code>std::cout</code>.
@@ -533,8 +534,14 @@ spread.reserve(total_games);
 </dl>
 </section><section id="stdbind" class="slide level2">
 <h2><code>std::bind</code></h2>
-<p>```c++ std::string brighton(&quot;Brighton&quot;); auto brighton_pred = std::bind(IsNamedTeam(), brighton, _1); auto home_pred = std::bind(IsHomeWin(), _1);</p>
-<p>auto brighton_home_win_pred = std::bind(std::logical_and<bool>(), brighton_pred, home_pred); ```</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="bu">std::</span>string brighton(<span class="st">&quot;Brighton&quot;</span>);
+<span class="kw">auto</span> brighton_pred = <span class="bu">std::</span>bind(IsNamedTeam(), brighton, _1);
+<span class="kw">auto</span> home_pred = <span class="bu">std::</span>bind(IsHomeWin(), _1);
+
+<span class="kw">auto</span> brighton_home_win_pred 
+    = <span class="bu">std::</span>bind(<span class="bu">std::</span>logical_and&lt;<span class="dt">bool</span>&gt;()
+                , brighton_pred
+                , home_pred);</code></pre></div>
 </section><section id="equvalence-equality" class="slide level2">
 <h2>equvalence <code>!=</code> equality</h2>
 <p>Beware the difference between</p>
