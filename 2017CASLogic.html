@@ -69,8 +69,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <section>
   <h1 class="title">Boolean Logic</h1>
-  <h2 class="author">Aidan Delaney</h2>
-  <h3 class="date"><a href="mailto:aidan@ontologyengineering.org">aidan@ontologyengineering.org</a> | <a href="http://www.twitter.com/aidandelaney">@aidandelaney</a></h3>
+  <p class="author">Aidan Delaney</p>
+  <p class="date"><a href="mailto:aidan@ontologyengineering.org">aidan@ontologyengineering.org</a> | <a href="http://www.twitter.com/aidandelaney">@aidandelaney</a></p>
 </section>
 <section id="TOC">
 <ul>
@@ -81,14 +81,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 
 <section><section id="boolean-logic" class="titleslide slide level1" data-background="#CCCCCC" data-transition="fade-in fade-out"><h1>Boolean Logic</h1></section><section id="examples" class="slide level2">
-<h1>Examples</h1>
+<h2>Examples</h2>
 <p>Boolean logic (a.k.a. Propositional logic) is restrictive in what it can express.</p>
 <p>It is useful because</p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="kw">if</span>(a &lt; b || (a &gt;= b &amp;&amp; c == d)) ...</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="cf">if</span>(a &lt; b || (a &gt;= b &amp;&amp; c == d)) ...</code></pre></div>
 <p>can be simplified to</p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="kw">if</span>(a &lt; b || c == d)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="cf">if</span>(a &lt; b || c == d)</code></pre></div>
 </section><section id="syntax-of-boolean-logic" class="slide level2">
-<h1>Syntax of Boolean Logic</h1>
+<h2>Syntax of Boolean Logic</h2>
 <table>
 <tbody>
 <tr class="odd">
@@ -115,7 +115,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </table>
 <p>Other people define different syntax</p>
 </section><section id="alternative-syntax" class="slide level2">
-<h1>Alternative Syntax</h1>
+<h2>Alternative Syntax</h2>
 <table>
 <tbody>
 <tr class="odd">
@@ -142,28 +142,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </table>
 <p>let's call these <strong>terms</strong>.</p>
 </section><section id="forming-sentences" class="slide level2">
-<h1>Forming Sentences</h1>
+<h2>Forming Sentences</h2>
 <p>All terms are sentences.</p>
 <p>If <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are sentences then <span class="math inline">\((\alpha \wedge \beta)\)</span> is a sentence.</p>
 <p>Similarly <span class="math inline">\((\alpha \vee \beta)\)</span> is a sentence.</p>
 </section><section id="semantics-of-boolean-logic" class="slide level2">
-<h1>Semantics of Boolean Logic</h1>
+<h2>Semantics of Boolean Logic</h2>
 <p>A sentence in Boolean logic evaluates to either <strong>true</strong> or <strong>false</strong>.</p>
 </section><section id="and-diagrammatically" class="slide level2">
-<h1>'And' diagrammatically</h1>
+<h2>'And' diagrammatically</h2>
 <p><a href="images/venn-and.svg"><img src="images/venn-and.svg" /></a></p>
 </section><section id="or-diagrammatically" class="slide level2">
-<h1>'Or' diagrammatically</h1>
+<h2>'Or' diagrammatically</h2>
 <p><a href="images/venn-or.svg"><img src="images/venn-or.svg" /></a></p>
 </section><section id="not-diagrammatically" class="slide level2">
-<h1>'Not' diagrammatically?</h1>
+<h2>'Not' diagrammatically?</h2>
 <p><a href="images/venn-not.svg"><img src="images/venn-not.svg" /></a></p>
 </section></section>
 <section><section id="misunderstandings" class="titleslide slide level1" data-background="#0075B2" data-transition="fade-in fade-out"><h1>Misunderstandings</h1></section><section id="section" class="slide level2">
-<h1></h1>
+<h2></h2>
 <p>Mostly stem from applying linguistic interpretation of a sentence rather than an logical interpretation.</p>
 </section><section id="and" class="slide level2">
-<h1>'and'</h1>
+<h2>'and'</h2>
 <blockquote>
 Aidan bought a motorbike <strong>and</strong> went to work.
 </blockquote>
@@ -174,7 +174,7 @@ Aidan bought a motorbike <strong>and</strong> went to work.
 </ul>
 <p>Which is why we formalise in the first place.</p>
 </section><section id="or" class="slide level2">
-<h1>'or'</h1>
+<h2>'or'</h2>
 <blockquote>
 Eat your carrots <strong>or</strong> your peas.
 </blockquote>
@@ -186,16 +186,16 @@ Eat your carrots <strong>or</strong> your peas.
 <strong>Either</strong> eat your carrots <strong>or</strong> your peas.
 </blockquote>
 </section><section id="implication" class="slide level2">
-<h1>implication</h1>
+<h2>implication</h2>
 <p>Some people add implication to their set of Boolean connectives.</p>
 <p><span class="math inline">\(P\rightarrow Q\)</span> read as &quot;if P then Q&quot;</p>
 <p>This shorthand for <span class="math inline">\((\neg P \vee Q)\)</span>, it causes significant confusion.</p>
 </section><section id="as-a-diagram" class="slide level2">
-<h1>As a diagram</h1>
+<h2>As a diagram</h2>
 <p><a href="images/venn-implication.svg"><img src="images/venn-implication.svg" /></a></p>
 </section></section>
 <section><section id="conclusion" class="titleslide slide level1" data-background="#00d414" data-transition="fade-in fade-out"><h1>Conclusion</h1></section><section id="section-1" class="slide level2">
-<h1></h1>
+<h2></h2>
 <ul>
 <li>Boolean Logic is a useful system for demonstrating computational thinking.</li>
 <li>A visual approach to Boolean Logic is useful.</li>
@@ -203,7 +203,7 @@ Eat your carrots <strong>or</strong> your peas.
 <li>Learners make consistent types of mistakes -- knowing these allow us to target interventions.</li>
 </ul>
 </section><section id="thank-you" class="slide level2">
-<h1>Thank you</h1>
+<h2>Thank you</h2>
 <ul>
 <li>I'm always happy to answer questions over email.
 <ul>
@@ -229,7 +229,7 @@ Eat your carrots <strong>or</strong> your peas.
         dependencies: [
           { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
           { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
-          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+              { src: 'reveal.js/plugin/notes/notes.js', async: true }
         ]
       });
     </script>
