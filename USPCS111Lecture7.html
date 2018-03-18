@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney aidan.delaney@usp.ac.fj">
+  <title>Week 7 CS111</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+  <link rel="stylesheet" href="css/pandoc.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Week 7 CS111</h1>
+  <p class="author">Aidan Delaney <a href="mailto:aidan.delaney@usp.ac.fj">aidan.delaney@usp.ac.fj</a></p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/lists">Lists</a></li>
+<li><a href="#/loops">Loops</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+</ul>
+</section>
+
+<section><section id="lists" class="titleslide slide level1"><h1>Lists</h1></section><section id="lists-1" class="slide level2">
+<h2>Lists</h2>
+<ul>
+<li>A <em>list</em> is a data structure.</li>
+<li>Stores things in a sequence.</li>
+<li>You can go through a list from start to end.</li>
+</ul>
+</section><section id="facebook-list" class="slide level2">
+<h2>Facebook List</h2>
+<p><a href="https://blog.bufferapp.com/wp-content/uploads/2016/12/Screen-Shot-2016-12-12-at-10.50.56-AM.png"><img src="https://blog.bufferapp.com/wp-content/uploads/2016/12/Screen-Shot-2016-12-12-at-10.50.56-AM.png" alt="Facebook" /></a></p>
+</section><section id="whatsapp-list" class="slide level2">
+<h2>WhatsApp List</h2>
+<p><a href="https://tex.stackexchange.com/questions/266713/resemble-popular-messenger-with-latex-macros"><img src="data:image/jpeg;base64,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" alt="Whatsapp" /></a></p>
+</section><section id="hacker-news-list" class="slide level2">
+<h2>Hacker News List</h2>
+<ul>
+<li><a href="https://news.ycombinator.com/">Hacker News</a></li>
+</ul>
+</section><section id="c" class="slide level2">
+<h2>C++</h2>
+<ul>
+<li>There are many types of list in C++.</li>
+<li>We will use a <code>std::vector</code>.</li>
+<li>A <code>std::vector</code> is a growable list.</li>
+</ul>
+</section><section id="stdvector" class="slide level2">
+<h2><code>std::vector</code></h2>
+<p>Declaring a vector:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt; my_vector;</code></pre></div>
+<p>Note that the C++ &quot;Most vexing parse&quot; is incorrect:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt; my_vector();</code></pre></div>
+</section><section id="stdvector-functions" class="slide level2">
+<h2><code>std::vector</code> functions</h2>
+<p>There are many functions defined on <code>std::vector</code>:</p>
+<dl>
+<dt><code>push_back</code></dt>
+<dd>Add something of <code>&lt;type&gt;</code> to your vector
+</dd>
+</dl>
+</section><section id="stdvector-and-functions" class="slide level2">
+<h2><code>std::vector</code> and functions</h2>
+<p>We may:</p>
+<ul>
+<li>pass a <code>std::vector</code> to a function.</li>
+<li>return a <code>std::vector</code> from a function.</li>
+</ul>
+</section><section id="stdvector-parameters" class="slide level2">
+<h2><code>std::vector</code> parameters</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">void</span> add_values(<span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt; values) {
+    values.push_back(<span class="dv">7</span>);
+}
+
+<span class="dt">int</span> main() {
+  <span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt; values;
+  add_values(values);
+  <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+</section><section id="return-stdvector" class="slide level2">
+<h2>return <code>std::vector</code></h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt; do_stuff() {
+    <span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt; my_vec;
+    my_vec.push_back(<span class="dv">42</span>);
+}
+
+<span class="dt">int</span> main() {
+  <span class="bu">std::</span>vector my_vec = do_stuff();
+  <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+</section></section>
+<section><section id="loops" class="titleslide slide level1"><h1>Loops</h1></section><section id="loops-and-lists" class="slide level2">
+<h2>Loops and lists</h2>
+</section><section id="events" class="slide level2">
+<h2>Events</h2>
+</section></section>
+<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="lists-loops" class="slide level2">
+<h2>Lists &amp; Loops</h2>
+<ul>
+<li>We can write simple functions.</li>
+<li>Within our functions we can now achieve complex things.
+<ul>
+<li>store values into a list</li>
+<li>iterate over a list</li>
+<li>wait for valid input</li>
+</ul></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'linear', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
