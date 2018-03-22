@@ -75,6 +75,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li><a href="#/lists">Lists</a></li>
 <li><a href="#/loops">Loops</a></li>
+<li><a href="#/events">Events</a></li>
 <li><a href="#/conclusion">Conclusion</a></li>
 </ul>
 </section>
@@ -150,8 +151,50 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section></section>
 <section><section id="loops" class="titleslide slide level1"><h1>Loops</h1></section><section id="loops-and-lists" class="slide level2">
 <h2>Loops and lists</h2>
-</section><section id="events" class="slide level2">
-<h2>Events</h2>
+<p>An example of a C++11 for loop is the following:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="bu">std::</span>vector&lt;<span class="dt">char</span>&gt; letters = {<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>};
+
+<span class="cf">for</span>(<span class="kw">auto</span> c: letters) {
+  <span class="bu">std::</span>cout &lt;&lt; c &lt;&lt; <span class="bu">std::</span>endl;
+}</code></pre></div>
+</section><section id="auto" class="slide level2">
+<h2><code>auto</code></h2>
+<p>The <code>auto</code> keyword <strong>deduces</strong> the type!</p>
+<ul>
+<li>introduced in C++11</li>
+<li><em>significantly</em> helps readability.</li>
+<li>Where the compiler can know the type (eg: it was previously declared) then <code>auto</code> can work it out.</li>
+</ul>
+</section><section id="for" class="slide level2">
+<h2><code>for</code></h2>
+<p>This form of a <code>for</code> loop is probably better named the <strong>for each</strong> loop.</p>
+<ul>
+<li>for each element in <code>letters</code>
+<ul>
+<li>do something</li>
+</ul></li>
+</ul>
+<p>Also introduced in C++11 (<strong>aside on making C++11 work in Dev-C++</strong>)</p>
+</section></section>
+<section><section id="events" class="titleslide slide level1"><h1>Events</h1></section><section id="section" class="slide level2">
+<h2></h2>
+<ul>
+<li>Suppose we don't have a bound to iterate over
+<ul>
+<li>i.e. from the start to the end of a vector</li>
+</ul></li>
+<li>How do we wait until some event happens?</li>
+<li>We formulate the event as a condition.</li>
+</ul>
+</section><section id="conditions" class="slide level2">
+<h2>Conditions</h2>
+<p>We have seen these before:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">x == y  <span class="co">// x equals y</span>
+x != y  <span class="co">// x is not equal to y</span>
+x &gt; y   <span class="co">// x is greater than y</span>
+x &lt; y   <span class="co">// x is less than y</span>
+x &gt;= y  <span class="co">// x is greater than or equal to y</span>
+x &lt;= y  <span class="co">// x is less than or equal to y</span></code></pre></div>
 </section></section>
 <section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="lists-loops" class="slide level2">
 <h2>Lists &amp; Loops</h2>
