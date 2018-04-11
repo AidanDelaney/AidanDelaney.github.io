@@ -195,6 +195,44 @@ x &gt; y   <span class="co">// x is greater than y</span>
 x &lt; y   <span class="co">// x is less than y</span>
 x &gt;= y  <span class="co">// x is greater than or equal to y</span>
 x &lt;= y  <span class="co">// x is less than or equal to y</span></code></pre></div>
+</section><section id="while" class="slide level2">
+<h2>while</h2>
+<pre><code>while (x==y) {
+  // do something
+}</code></pre>
+</section><section id="with-cin" class="slide level2">
+<h2>With <code>cin</code></h2>
+<pre><code>std::cin &gt;&gt; my_var;
+bool in_failure = std::cin.fail();
+
+while(in_failure) {
+  // do more here
+
+  std::cout &lt;&lt; &quot;Please enter valid input: &quot;;
+  in_success = std::cin &gt;&gt; my_var;
+}</code></pre>
+</section><section id="emptying-cin" class="slide level2">
+<h2>Emptying <code>cin</code></h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> get_int() {
+  <span class="dt">int</span> my_var;
+  <span class="bu">std::</span>cin &gt;&gt; my_var;
+
+  <span class="cf">while</span>(<span class="bu">std::</span>cin.fail()) {
+    <span class="bu">std::</span>cin.clear();
+    <span class="bu">std::</span>string throwaway;
+    <span class="bu">std::</span>cin &gt;&gt; throwaway;
+
+    <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;Please enter valid input: &quot;</span>;
+    <span class="bu">std::</span>cin &gt;&gt; my_var;
+  }
+
+  <span class="cf">return</span> my_var;
+}</code></pre></div>
+</section><section id="istream-and-ignore" class="slide level2">
+<h2><code>istream</code> and ignore</h2>
+<ul>
+<li>See <a href="https://isocpp.org/wiki/faq/input-output#istream-and-ignore" class="uri">https://isocpp.org/wiki/faq/input-output#istream-and-ignore</a></li>
+</ul>
 </section></section>
 <section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="lists-loops" class="slide level2">
 <h2>Lists &amp; Loops</h2>

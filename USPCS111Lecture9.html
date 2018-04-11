@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney aidan.delaney@usp.ac.fj">
+  <title>Week 9 CS111</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+  <link rel="stylesheet" href="css/pandoc.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Week 9 CS111</h1>
+  <p class="author">Aidan Delaney <a href="mailto:aidan.delaney@usp.ac.fj">aidan.delaney@usp.ac.fj</a></p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/notices">Notices</a></li>
+<li><a href="#/pass-by-reference">Pass-by-reference</a></li>
+<li><a href="#/smart-pointers">Smart Pointers</a></li>
+<li><a href="#/what-we-can-do-now">What we can do now</a></li>
+</ul>
+</section>
+
+<section><section id="notices" class="titleslide slide level1"><h1>Notices</h1></section><section id="topics" class="slide level2">
+<h2>Topics</h2>
+<ol type="1">
+<li>Smart pointers.</li>
+<li>File I/O.</li>
+<li>Functional components of a computer.</li>
+</ol>
+</section><section id="assignment" class="slide level2">
+<h2>Assignment</h2>
+<ul>
+<li>Uses File I/0 and smart pointers.</li>
+<li>Individual assignment.</li>
+<li>Due date on Moodle.</li>
+</ul>
+</section></section>
+<section><section id="pass-by-reference" class="titleslide slide level1"><h1>Pass-by-reference</h1></section><section id="recap" class="slide level2">
+<h2>Recap</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> square(<span class="bu">std::</span>vector&lt;<span class="bu">std::</span>string&gt; &amp; log, <span class="at">const</span> <span class="dt">int</span> x) {
+    <span class="bu">std::</span>string message(<span class="st">&quot;squaring value &quot;</span> + x);
+    log.push_back(message);
+    <span class="cf">return</span> x*x;
+}</code></pre></div>
+</section><section id="limitations" class="slide level2">
+<h2>Limitations</h2>
+<ol type="1">
+<li>Can't create a list of references.</li>
+<li>Can't return a refernce to a locally allocated <em>thing</em>.</li>
+<li>References are not <strong>nullable</strong> (this is also a good thing).</li>
+</ol>
+</section></section>
+<section><section id="smart-pointers" class="titleslide slide level1"><h1>Smart Pointers</h1></section><section id="motivation" class="slide level2">
+<h2>Motivation</h2>
+<ul>
+<li>What if we need to return something but the computation may fail?
+<ul>
+<li>eg: <code>loadTextFile</code> might fail.</li>
+</ul></li>
+</ul>
+</section><section id="loadtextfile-i" class="slide level2">
+<h2><code>loadTextFile</code> I</h2>
+<ul>
+<li>Example by reference</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">void</span> loadTextFile(<span class="bu">std::</span>vector&lt;<span class="bu">std::</span>string&gt; &amp; lines) {
+...
+}
+
+<span class="dt">int</span> main() {
+  <span class="bu">std::</span>vector&lt;<span class="bu">std::</span>string&gt; all_lines;
+  loadTextFile(all_lines);
+}</code></pre></div>
+</section><section id="loadtextfile-ii" class="slide level2">
+<h2><code>loadTextFile</code> II</h2>
+<ul>
+<li>Example by copy of smart pointer</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="bu">std::</span>shared_ptr&lt;<span class="bu">std::</span>vector&lt;<span class="bu">std::</span>string&gt;&gt; loadTextFile() {
+...
+}
+
+<span class="dt">int</span> main() {
+  <span class="bu">std::</span>shared_ptr&lt;<span class="bu">std::</span>vector&lt;<span class="bu">std::</span>string&gt;&gt; all_lines =
+      loadTextFile();
+}</code></pre></div>
+</section><section id="comparison" class="slide level2">
+<h2>Comparison</h2>
+<dl>
+<dt>Style/Clarity</dt>
+<dd>Some programmers prefer (I), others prefer (II).
+</dd>
+<dt>Failure</dt>
+<dd>On failing to <code>loadTextFile</code> (I) must return a <code>bool</code>, (II) can return <code>nullptr</code> (or <code>std::option</code> in C++17).
+</dd>
+<dt>Efficiency</dt>
+<dd>Both are equivalently efficient.
+</dd>
+<dt>Forward Compatability</dt>
+<dd>In year 2, when you encounter templates, (II) will be preferred.
+</dd>
+</dl>
+</section><section id="smart-pointers-1" class="slide level2">
+<h2>Smart Pointers</h2>
+<p>There are two smart pointers in C++11. We only use one of them right now:</p>
+<dl>
+<dt><code>std::shared_ptr</code></dt>
+<dd>Is a small thing that we can pass-by-copy to another function. It is a <strong>pointer</strong> to whatever it contains.
+</dd>
+</dl>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;memory&gt;</span>
+
+<span class="bu">std::</span>shared_ptr&lt;<span class="dt">int</span>&gt; sp_x;</code></pre></div>
+</section><section id="creating" class="slide level2">
+<h2>Creating</h2>
+<p>We can create a <code>std::shared_ptr</code> to a type by using <code>std::make_shared</code>:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// Create and init shared_ptr&lt;int&gt;</span>
+<span class="kw">auto</span> my_int = <span class="bu">std::</span>make_shared&lt;<span class="dt">int</span>&gt;(<span class="dv">0</span>);
+
+<span class="co">// Create and init shared_ptr to empty std::vector&lt;std::string&gt;</span>
+<span class="kw">auto</span> my_vec = <span class="bu">std::</span>make_shared&lt;<span class="bu">std::</span>vector&lt;<span class="bu">std::</span>string&gt;&gt;();</code></pre></div>
+</section><section id="dereferencing" class="slide level2">
+<h2>Dereferencing</h2>
+<p>To get the contents of a <code>std::shared_ptr</code> we need to <strong>dereference</strong> it.</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// From the previous slide</span>
+
+++(*my_int);
+
+(*my_vec).push_back(<span class="st">&quot;Hey&quot;</span>);
+my_vec-&gt;push_back(<span class="st">&quot;Ho&quot;</span>)</code></pre></div>
+</section><section id="another-example" class="slide level2">
+<h2>Another Example</h2>
+<p>Printing the contents of <code>my_vec</code>:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">  <span class="co">// dereference the shared_ptr</span>
+  <span class="cf">for</span>(<span class="kw">auto</span> s: *a_vec) {
+    <span class="bu">std::</span>cout &lt;&lt; s &lt;&lt; <span class="bu">std::</span>endl;
+  }</code></pre></div>
+</section></section>
+<section><section id="what-we-can-do-now" class="titleslide slide level1"><h1>What we can do now</h1></section><section id="strategies" class="slide level2">
+<h2>Strategies</h2>
+<ul>
+<li>We now have 2 strategies for passing <em>large</em> things:
+<ul>
+<li>pass-by-reference, or</li>
+<li>pass-by-value using a <code>std::shared_ptr</code>.</li>
+</ul></li>
+<li>Prefer pass-by-reference if it can be paired with <code>const</code>.</li>
+<li>Preference for <code>std::shared_ptr</code> will be developed over the coming years i.e. you need to understand more about <em>objects</em>
+<ul>
+<li>it has a lot to do with dynamic memory allocation</li>
+</ul></li>
+</ul>
+</section><section id="final-note" class="slide level2">
+<h2>Final note</h2>
+<ul>
+<li>If you have ever see <code>std::string *</code> in C++, i.e. a raw pointer, you need to question the source.</li>
+<li>There are very few places where a raw pointer is preferable to a smart pointer.
+<ul>
+<li>this is why I don't introduce raw pointers in CS111</li>
+</ul></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'linear', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>

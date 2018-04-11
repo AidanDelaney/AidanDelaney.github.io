@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aidan Delaney aidan.delaney@usp.ac.fj">
+  <title>Week 8 CS111</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="css/vmg.css"/>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css"/>
+  <link rel="stylesheet" href="css/pandoc.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Week 8 CS111</h1>
+  <p class="author">Aidan Delaney <a href="mailto:aidan.delaney@usp.ac.fj">aidan.delaney@usp.ac.fj</a></p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/notices">Notices</a></li>
+<li><a href="#/pass-by-copy">Pass By Copy</a></li>
+<li><a href="#/pass-by-reference">Pass by reference</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+</ul>
+</section>
+
+<section><section id="notices" class="titleslide slide level1"><h1>Notices</h1></section><section id="mid-semester-test" class="slide level2">
+<h2>Mid-semester test</h2>
+<ul>
+<li>April 6th at 0800.</li>
+<li>15 multiple-choice questions</li>
+<li>1 question on syntax.</li>
+<li>Variants of the paper</li>
+</ul>
+</section><section id="assignment" class="slide level2">
+<h2>Assignment</h2>
+<ul>
+<li>due date?</li>
+</ul>
+</section><section id="monday-9th" class="slide level2">
+<h2>Monday 9th</h2>
+<ul>
+<li>Visit from Fiji Rugby</li>
+<li>Game Analysis</li>
+</ul>
+</section><section id="course-text" class="slide level2">
+<h2>Course Text</h2>
+<ul>
+<li>Multiple updates
+<ul>
+<li>fixes to code listings</li>
+<li>fixes to some spellings!</li>
+<li>new chapters</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="pass-by-copy" class="titleslide slide level1"><h1>Pass By Copy</h1></section><section id="passing-int" class="slide level2">
+<h2>Passing <code>int</code></h2>
+<p>Consider the following function:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> increment(<span class="dt">int</span> x) {
+  x = x + <span class="dv">1</span>;
+  <span class="cf">return</span> x;
+}</code></pre></div>
+</section><section id="largeish-things" class="slide level2">
+<h2>Large(ish) things</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="at">const</span> <span class="dt">int</span> COPIES = <span class="dv">1024</span> * <span class="dv">1024</span>;
+
+<span class="dt">int</span> main() {
+    <span class="bu">std::</span>vector&lt;<span class="bu">std::</span>string&gt; strings;
+    <span class="bu">std::</span>string eight_letter_word(<span class="st">&quot;jazzlike&quot;</span>);
+    
+    <span class="cf">for</span>(<span class="dt">int</span> i=<span class="dv">0</span>; i&lt;COPIES; i++) {
+        strings.push_back(eight_letter_word);
+    }
+    
+    <span class="co">// strings is now 8MB in size.</span>
+    
+    <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+</section><section id="pass-by-copy-1" class="slide level2">
+<h2>Pass by copy</h2>
+<ul>
+<li>Thus far we have passed things by passing a copy of them.</li>
+<li>The is bad when:
+<ul>
+<li>the things we pass are <em>large</em>, or</li>
+<li>we want to modify the originally passed thing.</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="pass-by-reference" class="titleslide slide level1"><h1>Pass by reference</h1></section><section id="int" class="slide level2">
+<h2><code>int &amp;</code></h2>
+<ul>
+<li>Passing by reference is denoted using the <code>&amp;</code> symbol.</li>
+<li>When you see <code>int &amp;</code> you read it as an <code>int</code> reference.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> square(<span class="dt">int</span> &amp; x);</code></pre></div>
+</section><section id="stdvector" class="slide level2">
+<h2><code>std::vector &amp;</code></h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> square(<span class="bu">std::</span>vector&lt;<span class="bu">std::</span>string&gt; &amp; log, <span class="at">const</span> <span class="dt">int</span> x) {
+    <span class="bu">std::</span>string message(<span class="st">&quot;squaring value &quot;</span> + x);
+    log.push_back(message);
+    <span class="cf">return</span> x*x;
+}</code></pre></div>
+</section><section id="const-stdvector" class="slide level2">
+<h2><code>const std::vector &amp;</code></h2>
+<ul>
+<li>Marking a parameter as <code>const</code> states that it may not be modified.</li>
+<li>We can <a href="http://en.cppreference.com/w/cpp/container/vector">call functions</a> that do not modify the parameter
+<ul>
+<li>eg: the <code>size()</code> function of <code>std::vector</code></li>
+</ul></li>
+<li>Calling a function that modifies the parameter will generate a compiler error.</li>
+</ul>
+</section></section>
+<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="section" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span>
+<span class="pp">#include </span><span class="im">&lt;vector&gt;</span>
+<span class="pp">#include </span><span class="im">&lt;string&gt;</span>
+
+<span class="dt">int</span> square(<span class="bu">std::</span>vector&lt;<span class="bu">std::</span>string&gt; &amp; log, <span class="at">const</span> <span class="dt">int</span> x) {
+    <span class="bu">std::</span>string message(<span class="st">&quot;squaring value &quot;</span> + x);
+    log.push_back(message);
+    <span class="cf">return</span> x*x;
+}
+
+<span class="dt">int</span> main() {
+    <span class="bu">std::</span>vector&lt;<span class="bu">std::</span>string&gt; log;
+    <span class="dt">int</span> x(<span class="dv">0</span>);
+    
+    x = square(log, x);
+    
+    <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+</section><section id="references" class="slide level2">
+<h2>References</h2>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'linear', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    <!-- Make sure up/left and down/right point to previous and next slides respectively -->
+  <script>
+  Reveal.configure({
+      keyboard: {
+          37: Reveal.prev, // left
+          38: Reveal.prev, // up
+          39: Reveal.next, // right
+          40: Reveal.next, // down
+      }
+  });
+  </script>
+    </body>
+</html>
