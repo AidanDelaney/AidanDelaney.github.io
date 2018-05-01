@@ -76,6 +76,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#/notices">Notices</a></li>
 <li><a href="#/verbs-and-nouns">Verbs and Nouns</a></li>
 <li><a href="#/user-defined-nouns">User Defined Nouns</a></li>
+<li><a href="#/requirements">Requirements</a></li>
 <li><a href="#/conclusion">Conclusion</a></li>
 </ul>
 </section>
@@ -170,8 +171,68 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul>
 </section></section>
+<section><section id="requirements" class="titleslide slide level1"><h1>Requirements</h1></section><section id="game-score" class="slide level2">
+<h2>Game Score</h2>
+<ol type="1">
+<li>The system must record the scores during a live rugby game.</li>
+<li>The system must allow an update when a team scores.</li>
+<li>The system must present a user interface to allow (1) and (2).</li>
+</ol>
+</section><section id="breakdown" class="slide level2">
+<h2>Breakdown</h2>
+<p>We first break the problem down into the constituent parts.</p>
+<ul>
+<li>What does a minimal system look like?</li>
+<li>What does the user interface look like?</li>
+<li>What <em>actions</em> are performed in the system?</li>
+<li>What is <em>acted upon</em> in the system?</li>
+</ul>
+</section><section id="sketch" class="slide level2">
+<h2>Sketch</h2>
+<ul>
+<li>Let's sketch a solution
+<ul>
+<li>the sketch may be some junk diagrams (ephemeral diagrams).</li>
+<li>or a pseudo code type listing</li>
+</ul></li>
+<li>The sketch is designed to be thrown away.</li>
+</ul>
+</section><section id="task-list" class="slide level2">
+<h2>Task List</h2>
+<ul>
+<li>From our sketch we can figure out a minimal task list.</li>
+<li><p>Other tasks are then added to the minimal task list.</p></li>
+<li><p><strong>we concentrate on one task at a time</strong></p></li>
+</ul>
+</section><section id="timetable" class="slide level2">
+<h2>Timetable</h2>
+<ul>
+<li>As we now know how to start the work, we can devise a timetable for completion.</li>
+<li>Let's draw a <em>realistic</em> timetable.
+<ul>
+<li>Schedule the knowns.</li>
+<li><em>Spike</em> the unknowns.</li>
+</ul></li>
+</ul>
+</section><section id="write-code" class="slide level2">
+<h2>Write Code</h2>
+<ul>
+<li>Now we're in a position where we can write software.</li>
+<li>Note how much work we've done before we even turn on our computer.</li>
+</ul>
+</section></section>
 <section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="what-we-can-do-now" class="slide level2">
 <h2>What we can do now</h2>
+<ul>
+<li>We can now represent both <em>functions</em> and <em>complex data types</em> in our code.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">class</span> Scoreboard {
+<span class="kw">public</span>:
+  <span class="bu">std::</span>string home_team_name;
+  <span class="dt">int</span> home_team_score;
+  <span class="bu">std::</span>string away_team_name;
+  <span class="dt">int</span> away_team_score;
+};</code></pre></div>
 </section></section>
     </div>
   </div>
